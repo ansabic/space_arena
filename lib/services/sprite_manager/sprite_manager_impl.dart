@@ -7,12 +7,15 @@ import '../../di/di.dart';
 
 @LazySingleton(as: SpriteManager)
 class SpriteManagerImpl implements SpriteManager {
-
   @override
   Future<void> loadGameSprites() async {
     playerSprite = await getIt<SpaceArenaGame>().loadSprite("fighter/Idle.png");
+    corvetteSprite = await getIt<SpaceArenaGame>().loadSprite("corvette/Idle.png");
   }
 
   @override
   late Sprite playerSprite;
+
+  @override
+  late Sprite corvetteSprite;
 }

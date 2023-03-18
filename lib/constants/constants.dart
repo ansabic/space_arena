@@ -1,3 +1,3 @@
 class Constants {
-  static const proximityDistance = 0.01;
+  static const proximityDistance = 3;
 }

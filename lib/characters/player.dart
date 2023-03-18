@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/particles.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 import 'package:space_arena/services/sprite_manager/sprite_manager.dart';
