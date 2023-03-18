@@ -7,7 +7,7 @@ import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/sprite_manager/sprite_manager.dart';
 
 @lazySingleton
-class SpaceArenaGame extends FlameGame with PanDetector {
+class SpaceArenaGame extends FlameGame with SecondaryTapDetector {
   final SpriteManager _spriteManager;
   final CharacterManager _characterManager;
 
@@ -20,8 +20,15 @@ class SpaceArenaGame extends FlameGame with PanDetector {
     await _characterManager.loadCharacters();
     add(_characterManager.player);
   }
+
   @override
-  void onPanUpdate(DragUpdateInfo info) {
-    _characterManager.player.move(info.delta.game);
+  void update(double dt) {
+    super.update(dt);
+    _characterManager.player.updatePosition(dt);
+  }
+
+  @override
+  void onSecondaryTapDown(TapDownInfo info) {
+    _characterManager.player.moveTo(info.eventPosition.game);
   }
 }
