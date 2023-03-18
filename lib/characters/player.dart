@@ -11,7 +11,7 @@ import '../space_arena_game.dart';
 @injectable
 class Player extends MovableSpriteComponent {
   @override
-  double? get speed => 100;
+  double? get speed => 200;
 
   @override
   double get angleOffset => -pi / 2;
