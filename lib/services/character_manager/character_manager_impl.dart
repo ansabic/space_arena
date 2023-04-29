@@ -11,8 +11,12 @@ class CharacterManagerImpl implements CharacterManager {
   @override
   Future<void> loadCharacters() async {
     player = getIt<Player>();
+    test = getIt<Player2>();
   }
 
   @override
   late MovableSpriteComponent player;
+
+  @override
+  late MovableSpriteComponent test;
 }

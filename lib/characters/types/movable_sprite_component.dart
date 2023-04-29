@@ -1,13 +1,32 @@
+import 'package:collection/collection.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:injectable/injectable.dart';
+import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
 
-@injectable
-class MovableSpriteComponent extends SpriteComponent {
-  double? speed = 100;
-  double angleOffset = 0;
-  Vector2? destination;
+abstract class MovableSpriteComponent extends SpriteComponent with CollisionCallbacks {
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+    debugPrint("Collided!");
+  }
+
+  @override
+  Future<void> onLoad() async {
+    add(hitBox);
+    return super.onLoad();
+  }
+
+  abstract double speed;
+  abstract double angleOffset;
+  abstract Vector2? destination;
+
+  ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, -0.5))
+    ..renderShape = true
+    ..paint = (Paint()
+      ..color = Colors.cyan
+      ..style = PaintingStyle.stroke);
 
   void moveTo(Vector2 destination) {
     this.destination = destination;
@@ -16,9 +35,9 @@ class MovableSpriteComponent extends SpriteComponent {
   }
 
   void updatePosition(double dt) {
-    if (destination != null && speed != null) {
+    if (destination != null) {
       final diff = destination! - position;
-      position += diff.normalized() * speed! * dt;
+      position += diff.normalized() * speed * dt;
 
       if (diff.length < Constants.proximityDistance) {
         destination = null;
