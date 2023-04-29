@@ -1,14 +1,11 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
-import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
-import 'package:space_arena/services/sprite_manager/sprite_manager.dart';
+import 'package:space_arena/services/sprite_manager.dart';
 
 import '../di/di.dart';
-import '../space_arena_game.dart';
 
-@injectable
 class Player extends MovableSpriteComponent {
   @override
   double speed = 200;
@@ -17,11 +14,10 @@ class Player extends MovableSpriteComponent {
   @override
   double angleOffset = -pi / 2;
 
-  @factoryMethod
-  Player.startingPlayer() {
+  Player.startingPlayer({required double x, required double y}) {
     sprite = getIt<SpriteManager>().playerSprite;
-    x = getIt<SpaceArenaGame>().size.x / 2;
-    y = getIt<SpaceArenaGame>().size.y / 2;
+    this.x = x;
+    this.y = y;
     width = 50;
     height = 100;
     angle = angleOffset;

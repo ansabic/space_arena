@@ -7,13 +7,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:space_arena/characters/player.dart' as _i5;
-import 'package:space_arena/characters/ship_part.dart' as _i6;
-import 'package:space_arena/services/character_manager/character_manager.dart' as _i3;
-import 'package:space_arena/services/character_manager/character_manager_impl.dart' as _i4;
-import 'package:space_arena/services/sprite_manager/sprite_manager.dart' as _i7;
-import 'package:space_arena/services/sprite_manager/sprite_manager_impl.dart' as _i8;
-import 'package:space_arena/space_arena_game.dart' as _i9;
+import 'package:space_arena/services/character_manager.dart' as _i3;
+import 'package:space_arena/services/client_connection.dart' as _i4;
+import 'package:space_arena/services/sprite_manager.dart' as _i6;
+import 'package:space_arena/space_arena_game.dart' as _i5;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -28,13 +25,9 @@ _i1.GetIt init(
     environment,
     environmentFilter,
   );
-  gh.lazySingleton<_i3.CharacterManager>(() => _i4.CharacterManagerImpl());
-  gh.factory<_i5.Player>(() => _i5.Player.startingPlayer());
-  gh.factory<_i6.Player2>(() => _i6.Player2.startingPlayer());
-  gh.lazySingleton<_i7.SpriteManager>(() => _i8.SpriteManagerImpl());
-  gh.lazySingleton<_i9.SpaceArenaGame>(() => _i9.SpaceArenaGame(
-        gh<_i7.SpriteManager>(),
-        gh<_i3.CharacterManager>(),
-      ));
+  gh.lazySingleton<_i3.CharacterManager>(() => _i3.CharacterManager());
+  gh.lazySingleton<_i4.ClientConnection>(() => _i4.ClientConnection());
+  gh.lazySingleton<_i5.SpaceArenaGame>(() => _i5.SpaceArenaGame(gh<_i3.CharacterManager>()));
+  gh.lazySingleton<_i6.SpriteManager>(() => _i6.SpriteManager());
   return getIt;
 }
