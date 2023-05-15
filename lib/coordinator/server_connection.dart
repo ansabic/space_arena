@@ -1,8 +1,11 @@
 import 'dart:io';
 
-import 'package:space_arena/events/event.dart';
-import 'package:space_arena/events/register_event/register_event.dart';
+import 'package:injectable/injectable.dart';
+import 'package:space_arena/coordinator/events/event.dart';
 
+import 'events/register_event/register_event.dart';
+
+@lazySingleton
 class ServerConnection {
   final List<Socket> _connections = [];
 
@@ -16,7 +19,8 @@ class ServerConnection {
     connection.add(event.getBytes());
   }
 
-  void broadcastEvent({required Event event}) {
+  ///The idea is to cache nothing within server but only to send data to all clients once server gets event
+  Future<void> broadcastEvent({required Event event}) async {
     for (var connection in _connections) {
       connection.add(event.getBytes());
     }
@@ -27,5 +31,6 @@ class ServerConnection {
       await e.flush();
       await e.close();
     }
+    _connections.clear();
   }
 }

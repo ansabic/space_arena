@@ -1,4 +1,4 @@
-import 'package:space_arena/events/register_event/register_event.dart';
+import 'package:space_arena/coordinator/events/register_event/register_event.dart';
 
 import 'event.dart';
 import 'move_event/move_event.dart';

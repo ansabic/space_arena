@@ -1,8 +1,11 @@
 import 'dart:convert';
 
-import 'package:space_arena/events/event.dart';
-import 'package:space_arena/events/event_type.dart';
+import 'package:injectable/injectable.dart';
+import 'package:space_arena/coordinator/events/event_type.dart';
 
+import '../coordinator/events/event.dart';
+
+@injectable
 class EventService {
   Map<String, dynamic>? _tryParse({required String utf8Message, required String type}) {
     if (utf8Message.startsWith(type)) {
