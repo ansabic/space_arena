@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 
 import '../di/di.dart';
 import '../services/event_service.dart';
+import 'events/disconnect_player_event/disconnect_player_event.dart';
 import 'server_connection.dart';
 
 Future<void> main(List<String> args) async {
@@ -33,6 +34,10 @@ class Coordinator {
         connection.listen((message) {
           final event = _eventService.getEvent(utf8Message: utf8.decode(message));
           _connectionsService.broadcastEvent(event: event);
+        }, onDone: () async {
+          final index = _connectionsService.removeConnection(connection: connection);
+          _connectionsService.broadcastEvent(event: DisconnectPlayerEvent(playerId: index));
+          await _connectionsService.checkIfEmpty();
         });
       });
     } on Exception catch (e) {

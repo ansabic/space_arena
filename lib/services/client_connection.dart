@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/coordinator/events/disconnect_player_event/disconnect_player_event.dart';
 import 'package:space_arena/coordinator/events/event.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/character_manager.dart';
@@ -41,12 +42,12 @@ class ClientConnection {
           _registered = true;
           playerId = event.playerId;
           if (playerId == 0) {
-            final player = getIt<CharacterManager>().addPlayerCharacter();
+            final player = getIt<CharacterManager>().addPlayerCharacter(playerId: playerId);
             getIt<SpaceArenaGame>().add(player);
           } else {
-            final player = getIt<CharacterManager>().addPlayerCharacter(isSecond: true);
+            final player = getIt<CharacterManager>().addPlayerCharacter(isSecond: true, playerId: playerId);
             getIt<SpaceArenaGame>().add(player);
-            final otherPlayer = getIt<CharacterManager>().addPlayerCharacter();
+            final otherPlayer = getIt<CharacterManager>().addPlayerCharacter(playerId: 0);
             getIt<SpaceArenaGame>().add(otherPlayer);
           }
         }
@@ -55,13 +56,17 @@ class ClientConnection {
       ///Handle all the other events here
       if (_registered) {
         if (event is RegisterEvent) {
-          final player = getIt<CharacterManager>().addPlayerCharacter(isSecond: true);
+          final player = getIt<CharacterManager>().addPlayerCharacter(isSecond: true, playerId: event.playerId);
           getIt<SpaceArenaGame>().add(player);
           addEvent(const StartGameEvent());
         } else if (event is MoveEvent) {
           getIt<CharacterManager>().characters[event.playerId].moveTo(Vector2(event.x, event.y));
         } else if (event is StartGameEvent) {
           //TODO Needs proper implementation of start event
+          debugPrint("Started");
+        } else if (event is DisconnectPlayerEvent) {
+          final character = getIt<CharacterManager>().removeCharacter(playerId: event.playerId);
+          getIt<SpaceArenaGame>().remove(character);
           debugPrint("Started");
         }
       }

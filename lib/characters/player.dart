@@ -14,8 +14,11 @@ class Player extends MovableSpriteComponent {
   Vector2? destination;
   @override
   double angleOffset = -pi / 2;
+  @override
+  int playerId;
 
-  Player.firstPlayer({double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8}) {
+  Player.firstPlayer(
+      {double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8, required this.playerId}) {
     sprite = getIt<SpriteManager>().playerSprite;
     this.x = x;
     this.y = y;
@@ -25,7 +28,8 @@ class Player extends MovableSpriteComponent {
     anchor = Anchor.center;
   }
 
-  Player.secondPlayer({double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.2}) {
+  Player.secondPlayer(
+      {double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.2, required this.playerId}) {
     sprite = getIt<SpriteManager>().playerSprite;
     this.x = x;
     this.y = y;

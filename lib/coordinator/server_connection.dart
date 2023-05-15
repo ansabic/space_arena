@@ -26,11 +26,24 @@ class ServerConnection {
     }
   }
 
-  Future<void> powerOff() async {
+  Future<void> _powerOff() async {
     for (var e in _connections) {
       await e.flush();
       await e.close();
     }
     _connections.clear();
+  }
+
+  int removeConnection({required Socket connection}) {
+    final index = _connections.indexOf(connection);
+    _connections.remove(connection);
+    return index;
+  }
+
+  Future<void> checkIfEmpty() async {
+    if (_connections.isEmpty) {
+      await _powerOff();
+      exit(0);
+    }
   }
 }

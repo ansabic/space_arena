@@ -14,7 +14,10 @@ class Player2 extends MovableSpriteComponent {
   @override
   double angleOffset = 0;
 
-  Player2.startingPlayer({required double x, required double y}) {
+  @override
+  int playerId;
+
+  Player2.startingPlayer({required double x, required double y, required this.playerId}) {
     sprite = getIt<SpriteManager>().corvetteSprite;
     width = 50;
     height = 100;

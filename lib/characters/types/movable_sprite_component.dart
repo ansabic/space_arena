@@ -21,6 +21,11 @@ abstract class MovableSpriteComponent extends SpriteComponent with CollisionCall
   abstract double speed;
   abstract double angleOffset;
   abstract Vector2? destination;
+  abstract int playerId;
+
+  bool isInTheSameTeamAs({required MovableSpriteComponent other}) {
+    return playerId == other.playerId;
+  }
 
   ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, -0.5))
     ..renderShape = true
@@ -30,7 +35,7 @@ abstract class MovableSpriteComponent extends SpriteComponent with CollisionCall
 
   void moveTo(Vector2 destination) {
     this.destination = destination;
-    lookAt(destination);
+    //lookAt(destination);
     angle += angleOffset;
   }
 
