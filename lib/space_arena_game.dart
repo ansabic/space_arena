@@ -2,16 +2,31 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:collection/collection.dart';
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/characters/types/movable_sprite_component.dart';
+import 'package:space_arena/characters/types/team_defined.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/coordinator/events/move_event/move_event.dart';
-import 'package:space_arena/services/character_manager.dart';
+import 'package:space_arena/services/character_manager/character_event.dart';
+import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import 'di/di.dart';
+
+class BackgroundComponent extends SpriteComponent {
+  BackgroundComponent(Sprite sprite, Vector2 size) : super(sprite: sprite, size: size);
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    x = getIt<SpaceArenaGame>().camera.position.x;
+    y = getIt<SpaceArenaGame>().camera.position.y;
+  }
+}
 
 @lazySingleton
 class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDetection, TapDetector {
@@ -28,6 +43,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     await getIt<SpriteManager>().loadGameSprites();
     final connection = getIt<ClientConnection>();
     await connection.connect();
+
     await super.onLoad();
   }
 
@@ -35,7 +51,9 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   void update(double dt) {
     super.update(dt);
     for (var element in _characterManager.characters) {
-      element.updatePosition(dt);
+      if (element is MovableSpriteComponent) {
+        element.updatePosition(dt);
+      }
     }
   }
 
@@ -43,11 +61,12 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   void onTapDown(TapDownInfo info) {
     super.onTapDown(info);
     final candidate = _characterManager.characters.firstWhereOrNull((element) =>
-        element.playerId != null &&
-        element.playerId! % 2 == _characterManager.characters.first.playerId! % 2 &&
+        element is TeamDefined &&
+        (element as TeamDefined).playerId != null &&
+        (element as TeamDefined).playerId! % 2 == (_characterManager.characters.first as TeamDefined).playerId! % 2 &&
         element.position.distanceTo(info.eventPosition.game) < 30);
     if (candidate != null) {
-      _characterManager.pickCharacter(candidate);
+      _characterManager.add(PickCharacter(character: candidate));
     }
   }
 
@@ -55,7 +74,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   void onSecondaryTapDown(TapDownInfo info) {
     super.onSecondaryTapDown(info);
     getIt<ClientConnection>().addEvent(MoveEvent(
-        playerId: _characterManager.pickedCharacter!.playerId!,
+        playerId: (_characterManager.pickedCharacter! as TeamDefined).playerId!,
         x: info.eventPosition.game.x,
         y: info.eventPosition.game.y));
   }

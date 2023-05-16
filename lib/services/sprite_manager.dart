@@ -10,6 +10,14 @@ class SpriteManager {
     ///Bullet
     bulletSprite = await getIt<SpaceArenaGame>().loadSprite("bomber/Charge_1.png");
 
+    ///Background
+    background = await getIt<SpaceArenaGame>().loadSprite("background/purple_space.png");
+
+    ///Mines
+    goldMine = await getIt<SpaceArenaGame>().loadSprite("icons/15.png", srcSize: Vector2(512, 512));
+    crystalMine = await getIt<SpaceArenaGame>().loadSprite("icons/20.png", srcSize: Vector2(512, 512));
+    plasmaMine = await getIt<SpaceArenaGame>().loadSprite("icons/17.png", srcSize: Vector2(512, 512));
+
     ///Fighter
     fighterIdle = await getIt<SpaceArenaGame>().loadSpriteAnimation(
         "fighter/Idle.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2.all(192), stepTime: 2));
@@ -36,6 +44,11 @@ class SpriteManager {
   }
 
   late Sprite bulletSprite;
+  late Sprite background;
+
+  late Sprite goldMine;
+  late Sprite crystalMine;
+  late Sprite plasmaMine;
 
   late SpriteAnimation fighterIdle;
   late SpriteAnimation fighterDamaged;

@@ -6,7 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:space_arena/characters/types/team_defined.dart';
 import 'package:space_arena/model/fighter_states.dart';
-import 'package:space_arena/services/character_manager.dart';
+import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../../constants/constants.dart';
@@ -44,7 +44,8 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
   abstract double angleOffset;
   abstract Vector2? destination;
 
-  bool thisPlayer() => playerId != null && playerId! % 2 == getIt<CharacterManager>().characters.first.playerId! % 2;
+  bool thisPlayer() =>
+      playerId != null && playerId! % 2 == (getIt<CharacterManager>().characters.first as TeamDefined).playerId! % 2;
 
   ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, -0.5))
     ..renderShape = true

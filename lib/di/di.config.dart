@@ -7,13 +7,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:space_arena/coordinator/coordinator.dart' as _i9;
-import 'package:space_arena/coordinator/server_connection.dart' as _i6;
-import 'package:space_arena/services/character_manager.dart' as _i3;
-import 'package:space_arena/services/client_connection.dart' as _i4;
-import 'package:space_arena/services/event_service.dart' as _i5;
-import 'package:space_arena/services/sprite_manager.dart' as _i8;
-import 'package:space_arena/space_arena_game.dart' as _i7;
+import 'package:space_arena/coordinator/coordinator.dart' as _i10;
+import 'package:space_arena/coordinator/server_connection.dart' as _i7;
+import 'package:space_arena/services/bank/bank_bloc.dart' as _i3;
+import 'package:space_arena/services/character_manager/character_manager.dart' as _i4;
+import 'package:space_arena/services/client_connection.dart' as _i5;
+import 'package:space_arena/services/event_service.dart' as _i6;
+import 'package:space_arena/services/sprite_manager.dart' as _i9;
+import 'package:space_arena/space_arena_game.dart' as _i8;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -28,15 +29,16 @@ _i1.GetIt init(
     environment,
     environmentFilter,
   );
-  gh.lazySingleton<_i3.CharacterManager>(() => _i3.CharacterManager());
-  gh.lazySingleton<_i4.ClientConnection>(() => _i4.ClientConnection());
-  gh.factory<_i5.EventService>(() => _i5.EventService());
-  gh.lazySingleton<_i6.ServerConnection>(() => _i6.ServerConnection());
-  gh.lazySingleton<_i7.SpaceArenaGame>(() => _i7.SpaceArenaGame(gh<_i3.CharacterManager>()));
-  gh.lazySingleton<_i8.SpriteManager>(() => _i8.SpriteManager());
-  gh.factory<_i9.Coordinator>(() => _i9.Coordinator(
-        gh<_i5.EventService>(),
-        gh<_i6.ServerConnection>(),
+  gh.lazySingleton<_i3.BankBloc>(() => _i3.BankBloc());
+  gh.lazySingleton<_i4.CharacterManager>(() => _i4.CharacterManager());
+  gh.lazySingleton<_i5.ClientConnection>(() => _i5.ClientConnection());
+  gh.factory<_i6.EventService>(() => _i6.EventService());
+  gh.lazySingleton<_i7.ServerConnection>(() => _i7.ServerConnection());
+  gh.lazySingleton<_i8.SpaceArenaGame>(() => _i8.SpaceArenaGame(gh<_i4.CharacterManager>()));
+  gh.lazySingleton<_i9.SpriteManager>(() => _i9.SpriteManager());
+  gh.factory<_i10.Coordinator>(() => _i10.Coordinator(
+        gh<_i6.EventService>(),
+        gh<_i7.ServerConnection>(),
       ));
   return getIt;
 }
