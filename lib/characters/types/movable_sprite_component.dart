@@ -42,6 +42,7 @@ abstract class MovableSpriteComponent extends SpriteComponent with CollisionCall
 
   @override
   void update(double dt) {
+    ///Native rotation is not good so i implemented it by myself
     if (destination != null) {
       final dir = Vector2(1, 0)..rotate(angle);
       final diff = destination! - position;

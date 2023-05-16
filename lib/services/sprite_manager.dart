@@ -9,9 +9,12 @@ class SpriteManager {
   Future<void> loadGameSprites() async {
     playerSprite = await getIt<SpaceArenaGame>().loadSprite("fighter/Idle.png");
     corvetteSprite = await getIt<SpaceArenaGame>().loadSprite("corvette/Idle.png");
+    bulletSprite = await getIt<SpaceArenaGame>().loadSprite("bomber/Charge_1.png");
   }
 
   late Sprite playerSprite;
 
   late Sprite corvetteSprite;
+
+  late Sprite bulletSprite;
 }

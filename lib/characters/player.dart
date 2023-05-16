@@ -2,12 +2,13 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
+import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import '../di/di.dart';
 
-class Player extends MovableSpriteComponent {
+class Player extends MovableSpriteComponent with Shooter {
   @override
   double speed = 200;
   @override
