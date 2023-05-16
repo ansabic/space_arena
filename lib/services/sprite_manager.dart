@@ -25,6 +25,14 @@ class SpriteManager {
         SpriteAnimationData.sequenced(amount: 9, textureSize: Vector2.all(192), stepTime: 0.2, loop: false));
     corvetteMove = await getIt<SpaceArenaGame>().loadSpriteAnimation(
         "corvette/Move.png", SpriteAnimationData.sequenced(amount: 6, textureSize: Vector2.all(192), stepTime: 0.2));
+
+    ///Mothership
+    mothershipIdle = await getIt<SpaceArenaGame>().loadSpriteAnimation(
+        "parts2/ship2_body.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2(37, 25), stepTime: 2));
+    mothershipMove = await getIt<SpaceArenaGame>().loadSpriteAnimation(
+        "parts2/ship2_body.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2(37, 25), stepTime: 2));
+    mothershipDamaged = await getIt<SpaceArenaGame>().loadSpriteAnimation(
+        "parts2/ship2_body.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2(37, 25), stepTime: 2));
   }
 
   late Sprite bulletSprite;
@@ -36,4 +44,8 @@ class SpriteManager {
   late SpriteAnimation corvetteIdle;
   late SpriteAnimation corvetteMove;
   late SpriteAnimation corvetteDamaged;
+
+  late SpriteAnimation mothershipIdle;
+  late SpriteAnimation mothershipMove;
+  late SpriteAnimation mothershipDamaged;
 }

@@ -20,8 +20,6 @@ class Player extends MovableSpriteComponent with Shooter {
   double rotationSpeed = 10;
   @override
   int? playerId;
-  @override
-  SpriteAnimation? damageAnimation;
 
   Player.firstPlayer({double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8}) {
     animations = {
@@ -34,9 +32,9 @@ class Player extends MovableSpriteComponent with Shooter {
     width = 50;
     height = 100;
     nativeAngle = angleOffset;
+    angle = angleOffset;
     anchor = Anchor.center;
     playerId = 0;
-    damageAnimation = getIt<SpriteManager>().fighterDamaged;
   }
 
   Player.secondPlayer({double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.2}) {
@@ -51,6 +49,7 @@ class Player extends MovableSpriteComponent with Shooter {
     width = 50;
     height = 100;
     nativeAngle = angleOffset;
+    angle = angleOffset;
     anchor = Anchor.center;
     playerId = 1;
   }

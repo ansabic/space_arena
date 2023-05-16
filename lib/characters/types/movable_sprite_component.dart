@@ -19,7 +19,7 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
   Future<void> onCollision(Set<Vector2> intersectionPoints, PositionComponent other) async {
     super.onCollision(intersectionPoints, other);
     if (other is Bullet && other.playerId != playerId) {
-      if (isThisPlayer()) {
+      if (thisPlayer()) {
         getIt<SpaceArenaGame>().camera.shake(intensity: 3);
       }
       if (current != MovableState.damaged) {
@@ -43,9 +43,8 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
   abstract double speed;
   abstract double angleOffset;
   abstract Vector2? destination;
-  abstract SpriteAnimation? damageAnimation;
 
-  bool isThisPlayer() => playerId == getIt<CharacterManager>().characters.first.playerId;
+  bool thisPlayer() => playerId != null && playerId! % 2 == getIt<CharacterManager>().characters.first.playerId! % 2;
 
   ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, -0.5))
     ..renderShape = true

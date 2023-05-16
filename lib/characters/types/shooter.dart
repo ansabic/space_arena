@@ -13,7 +13,7 @@ mixin Shooter on MovableSpriteComponent {
   Vector2? target() {
     final candidate = getIt<CharacterManager>()
         .characters
-        .where((element) => element != this)
+        .where((element) => element.playerId != null && (element.playerId! % 2) != (playerId! % 2))
         .reduce((a, b) => a.position.distanceTo(position) < b.position.distanceTo(position) ? a : b);
     if (candidate.position.distanceTo(position) <= Constants.shootingDistance) {
       return candidate.position - position;
