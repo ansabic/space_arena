@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -18,8 +19,11 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   SpaceArenaGame(this._characterManager);
 
   @override
+  Vector2 get canvasSize => Constants.worldSize;
+
+  @override
   Future<void>? onLoad() async {
-    onGameResize(Constants.worldSize);
+    camera.worldBounds = const Rect.fromLTWH(0, 0, Constants.worldSizeX, Constants.worldSizeY);
     await getIt<SpriteManager>().loadGameSprites();
     final connection = getIt<ClientConnection>();
     await connection.connect();

@@ -30,7 +30,6 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
         };
       }
     }
-    debugPrint("Collided!");
   }
 
   @override
@@ -77,7 +76,13 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
   void updatePosition(double dt) {
     if (destination != null) {
       final diff = destination! - position;
-      position += diff.normalized() * speed * dt;
+      final newPosition = position + diff.normalized() * speed * dt;
+      if (newPosition.x > 0 &&
+          newPosition.y > 0 &&
+          newPosition.x < Constants.worldSizeX &&
+          newPosition.y < Constants.worldSizeY) {
+        position = newPosition;
+      }
       if (current != MovableState.damaged) {
         current = MovableState.moving;
       }

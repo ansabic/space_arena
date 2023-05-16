@@ -24,6 +24,7 @@ class CharacterManager {
     _characters.add(player2);
     getIt<SpaceArenaGame>().add(player1);
     getIt<SpaceArenaGame>().add(player2);
+    getIt<SpaceArenaGame>().camera.followComponent(player1);
   }
 
   MovableSpriteComponent removeCharacter({required int playerId}) {
