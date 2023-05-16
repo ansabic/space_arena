@@ -32,8 +32,10 @@ class Coordinator {
       socket.listen((connection) {
         _connectionsService.addConnection(connection: connection);
         connection.listen((message) {
-          final event = _eventService.getEvent(utf8Message: utf8.decode(message));
-          _connectionsService.broadcastEvent(event: event);
+          final events = _eventService.getEvents(utf8Message: utf8.decode(message));
+          for (var element in events) {
+            _connectionsService.broadcastEvent(event: element);
+          }
         }, onDone: () async {
           final index = _connectionsService.removeConnection(connection: connection);
           _connectionsService.broadcastEvent(event: DisconnectPlayerEvent(playerId: index));

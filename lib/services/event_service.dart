@@ -14,13 +14,21 @@ class EventService {
     return null;
   }
 
-  Event getEvent({required String utf8Message}) {
-    for (var element in EventType.values) {
-      final result = _tryParse(utf8Message: utf8Message, type: element.name);
-      if (result != null) {
-        return element.fromJson(result);
+  List<Event> getEvents({required String utf8Message}) {
+    final List<Event> res = [];
+    while (utf8Message.isNotEmpty) {
+      String tempEvent = utf8Message.substring(0, utf8Message.indexOf("}") + 1);
+      utf8Message = utf8Message.replaceFirst(tempEvent, "");
+      for (var element in EventType.values) {
+        final result = _tryParse(utf8Message: tempEvent, type: element.name);
+        if (result != null) {
+          res.add(element.fromJson(result));
+        }
       }
     }
-    throw Exception("No event found for message:\n$utf8Message");
+    if (res.isEmpty) {
+      throw Exception("No event found for message:\n$utf8Message");
+    }
+    return res;
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flame/components.dart';
-import 'package:space_arena/characters/bullet.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 import 'package:space_arena/constants/constants.dart';
+import 'package:space_arena/coordinator/events/shoot_event/shoot_event.dart';
 import 'package:space_arena/services/character_manager.dart';
 
 import '../../di/di.dart';
-import '../../space_arena_game.dart';
+import '../../services/client_connection.dart';
 
 mixin Shooter on MovableSpriteComponent {
   DateTime lastShot = DateTime.now();
@@ -27,7 +27,8 @@ mixin Shooter on MovableSpriteComponent {
     final tar = target();
     final now = DateTime.now();
     if (tar != null && now.difference(lastShot).inMilliseconds > Constants.shotPeriodMillis) {
-      getIt<SpaceArenaGame>().add(Bullet(start: position, direction: Vector2.copy(tar), creator: this));
+      getIt<ClientConnection>()
+          .addEvent(ShootEvent(playerId: playerId!, startX: position.x, startY: position.y, dirX: tar.x, dirY: tar.y));
       lastShot = now;
     }
   }
