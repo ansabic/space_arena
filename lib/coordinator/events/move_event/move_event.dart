@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../event.dart';
+import '../event_type.dart';
 
 part 'move_event.freezed.dart';
 part 'move_event.g.dart';
@@ -16,5 +17,5 @@ class MoveEvent with _$MoveEvent implements Event {
   factory MoveEvent.fromJson(Map<String, Object?> json) => _$MoveEventFromJson(json);
 
   @override
-  List<int> getBytes() => utf8.encode("move_event${jsonEncode(toJson())}");
+  List<int> getBytes() => utf8.encode("${EventType.moveEvent.name}${jsonEncode(toJson())}");
 }

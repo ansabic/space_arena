@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -18,6 +20,7 @@ abstract class MovableSpriteComponent extends SpriteComponent with CollisionCall
     return super.onLoad();
   }
 
+  abstract double rotationSpeed;
   abstract double speed;
   abstract double angleOffset;
   abstract Vector2? destination;
@@ -35,8 +38,21 @@ abstract class MovableSpriteComponent extends SpriteComponent with CollisionCall
 
   void moveTo(Vector2 destination) {
     this.destination = destination;
-    //lookAt(destination);
-    angle += angleOffset;
+  }
+
+  @override
+  void update(double dt) {
+    if (destination != null) {
+      final dir = Vector2(1, 0)..rotate(angle);
+      final diff = destination! - position;
+      final dot = dir.x * diff.x + dir.y * diff.y;
+      final det = dir.x * diff.y - dir.y * diff.x;
+      final ang = atan2(det, dot);
+      if (ang.abs() >= 0.01) {
+        angle += rotationSpeed * dt * ang;
+      }
+    }
+    super.update(dt);
   }
 
   void updatePosition(double dt) {

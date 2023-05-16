@@ -7,13 +7,12 @@ import '../services/sprite_manager.dart';
 class Player2 extends MovableSpriteComponent {
   @override
   double speed = 200;
-
+  @override
+  double rotationSpeed = 10;
   @override
   Vector2? destination;
-
   @override
   double angleOffset = 0;
-
   @override
   int playerId;
 

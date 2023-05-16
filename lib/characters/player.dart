@@ -16,6 +16,8 @@ class Player extends MovableSpriteComponent {
   double angleOffset = -pi / 2;
   @override
   int playerId;
+  @override
+  double rotationSpeed = 10;
 
   Player.firstPlayer(
       {double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8, required this.playerId}) {
@@ -24,7 +26,7 @@ class Player extends MovableSpriteComponent {
     this.y = y;
     width = 50;
     height = 100;
-    angle = angleOffset;
+    nativeAngle = angleOffset;
     anchor = Anchor.center;
   }
 
@@ -35,7 +37,7 @@ class Player extends MovableSpriteComponent {
     this.y = y;
     width = 50;
     height = 100;
-    angle = angleOffset;
+    nativeAngle = angleOffset;
     anchor = Anchor.center;
   }
 }

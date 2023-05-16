@@ -43,7 +43,6 @@ class ServerConnection {
   Future<void> checkIfEmpty() async {
     if (_connections.isEmpty) {
       await _powerOff();
-      exit(0);
     }
   }
 }

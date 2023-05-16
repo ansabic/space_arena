@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:space_arena/coordinator/events/event_type.dart';
 
 import '../event.dart';
 
@@ -16,5 +17,5 @@ class DisconnectPlayerEvent with _$DisconnectPlayerEvent implements Event {
   factory DisconnectPlayerEvent.fromJson(Map<String, Object?> json) => _$DisconnectPlayerEventFromJson(json);
 
   @override
-  List<int> getBytes() => utf8.encode("disconnect_player_event${jsonEncode(toJson())}");
+  List<int> getBytes() => utf8.encode("${EventType.disconnectPlayerEvent.name}${jsonEncode(toJson())}");
 }
