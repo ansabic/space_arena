@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 import 'package:space_arena/constants/constants.dart';
@@ -28,7 +29,7 @@ class BackgroundComponent extends SpriteComponent {
 }
 
 @lazySingleton
-class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDetection, TapDetector {
+class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDetection, TapDetector, KeyboardEvents {
   final CharacterManager _characterManager;
 
   SpaceArenaGame(this._characterManager);
@@ -54,6 +55,17 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
         (element as MovableSpriteComponent).updatePosition(dt);
       }
     }
+  }
+
+  @override
+  KeyEventResult onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    if (keysPressed.contains(LogicalKeyboardKey.tab)) {
+      _characterManager.add(PickCharacter(
+          character: _characterManager.pickedCharacter == _characterManager.fighter
+              ? _characterManager.mothership
+              : _characterManager.fighter));
+    }
+    return super.onKeyEvent(event, keysPressed);
   }
 
   @override

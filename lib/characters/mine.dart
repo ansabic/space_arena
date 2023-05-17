@@ -22,6 +22,10 @@ class Mine extends SpriteComponent with CollisionCallbacks, Character {
   late int usesLeft;
   @override
   Team team;
+  @override
+  String name = "Mine";
+  @override
+  bool picked = false;
 
   @override
   Future<void> onLoad() async {

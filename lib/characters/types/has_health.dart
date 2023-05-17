@@ -1,3 +1,5 @@
-abstract class HasHealth {
-  double health = 0;
+mixin HasHealth {
+  int get maxHealth;
+
+  abstract int currentHealth;
 }

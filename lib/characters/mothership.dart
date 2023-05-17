@@ -5,6 +5,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:space_arena/characters/types/character.dart';
+import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 
 import '../constants/constants.dart';
@@ -13,21 +14,26 @@ import '../model/fighter_states.dart';
 import '../model/team.dart';
 import '../services/sprite_manager.dart';
 
-class Mothership extends MovableSpriteComponent with Character {
+class Mothership extends MovableSpriteComponent with Character, HasHealth {
   @override
   double angleOffset = -pi / 2;
-
   @override
   Vector2? destination;
-
   @override
   Team team;
-
   @override
   double rotationSpeed = 1;
-
   @override
   double speed = 15;
+  @override
+  String name = "Mothership";
+  @override
+  int currentHealth = 25;
+
+  @override
+  int get maxHealth => 25;
+  @override
+  bool picked = false;
 
   @override
   ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, 0))

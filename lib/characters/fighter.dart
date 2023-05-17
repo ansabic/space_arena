@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:space_arena/characters/types/character.dart';
+import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/constants/constants.dart';
@@ -11,7 +12,7 @@ import 'package:space_arena/services/sprite_manager.dart';
 import '../di/di.dart';
 import '../model/team.dart';
 
-class Fighter extends MovableSpriteComponent with Character, Shooter {
+class Fighter extends MovableSpriteComponent with Character, Shooter, HasHealth {
   @override
   double speed = 200;
   @override
@@ -22,6 +23,17 @@ class Fighter extends MovableSpriteComponent with Character, Shooter {
   double rotationSpeed = 10;
   @override
   Team team;
+  @override
+  String name = "Fighter";
+  @override
+  int currentHealth = 10;
+
+  @override
+  int get maxHealth => 10;
+  @override
+  int damage = 1;
+  @override
+  bool picked = false;
 
   Fighter.firstPlayer(
       {this.team = Team.player1, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8}) {
@@ -37,6 +49,7 @@ class Fighter extends MovableSpriteComponent with Character, Shooter {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
+    picked = true;
   }
 
   Fighter.secondPlayer(

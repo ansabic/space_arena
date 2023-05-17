@@ -7,6 +7,7 @@ part of 'shoot_event.dart';
 // **************************************************************************
 
 _$_ShootEvent _$$_ShootEventFromJson(Map<String, dynamic> json) => _$_ShootEvent(
+      damage: json['damage'] as int,
       team: $enumDecode(_$TeamEnumMap, json['team']),
       startX: (json['startX'] as num).toDouble(),
       startY: (json['startY'] as num).toDouble(),
@@ -15,6 +16,7 @@ _$_ShootEvent _$$_ShootEventFromJson(Map<String, dynamic> json) => _$_ShootEvent
     );
 
 Map<String, dynamic> _$$_ShootEventToJson(_$_ShootEvent instance) => <String, dynamic>{
+      'damage': instance.damage,
       'team': _$TeamEnumMap[instance.team]!,
       'startX': instance.startX,
       'startY': instance.startY,

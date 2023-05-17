@@ -13,4 +13,6 @@ mixin Character implements TeamCharacter {
 
 mixin TeamCharacter on PositionComponent {
   abstract Team team;
+  abstract String name;
+  abstract bool picked;
 }

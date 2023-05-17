@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/model/mine_type.dart';
 

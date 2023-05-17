@@ -20,6 +20,8 @@ ShootEvent _$ShootEventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ShootEvent {
+  int get damage => throw _privateConstructorUsedError;
+
   Team get team => throw _privateConstructorUsedError;
 
   double get startX => throw _privateConstructorUsedError;
@@ -42,7 +44,7 @@ abstract class $ShootEventCopyWith<$Res> {
       _$ShootEventCopyWithImpl<$Res, ShootEvent>;
 
   @useResult
-  $Res call({Team team, double startX, double startY, double dirX, double dirY});
+  $Res call({int damage, Team team, double startX, double startY, double dirX, double dirY});
 }
 
 /// @nodoc
@@ -58,6 +60,7 @@ class _$ShootEventCopyWithImpl<$Res, $Val extends ShootEvent> implements $ShootE
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? damage = null,
     Object? team = null,
     Object? startX = null,
     Object? startY = null,
@@ -65,6 +68,10 @@ class _$ShootEventCopyWithImpl<$Res, $Val extends ShootEvent> implements $ShootE
     Object? dirY = null,
   }) {
     return _then(_value.copyWith(
+      damage: null == damage
+          ? _value.damage
+          : damage // ignore: cast_nullable_to_non_nullable
+              as int,
       team: null == team
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -96,7 +103,7 @@ abstract class _$$_ShootEventCopyWith<$Res> implements $ShootEventCopyWith<$Res>
 
   @override
   @useResult
-  $Res call({Team team, double startX, double startY, double dirX, double dirY});
+  $Res call({int damage, Team team, double startX, double startY, double dirX, double dirY});
 }
 
 /// @nodoc
@@ -107,6 +114,7 @@ class __$$_ShootEventCopyWithImpl<$Res> extends _$ShootEventCopyWithImpl<$Res, _
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? damage = null,
     Object? team = null,
     Object? startX = null,
     Object? startY = null,
@@ -114,6 +122,10 @@ class __$$_ShootEventCopyWithImpl<$Res> extends _$ShootEventCopyWithImpl<$Res, _
     Object? dirY = null,
   }) {
     return _then(_$_ShootEvent(
+      damage: null == damage
+          ? _value.damage
+          : damage // ignore: cast_nullable_to_non_nullable
+              as int,
       team: null == team
           ? _value.team
           : team // ignore: cast_nullable_to_non_nullable
@@ -142,11 +154,18 @@ class __$$_ShootEventCopyWithImpl<$Res> extends _$ShootEventCopyWithImpl<$Res, _
 @JsonSerializable()
 class _$_ShootEvent extends _ShootEvent {
   const _$_ShootEvent(
-      {required this.team, required this.startX, required this.startY, required this.dirX, required this.dirY})
+      {required this.damage,
+      required this.team,
+      required this.startX,
+      required this.startY,
+      required this.dirX,
+      required this.dirY})
       : super._();
 
   factory _$_ShootEvent.fromJson(Map<String, dynamic> json) => _$$_ShootEventFromJson(json);
 
+  @override
+  final int damage;
   @override
   final Team team;
   @override
@@ -160,7 +179,7 @@ class _$_ShootEvent extends _ShootEvent {
 
   @override
   String toString() {
-    return 'ShootEvent(team: $team, startX: $startX, startY: $startY, dirX: $dirX, dirY: $dirY)';
+    return 'ShootEvent(damage: $damage, team: $team, startX: $startX, startY: $startY, dirX: $dirX, dirY: $dirY)';
   }
 
   @override
@@ -168,6 +187,7 @@ class _$_ShootEvent extends _ShootEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ShootEvent &&
+            (identical(other.damage, damage) || other.damage == damage) &&
             (identical(other.team, team) || other.team == team) &&
             (identical(other.startX, startX) || other.startX == startX) &&
             (identical(other.startY, startY) || other.startY == startY) &&
@@ -177,7 +197,7 @@ class _$_ShootEvent extends _ShootEvent {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, team, startX, startY, dirX, dirY);
+  int get hashCode => Object.hash(runtimeType, damage, team, startX, startY, dirX, dirY);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +214,8 @@ class _$_ShootEvent extends _ShootEvent {
 
 abstract class _ShootEvent extends ShootEvent {
   const factory _ShootEvent(
-      {required final Team team,
+      {required final int damage,
+      required final Team team,
       required final double startX,
       required final double startY,
       required final double dirX,
@@ -203,6 +224,9 @@ abstract class _ShootEvent extends ShootEvent {
   const _ShootEvent._() : super._();
 
   factory _ShootEvent.fromJson(Map<String, dynamic> json) = _$_ShootEvent.fromJson;
+
+  @override
+  int get damage;
 
   @override
   Team get team;

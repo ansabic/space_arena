@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/characters/mothership.dart';
+import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/model/team.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
@@ -18,7 +19,7 @@ import 'character_state.dart';
 class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   List<Character> get characters => state.characters;
 
-  Character? get pickedCharacter => state.pickedCharacter;
+  Character? get pickedCharacter => characters.isNotEmpty ? characters.firstWhere((element) => element.picked) : null;
 
   Team get team => state.team;
 
@@ -65,8 +66,7 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
       final playerMothership1 = Mothership.firstPlayer();
       final player2 = Fighter.secondPlayer();
       final playerMothership2 = Mothership.secondPlayer();
-      emit(RefreshCharacterState(
-          pickedCharacter: player1, characters: [player1, playerMothership1, player2, playerMothership2], team: team));
+      emit(RefreshCharacterState(characters: [player1, playerMothership1, player2, playerMothership2], team: team));
       getIt<SpaceArenaGame>().camera.followComponent(fighter);
       add(GenerateInitialMines());
     });
@@ -79,12 +79,16 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
       final plasmaMinePlayer2 = Mine(mineType: MineType.plasma)
         ..position = Vector2(Constants.worldSizeX / 2 + Constants.mineSize.x, Constants.worldSizeY / 2);
       emit(RefreshCharacterState(
-          pickedCharacter: pickedCharacter,
           characters: [...characters, goldMinePlayer1, goldMinePlayer2, plasmaMinePlayer1, plasmaMinePlayer2],
           team: state.team));
     });
     on<PickCharacter>((event, emit) {
-      emit(RefreshCharacterState(pickedCharacter: event.character, characters: characters, team: state.team));
+      final newList = [...characters];
+      final oldPicked = newList.firstWhere((element) => element.picked);
+      oldPicked.picked = !oldPicked.picked;
+      final newPicked = newList.firstWhere((element) => element == event.character);
+      newPicked.picked = !newPicked.picked;
+      emit(RefreshCharacterState(characters: newList, team: team));
       getIt<SpaceArenaGame>().camera.followComponent(event.character);
     });
     on<RemoveCharacter>((event, emit) {
@@ -92,7 +96,13 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
       final tempChars = [...characters];
       tempChars.remove(character);
       getIt<SpaceArenaGame>().remove(character);
-      emit(RefreshCharacterState(pickedCharacter: pickedCharacter, characters: tempChars, team: state.team));
+      emit(RefreshCharacterState(characters: tempChars, team: state.team));
+    });
+    on<DamageCharacter>((event, emit) {
+      final newList = [...characters];
+      final candidate = newList.firstWhere((e) => e.characterId == event.characterId);
+      (candidate as HasHealth).currentHealth--;
+      emit(RefreshCharacterState(characters: newList, team: team));
     });
   }
 }

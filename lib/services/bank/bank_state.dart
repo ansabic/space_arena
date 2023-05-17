@@ -1,12 +1,9 @@
 part of 'bank_bloc.dart';
 
-abstract class BankState extends Equatable {
+abstract class BankState {
   final int gold;
   final int crystal;
   final int plasma;
-
-  @override
-  List<Object> get props => [gold, crystal, plasma];
 
   const BankState({required this.gold, required this.crystal, required this.plasma});
 }

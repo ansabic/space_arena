@@ -15,8 +15,9 @@ class Bullet extends SpriteComponent with CollisionCallbacks {
   final double speed = Constants.bulletSpeed;
   final Vector2 direction;
   final Team team;
+  final int damage;
 
-  Bullet({required Vector2 start, required this.direction, required this.team}) {
+  Bullet({required Vector2 start, required this.direction, required this.team, required this.damage}) {
     sprite = getIt<SpriteManager>().bulletSprite;
     angle = angleTo(direction) + pi / 2;
     anchor = Anchor.center;

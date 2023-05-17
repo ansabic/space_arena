@@ -23,3 +23,10 @@ class RemoveCharacter extends CharacterEvent {
 }
 
 class GenerateInitialMines extends CharacterEvent {}
+
+class DamageCharacter extends CharacterEvent {
+  final int characterId;
+  final int damage;
+
+  DamageCharacter({required this.characterId, required this.damage});
+}

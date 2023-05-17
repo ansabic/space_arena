@@ -14,7 +14,8 @@ class ShootEvent with _$ShootEvent implements Event {
   const ShootEvent._();
 
   const factory ShootEvent(
-      {required Team team,
+      {required int damage,
+      required Team team,
       required double startX,
       required double startY,
       required double dirX,

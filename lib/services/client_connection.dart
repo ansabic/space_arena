@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
 import 'package:space_arena/coordinator/events/disconnect_player_event/disconnect_player_event.dart';
 import 'package:space_arena/coordinator/events/event.dart';
 import 'package:space_arena/coordinator/events/shoot_event/shoot_event.dart';
@@ -61,9 +62,12 @@ class ClientConnection {
             //TODO Pause game
           } else if (event is ShootEvent) {
             getIt<SpaceArenaGame>().add(Bullet(
+                damage: event.damage,
                 start: Vector2(event.startX, event.startY),
                 direction: Vector2(event.dirX, event.dirY),
                 team: event.team));
+          } else if (event is DamageEvent) {
+            getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
           }
         }
       }

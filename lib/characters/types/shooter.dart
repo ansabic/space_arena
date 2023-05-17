@@ -10,6 +10,7 @@ import '../../services/client_connection.dart';
 
 mixin Shooter on MovableSpriteComponent {
   DateTime lastShot = DateTime.now();
+  abstract int damage;
 
   Vector2? target() {
     final candidate = getIt<CharacterManager>()
@@ -28,8 +29,8 @@ mixin Shooter on MovableSpriteComponent {
     final tar = target();
     final now = DateTime.now();
     if (tar != null && now.difference(lastShot).inMilliseconds > Constants.shotPeriodMillis) {
-      getIt<ClientConnection>()
-          .addEvent(ShootEvent(team: team, startX: position.x, startY: position.y, dirX: tar.x, dirY: tar.y));
+      getIt<ClientConnection>().addEvent(
+          ShootEvent(team: team, startX: position.x, startY: position.y, dirX: tar.x, dirY: tar.y, damage: damage));
       lastShot = now;
     }
   }

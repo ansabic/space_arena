@@ -4,8 +4,11 @@ import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:space_arena/characters/types/has_health.dart';
+import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
 import 'package:space_arena/model/fighter_states.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
+import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../../constants/constants.dart';
@@ -21,6 +24,10 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
     if (other is Bullet && other.team != team) {
       if (thisPlayer()) {
         getIt<SpaceArenaGame>().camera.shake(intensity: 3);
+        if (this is HasHealth && this is Character) {
+          getIt<ClientConnection>()
+              .addEvent(DamageEvent(characterId: (this as Character).characterId, damage: other.damage));
+        }
       }
       if (current != MovableState.damaged) {
         current = MovableState.damaged;
