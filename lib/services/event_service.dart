@@ -17,8 +17,9 @@ class EventService {
   List<Event> getEvents({required String utf8Message}) {
     final List<Event> res = [];
     while (utf8Message.isNotEmpty) {
-      String tempEvent = utf8Message.substring(0, utf8Message.indexOf("}") + 1);
+      String tempEvent = utf8Message.substring(0, utf8Message.indexOf("end"));
       utf8Message = utf8Message.replaceFirst(tempEvent, "");
+      utf8Message = utf8Message.replaceFirst("end", "");
       for (var element in EventType.values) {
         final result = _tryParse(utf8Message: tempEvent, type: element.name);
         if (result != null) {

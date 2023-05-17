@@ -3,19 +3,20 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:space_arena/characters/types/team_defined.dart';
+import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 import 'package:space_arena/space_arena_game.dart';
 
+import '../model/team.dart';
+
 class Bullet extends SpriteComponent with CollisionCallbacks {
-  final int playerId;
   final double speed = Constants.bulletSpeed;
   final Vector2 direction;
-  final gameSize = getIt<SpaceArenaGame>().size;
+  final Team team;
 
-  Bullet({required Vector2 start, required this.direction, required this.playerId}) {
+  Bullet({required Vector2 start, required this.direction, required this.team}) {
     sprite = getIt<SpriteManager>().bulletSprite;
     angle = angleTo(direction) + pi / 2;
     anchor = Anchor.center;
@@ -36,7 +37,7 @@ class Bullet extends SpriteComponent with CollisionCallbacks {
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is TeamDefined && (other as TeamDefined).playerId != playerId && other is! Bullet) {
+    if (other is TeamCharacter && other.team != team && other is! Bullet) {
       getIt<SpaceArenaGame>().remove(this);
     }
   }
@@ -46,7 +47,7 @@ class Bullet extends SpriteComponent with CollisionCallbacks {
     super.update(dt);
     final diff = direction;
     position += diff.normalized() * speed * dt;
-    if (position.y < 0 || position.y > gameSize.y || position.x < 0 || position.x > gameSize.x) {
+    if (position.y < 0 || position.y > Constants.worldSizeY || position.x < 0 || position.x > Constants.worldSizeX) {
       getIt<SpaceArenaGame>().remove(this);
     }
   }

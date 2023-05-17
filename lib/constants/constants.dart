@@ -12,4 +12,6 @@ class Constants {
   static const shotPeriodMillis = 200;
 
   static final mineSize = Vector2(100, 100);
+
+  static const clickProximity = 30;
 }

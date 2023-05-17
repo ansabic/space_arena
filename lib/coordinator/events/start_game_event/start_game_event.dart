@@ -17,5 +17,5 @@ class StartGameEvent with _$StartGameEvent implements Event {
   factory StartGameEvent.fromJson(Map<String, Object?> json) => _$StartGameEventFromJson(json);
 
   @override
-  List<int> getBytes() => utf8.encode("${EventType.startGameEvent.name}${jsonEncode(toJson())}");
+  List<int> getBytes() => utf8.encode("${EventType.startGameEvent.name}${jsonEncode(toJson())}end");
 }

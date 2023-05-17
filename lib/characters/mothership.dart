@@ -4,14 +4,16 @@ import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
 import '../model/fighter_states.dart';
+import '../model/team.dart';
 import '../services/sprite_manager.dart';
 
-class Mothership extends MovableSpriteComponent {
+class Mothership extends MovableSpriteComponent with Character {
   @override
   double angleOffset = -pi / 2;
 
@@ -19,7 +21,7 @@ class Mothership extends MovableSpriteComponent {
   Vector2? destination;
 
   @override
-  int? playerId;
+  Team team;
 
   @override
   double rotationSpeed = 1;
@@ -34,7 +36,8 @@ class Mothership extends MovableSpriteComponent {
       ..color = Colors.cyan
       ..style = PaintingStyle.stroke);
 
-  Mothership.firstPlayer({double x = Constants.worldSizeX / 2 - 50, double y = Constants.worldSizeY * 0.8}) {
+  Mothership.firstPlayer(
+      {this.team = Team.player1, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8 + 50}) {
     animations = {
       MovableState.idle: getIt<SpriteManager>().mothershipIdle,
       MovableState.damaged: getIt<SpriteManager>().mothershipDamaged,
@@ -48,10 +51,10 @@ class Mothership extends MovableSpriteComponent {
 
     angle = angleOffset;
     anchor = Anchor.center;
-    playerId = 2;
   }
 
-  Mothership.secondPlayer({double x = Constants.worldSizeX / 2 - 50, double y = Constants.worldSizeY * 0.2}) {
+  Mothership.secondPlayer(
+      {this.team = Team.player2, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.2 - 50}) {
     animations = {
       MovableState.idle: getIt<SpriteManager>().mothershipIdle,
       MovableState.damaged: getIt<SpriteManager>().mothershipDamaged,
@@ -65,6 +68,5 @@ class Mothership extends MovableSpriteComponent {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
-    playerId = 3;
   }
 }

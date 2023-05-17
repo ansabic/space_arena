@@ -20,7 +20,7 @@ RegisterEvent _$RegisterEventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$RegisterEvent {
-  int get playerId => throw _privateConstructorUsedError;
+  Team get team => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $RegisterEventCopyWith<$Res> {
       _$RegisterEventCopyWithImpl<$Res, RegisterEvent>;
 
   @useResult
-  $Res call({int playerId});
+  $Res call({Team team});
 }
 
 /// @nodoc
@@ -50,13 +50,13 @@ class _$RegisterEventCopyWithImpl<$Res, $Val extends RegisterEvent> implements $
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? team = null,
   }) {
     return _then(_value.copyWith(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
-              as int,
+      team: null == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as Team,
     ) as $Val);
   }
 }
@@ -68,7 +68,7 @@ abstract class _$$_RegisterEventCopyWith<$Res> implements $RegisterEventCopyWith
 
   @override
   @useResult
-  $Res call({int playerId});
+  $Res call({Team team});
 }
 
 /// @nodoc
@@ -79,13 +79,13 @@ class __$$_RegisterEventCopyWithImpl<$Res> extends _$RegisterEventCopyWithImpl<$
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? team = null,
   }) {
     return _then(_$_RegisterEvent(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
-              as int,
+      team: null == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as Team,
     ));
   }
 }
@@ -93,16 +93,16 @@ class __$$_RegisterEventCopyWithImpl<$Res> extends _$RegisterEventCopyWithImpl<$
 /// @nodoc
 @JsonSerializable()
 class _$_RegisterEvent extends _RegisterEvent {
-  const _$_RegisterEvent({required this.playerId}) : super._();
+  const _$_RegisterEvent({required this.team}) : super._();
 
   factory _$_RegisterEvent.fromJson(Map<String, dynamic> json) => _$$_RegisterEventFromJson(json);
 
   @override
-  final int playerId;
+  final Team team;
 
   @override
   String toString() {
-    return 'RegisterEvent(playerId: $playerId)';
+    return 'RegisterEvent(team: $team)';
   }
 
   @override
@@ -110,12 +110,12 @@ class _$_RegisterEvent extends _RegisterEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_RegisterEvent &&
-            (identical(other.playerId, playerId) || other.playerId == playerId));
+            (identical(other.team, team) || other.team == team));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, playerId);
+  int get hashCode => Object.hash(runtimeType, team);
 
   @JsonKey(ignore: true)
   @override
@@ -132,14 +132,14 @@ class _$_RegisterEvent extends _RegisterEvent {
 }
 
 abstract class _RegisterEvent extends RegisterEvent {
-  const factory _RegisterEvent({required final int playerId}) = _$_RegisterEvent;
+  const factory _RegisterEvent({required final Team team}) = _$_RegisterEvent;
 
   const _RegisterEvent._() : super._();
 
   factory _RegisterEvent.fromJson(Map<String, dynamic> json) = _$_RegisterEvent.fromJson;
 
   @override
-  int get playerId;
+  Team get team;
 
   @override
   @JsonKey(ignore: true)

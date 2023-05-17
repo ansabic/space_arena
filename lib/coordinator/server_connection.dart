@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/coordinator/events/event.dart';
+import 'package:space_arena/model/team.dart';
 
 import 'events/register_event/register_event.dart';
 
@@ -15,7 +16,8 @@ class ServerConnection {
   }
 
   void _registerClient({required Socket connection}) {
-    final event = RegisterEvent(playerId: _connections.indexOf(connection));
+    final event =
+        RegisterEvent(team: Team.values.firstWhere((element) => element.index == _connections.indexOf(connection)));
     connection.add(event.getBytes());
   }
 

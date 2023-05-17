@@ -20,7 +20,7 @@ MoveEvent _$MoveEventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MoveEvent {
-  int get playerId => throw _privateConstructorUsedError;
+  int get characterId => throw _privateConstructorUsedError;
 
   double get x => throw _privateConstructorUsedError;
 
@@ -37,7 +37,7 @@ abstract class $MoveEventCopyWith<$Res> {
   factory $MoveEventCopyWith(MoveEvent value, $Res Function(MoveEvent) then) = _$MoveEventCopyWithImpl<$Res, MoveEvent>;
 
   @useResult
-  $Res call({int playerId, double x, double y});
+  $Res call({int characterId, double x, double y});
 }
 
 /// @nodoc
@@ -53,14 +53,14 @@ class _$MoveEventCopyWithImpl<$Res, $Val extends MoveEvent> implements $MoveEven
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? characterId = null,
     Object? x = null,
     Object? y = null,
   }) {
     return _then(_value.copyWith(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
+      characterId: null == characterId
+          ? _value.characterId
+          : characterId // ignore: cast_nullable_to_non_nullable
               as int,
       x: null == x
           ? _value.x
@@ -81,7 +81,7 @@ abstract class _$$_MoveEventCopyWith<$Res> implements $MoveEventCopyWith<$Res> {
 
   @override
   @useResult
-  $Res call({int playerId, double x, double y});
+  $Res call({int characterId, double x, double y});
 }
 
 /// @nodoc
@@ -92,14 +92,14 @@ class __$$_MoveEventCopyWithImpl<$Res> extends _$MoveEventCopyWithImpl<$Res, _$_
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? characterId = null,
     Object? x = null,
     Object? y = null,
   }) {
     return _then(_$_MoveEvent(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
+      characterId: null == characterId
+          ? _value.characterId
+          : characterId // ignore: cast_nullable_to_non_nullable
               as int,
       x: null == x
           ? _value.x
@@ -116,12 +116,12 @@ class __$$_MoveEventCopyWithImpl<$Res> extends _$MoveEventCopyWithImpl<$Res, _$_
 /// @nodoc
 @JsonSerializable()
 class _$_MoveEvent extends _MoveEvent {
-  const _$_MoveEvent({required this.playerId, required this.x, required this.y}) : super._();
+  const _$_MoveEvent({required this.characterId, required this.x, required this.y}) : super._();
 
   factory _$_MoveEvent.fromJson(Map<String, dynamic> json) => _$$_MoveEventFromJson(json);
 
   @override
-  final int playerId;
+  final int characterId;
   @override
   final double x;
   @override
@@ -129,7 +129,7 @@ class _$_MoveEvent extends _MoveEvent {
 
   @override
   String toString() {
-    return 'MoveEvent(playerId: $playerId, x: $x, y: $y)';
+    return 'MoveEvent(characterId: $characterId, x: $x, y: $y)';
   }
 
   @override
@@ -137,14 +137,14 @@ class _$_MoveEvent extends _MoveEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MoveEvent &&
-            (identical(other.playerId, playerId) || other.playerId == playerId) &&
+            (identical(other.characterId, characterId) || other.characterId == characterId) &&
             (identical(other.x, x) || other.x == x) &&
             (identical(other.y, y) || other.y == y));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, playerId, x, y);
+  int get hashCode => Object.hash(runtimeType, characterId, x, y);
 
   @JsonKey(ignore: true)
   @override
@@ -160,7 +160,7 @@ class _$_MoveEvent extends _MoveEvent {
 }
 
 abstract class _MoveEvent extends MoveEvent {
-  const factory _MoveEvent({required final int playerId, required final double x, required final double y}) =
+  const factory _MoveEvent({required final int characterId, required final double x, required final double y}) =
       _$_MoveEvent;
 
   const _MoveEvent._() : super._();
@@ -168,7 +168,7 @@ abstract class _MoveEvent extends MoveEvent {
   factory _MoveEvent.fromJson(Map<String, dynamic> json) = _$_MoveEvent.fromJson;
 
   @override
-  int get playerId;
+  int get characterId;
 
   @override
   double get x;

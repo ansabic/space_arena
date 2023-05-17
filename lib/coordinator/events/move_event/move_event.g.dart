@@ -7,13 +7,13 @@ part of 'move_event.dart';
 // **************************************************************************
 
 _$_MoveEvent _$$_MoveEventFromJson(Map<String, dynamic> json) => _$_MoveEvent(
-      playerId: json['playerId'] as int,
+      characterId: json['characterId'] as int,
       x: (json['x'] as num).toDouble(),
       y: (json['y'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$_MoveEventToJson(_$_MoveEvent instance) => <String, dynamic>{
-      'playerId': instance.playerId,
+      'characterId': instance.characterId,
       'x': instance.x,
       'y': instance.y,
     };

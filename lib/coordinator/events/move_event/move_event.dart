@@ -12,10 +12,10 @@ part 'move_event.g.dart';
 class MoveEvent with _$MoveEvent implements Event {
   const MoveEvent._();
 
-  const factory MoveEvent({required int playerId, required double x, required double y}) = _MoveEvent;
+  const factory MoveEvent({required int characterId, required double x, required double y}) = _MoveEvent;
 
   factory MoveEvent.fromJson(Map<String, Object?> json) => _$MoveEventFromJson(json);
 
   @override
-  List<int> getBytes() => utf8.encode("${EventType.moveEvent.name}${jsonEncode(toJson())}");
+  List<int> getBytes() => utf8.encode("${EventType.moveEvent.name}${jsonEncode(toJson())}end");
 }

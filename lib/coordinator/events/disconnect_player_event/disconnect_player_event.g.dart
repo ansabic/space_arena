@@ -7,9 +7,15 @@ part of 'disconnect_player_event.dart';
 // **************************************************************************
 
 _$_DisconnectPlayerEvent _$$_DisconnectPlayerEventFromJson(Map<String, dynamic> json) => _$_DisconnectPlayerEvent(
-      playerId: json['playerId'] as int,
+      team: $enumDecode(_$TeamEnumMap, json['team']),
     );
 
 Map<String, dynamic> _$$_DisconnectPlayerEventToJson(_$_DisconnectPlayerEvent instance) => <String, dynamic>{
-      'playerId': instance.playerId,
+      'team': _$TeamEnumMap[instance.team]!,
     };
+
+const _$TeamEnumMap = {
+  Team.player1: 'player1',
+  Team.player2: 'player2',
+  Team.neutral: 'neutral',
+};

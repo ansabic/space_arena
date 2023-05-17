@@ -20,7 +20,7 @@ DisconnectPlayerEvent _$DisconnectPlayerEventFromJson(Map<String, dynamic> json)
 
 /// @nodoc
 mixin _$DisconnectPlayerEvent {
-  int get playerId => throw _privateConstructorUsedError;
+  Team get team => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $DisconnectPlayerEventCopyWith<$Res> {
       _$DisconnectPlayerEventCopyWithImpl<$Res, DisconnectPlayerEvent>;
 
   @useResult
-  $Res call({int playerId});
+  $Res call({Team team});
 }
 
 /// @nodoc
@@ -51,13 +51,13 @@ class _$DisconnectPlayerEventCopyWithImpl<$Res, $Val extends DisconnectPlayerEve
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? team = null,
   }) {
     return _then(_value.copyWith(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
-              as int,
+      team: null == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as Team,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$_DisconnectPlayerEventCopyWith<$Res> implements $DisconnectPla
 
   @override
   @useResult
-  $Res call({int playerId});
+  $Res call({Team team});
 }
 
 /// @nodoc
@@ -83,13 +83,13 @@ class __$$_DisconnectPlayerEventCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? team = null,
   }) {
     return _then(_$_DisconnectPlayerEvent(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
-              as int,
+      team: null == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as Team,
     ));
   }
 }
@@ -97,16 +97,16 @@ class __$$_DisconnectPlayerEventCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_DisconnectPlayerEvent extends _DisconnectPlayerEvent {
-  const _$_DisconnectPlayerEvent({required this.playerId}) : super._();
+  const _$_DisconnectPlayerEvent({required this.team}) : super._();
 
   factory _$_DisconnectPlayerEvent.fromJson(Map<String, dynamic> json) => _$$_DisconnectPlayerEventFromJson(json);
 
   @override
-  final int playerId;
+  final Team team;
 
   @override
   String toString() {
-    return 'DisconnectPlayerEvent(playerId: $playerId)';
+    return 'DisconnectPlayerEvent(team: $team)';
   }
 
   @override
@@ -114,12 +114,12 @@ class _$_DisconnectPlayerEvent extends _DisconnectPlayerEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DisconnectPlayerEvent &&
-            (identical(other.playerId, playerId) || other.playerId == playerId));
+            (identical(other.team, team) || other.team == team));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, playerId);
+  int get hashCode => Object.hash(runtimeType, team);
 
   @JsonKey(ignore: true)
   @override
@@ -136,14 +136,14 @@ class _$_DisconnectPlayerEvent extends _DisconnectPlayerEvent {
 }
 
 abstract class _DisconnectPlayerEvent extends DisconnectPlayerEvent {
-  const factory _DisconnectPlayerEvent({required final int playerId}) = _$_DisconnectPlayerEvent;
+  const factory _DisconnectPlayerEvent({required final Team team}) = _$_DisconnectPlayerEvent;
 
   const _DisconnectPlayerEvent._() : super._();
 
   factory _DisconnectPlayerEvent.fromJson(Map<String, dynamic> json) = _$_DisconnectPlayerEvent.fromJson;
 
   @override
-  int get playerId;
+  Team get team;
 
   @override
   @JsonKey(ignore: true)

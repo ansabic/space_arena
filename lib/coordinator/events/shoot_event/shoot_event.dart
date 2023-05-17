@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:space_arena/model/team.dart';
 
 import '../event.dart';
 import '../event_type.dart';
@@ -13,7 +14,7 @@ class ShootEvent with _$ShootEvent implements Event {
   const ShootEvent._();
 
   const factory ShootEvent(
-      {required int playerId,
+      {required Team team,
       required double startX,
       required double startY,
       required double dirX,
@@ -22,5 +23,5 @@ class ShootEvent with _$ShootEvent implements Event {
   factory ShootEvent.fromJson(Map<String, Object?> json) => _$ShootEventFromJson(json);
 
   @override
-  List<int> getBytes() => utf8.encode("${EventType.shootEvent.name}${jsonEncode(toJson())}");
+  List<int> getBytes() => utf8.encode("${EventType.shootEvent.name}${jsonEncode(toJson())}end");
 }

@@ -7,9 +7,15 @@ part of 'register_event.dart';
 // **************************************************************************
 
 _$_RegisterEvent _$$_RegisterEventFromJson(Map<String, dynamic> json) => _$_RegisterEvent(
-      playerId: json['playerId'] as int,
+      team: $enumDecode(_$TeamEnumMap, json['team']),
     );
 
 Map<String, dynamic> _$$_RegisterEventToJson(_$_RegisterEvent instance) => <String, dynamic>{
-      'playerId': instance.playerId,
+      'team': _$TeamEnumMap[instance.team]!,
     };
+
+const _$TeamEnumMap = {
+  Team.player1: 'player1',
+  Team.player2: 'player2',
+  Team.neutral: 'neutral',
+};

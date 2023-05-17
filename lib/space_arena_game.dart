@@ -7,7 +7,6 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
-import 'package:space_arena/characters/types/team_defined.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/coordinator/events/move_event/move_event.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
@@ -52,7 +51,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     super.update(dt);
     for (var element in _characterManager.characters) {
       if (element is MovableSpriteComponent) {
-        element.updatePosition(dt);
+        (element as MovableSpriteComponent).updatePosition(dt);
       }
     }
   }
@@ -61,10 +60,8 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   void onTapDown(TapDownInfo info) {
     super.onTapDown(info);
     final candidate = _characterManager.characters.firstWhereOrNull((element) =>
-        element is TeamDefined &&
-        (element as TeamDefined).playerId != null &&
-        (element as TeamDefined).playerId! % 2 == (_characterManager.characters.first as TeamDefined).playerId! % 2 &&
-        element.position.distanceTo(info.eventPosition.game) < 30);
+        (element).team == _characterManager.team &&
+        element.position.distanceTo(info.eventPosition.game) < Constants.clickProximity);
     if (candidate != null) {
       _characterManager.add(PickCharacter(character: candidate));
     }
@@ -73,9 +70,10 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   @override
   void onSecondaryTapDown(TapDownInfo info) {
     super.onSecondaryTapDown(info);
-    getIt<ClientConnection>().addEvent(MoveEvent(
-        playerId: (_characterManager.pickedCharacter! as TeamDefined).playerId!,
-        x: info.eventPosition.game.x,
-        y: info.eventPosition.game.y));
+    final pickedCharacter = _characterManager.pickedCharacter;
+    if (pickedCharacter != null) {
+      getIt<ClientConnection>().addEvent(MoveEvent(
+          characterId: pickedCharacter.characterId, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
+    }
   }
 }

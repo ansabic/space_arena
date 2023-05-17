@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:space_arena/characters/types/team_defined.dart';
+import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/character_manager/character_state.dart';
 
 import '../di/di.dart';
+import '../model/team.dart';
 import '../services/bank/bank_bloc.dart';
 
 class FighterOverlay extends StatelessWidget {
@@ -24,8 +25,7 @@ class FighterOverlay extends StatelessWidget {
       child: BlocBuilder<CharacterManager, CharacterState>(
         builder: (context, state) {
           return Visibility(
-            visible: (state.pickedCharacter as TeamDefined?)?.playerId != null &&
-                (state.pickedCharacter as TeamDefined).playerId! < 2,
+            visible: state.team != Team.neutral && state.pickedCharacter is Fighter,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/movable_sprite_component.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/constants/constants.dart';
@@ -8,8 +9,9 @@ import 'package:space_arena/model/fighter_states.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import '../di/di.dart';
+import '../model/team.dart';
 
-class Player extends MovableSpriteComponent with Shooter {
+class Fighter extends MovableSpriteComponent with Character, Shooter {
   @override
   double speed = 200;
   @override
@@ -19,9 +21,10 @@ class Player extends MovableSpriteComponent with Shooter {
   @override
   double rotationSpeed = 10;
   @override
-  int? playerId;
+  Team team;
 
-  Player.firstPlayer({double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8}) {
+  Fighter.firstPlayer(
+      {this.team = Team.player1, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8}) {
     animations = {
       MovableState.idle: getIt<SpriteManager>().fighterIdle,
       MovableState.damaged: getIt<SpriteManager>().fighterDamaged,
@@ -34,10 +37,10 @@ class Player extends MovableSpriteComponent with Shooter {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
-    playerId = 0;
   }
 
-  Player.secondPlayer({double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.2}) {
+  Fighter.secondPlayer(
+      {this.team = Team.player2, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.2}) {
     animations = {
       MovableState.idle: getIt<SpriteManager>().corvetteIdle,
       MovableState.damaged: getIt<SpriteManager>().corvetteDamaged,
@@ -51,6 +54,5 @@ class Player extends MovableSpriteComponent with Shooter {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
-    playerId = 1;
   }
 }

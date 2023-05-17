@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/model/team.dart';
 
 import '../di/di.dart';
 import '../services/event_service.dart';
@@ -38,7 +39,8 @@ class Coordinator {
           }
         }, onDone: () async {
           final index = _connectionsService.removeConnection(connection: connection);
-          _connectionsService.broadcastEvent(event: DisconnectPlayerEvent(playerId: index));
+          _connectionsService.broadcastEvent(
+              event: DisconnectPlayerEvent(team: Team.values.firstWhere((element) => element.index == index)));
           await _connectionsService.checkIfEmpty();
         });
       });

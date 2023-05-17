@@ -22,7 +22,6 @@ import '../space_arena_game.dart';
 @lazySingleton
 class ClientConnection {
   Socket? _connection;
-  late int playerId;
   final eventService = EventService();
   final eventMap = {};
   bool _registered = false;
@@ -43,29 +42,28 @@ class ClientConnection {
         if (!_registered) {
           if (event is RegisterEvent) {
             _registered = true;
-            playerId = event.playerId;
-            getIt<CharacterManager>().add(InitCharacters(isFirst: event.playerId == 0));
+            getIt<CharacterManager>().add(InitCharacters(team: event.team));
           }
           break;
         }
 
-        ///Handle all the other events here
+        /// Handle all the other events here
         if (_registered) {
           if (event is RegisterEvent) {
             addEvent(const StartGameEvent());
           } else if (event is MoveEvent) {
-            (getIt<CharacterManager>().characters[event.playerId] as MovableSpriteComponent)
+            (getIt<CharacterManager>().characters[event.characterId] as MovableSpriteComponent)
                 .moveTo(Vector2(event.x, event.y));
           } else if (event is StartGameEvent) {
-            //TODO Needs proper implementation of start events
+            //TODO Start game
             debugPrint("Started");
           } else if (event is DisconnectPlayerEvent) {
-            //getIt<CharacterManager>().add(RemoveCharacter(character: event.playerId));
+            //TODO Pause game
           } else if (event is ShootEvent) {
             getIt<SpaceArenaGame>().add(Bullet(
                 start: Vector2(event.startX, event.startY),
                 direction: Vector2(event.dirX, event.dirY),
-                playerId: event.playerId));
+                team: event.team));
           }
         }
       }

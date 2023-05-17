@@ -20,7 +20,7 @@ ShootEvent _$ShootEventFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ShootEvent {
-  int get playerId => throw _privateConstructorUsedError;
+  Team get team => throw _privateConstructorUsedError;
 
   double get startX => throw _privateConstructorUsedError;
 
@@ -42,7 +42,7 @@ abstract class $ShootEventCopyWith<$Res> {
       _$ShootEventCopyWithImpl<$Res, ShootEvent>;
 
   @useResult
-  $Res call({int playerId, double startX, double startY, double dirX, double dirY});
+  $Res call({Team team, double startX, double startY, double dirX, double dirY});
 }
 
 /// @nodoc
@@ -58,17 +58,17 @@ class _$ShootEventCopyWithImpl<$Res, $Val extends ShootEvent> implements $ShootE
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? team = null,
     Object? startX = null,
     Object? startY = null,
     Object? dirX = null,
     Object? dirY = null,
   }) {
     return _then(_value.copyWith(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
-              as int,
+      team: null == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as Team,
       startX: null == startX
           ? _value.startX
           : startX // ignore: cast_nullable_to_non_nullable
@@ -96,7 +96,7 @@ abstract class _$$_ShootEventCopyWith<$Res> implements $ShootEventCopyWith<$Res>
 
   @override
   @useResult
-  $Res call({int playerId, double startX, double startY, double dirX, double dirY});
+  $Res call({Team team, double startX, double startY, double dirX, double dirY});
 }
 
 /// @nodoc
@@ -107,17 +107,17 @@ class __$$_ShootEventCopyWithImpl<$Res> extends _$ShootEventCopyWithImpl<$Res, _
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? playerId = null,
+    Object? team = null,
     Object? startX = null,
     Object? startY = null,
     Object? dirX = null,
     Object? dirY = null,
   }) {
     return _then(_$_ShootEvent(
-      playerId: null == playerId
-          ? _value.playerId
-          : playerId // ignore: cast_nullable_to_non_nullable
-              as int,
+      team: null == team
+          ? _value.team
+          : team // ignore: cast_nullable_to_non_nullable
+              as Team,
       startX: null == startX
           ? _value.startX
           : startX // ignore: cast_nullable_to_non_nullable
@@ -142,13 +142,13 @@ class __$$_ShootEventCopyWithImpl<$Res> extends _$ShootEventCopyWithImpl<$Res, _
 @JsonSerializable()
 class _$_ShootEvent extends _ShootEvent {
   const _$_ShootEvent(
-      {required this.playerId, required this.startX, required this.startY, required this.dirX, required this.dirY})
+      {required this.team, required this.startX, required this.startY, required this.dirX, required this.dirY})
       : super._();
 
   factory _$_ShootEvent.fromJson(Map<String, dynamic> json) => _$$_ShootEventFromJson(json);
 
   @override
-  final int playerId;
+  final Team team;
   @override
   final double startX;
   @override
@@ -160,7 +160,7 @@ class _$_ShootEvent extends _ShootEvent {
 
   @override
   String toString() {
-    return 'ShootEvent(playerId: $playerId, startX: $startX, startY: $startY, dirX: $dirX, dirY: $dirY)';
+    return 'ShootEvent(team: $team, startX: $startX, startY: $startY, dirX: $dirX, dirY: $dirY)';
   }
 
   @override
@@ -168,7 +168,7 @@ class _$_ShootEvent extends _ShootEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ShootEvent &&
-            (identical(other.playerId, playerId) || other.playerId == playerId) &&
+            (identical(other.team, team) || other.team == team) &&
             (identical(other.startX, startX) || other.startX == startX) &&
             (identical(other.startY, startY) || other.startY == startY) &&
             (identical(other.dirX, dirX) || other.dirX == dirX) &&
@@ -177,7 +177,7 @@ class _$_ShootEvent extends _ShootEvent {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, playerId, startX, startY, dirX, dirY);
+  int get hashCode => Object.hash(runtimeType, team, startX, startY, dirX, dirY);
 
   @JsonKey(ignore: true)
   @override
@@ -194,7 +194,7 @@ class _$_ShootEvent extends _ShootEvent {
 
 abstract class _ShootEvent extends ShootEvent {
   const factory _ShootEvent(
-      {required final int playerId,
+      {required final Team team,
       required final double startX,
       required final double startY,
       required final double dirX,
@@ -205,7 +205,7 @@ abstract class _ShootEvent extends ShootEvent {
   factory _ShootEvent.fromJson(Map<String, dynamic> json) = _$_ShootEvent.fromJson;
 
   @override
-  int get playerId;
+  Team get team;
 
   @override
   double get startX;

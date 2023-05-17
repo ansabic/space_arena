@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:space_arena/characters/types/team_defined.dart';
 import 'package:space_arena/model/fighter_states.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/space_arena_game.dart';
@@ -12,13 +11,14 @@ import 'package:space_arena/space_arena_game.dart';
 import '../../constants/constants.dart';
 import '../../di/di.dart';
 import '../bullet.dart';
+import 'character.dart';
 
 abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<MovableState>
-    with CollisionCallbacks, TeamDefined {
+    with CollisionCallbacks, TeamCharacter {
   @override
   Future<void> onCollision(Set<Vector2> intersectionPoints, PositionComponent other) async {
     super.onCollision(intersectionPoints, other);
-    if (other is Bullet && other.playerId != playerId) {
+    if (other is Bullet && other.team != team) {
       if (thisPlayer()) {
         getIt<SpaceArenaGame>().camera.shake(intensity: 3);
       }
@@ -44,8 +44,7 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
   abstract double angleOffset;
   abstract Vector2? destination;
 
-  bool thisPlayer() =>
-      playerId != null && playerId! % 2 == (getIt<CharacterManager>().characters.first as TeamDefined).playerId! % 2;
+  bool thisPlayer() => team == getIt<CharacterManager>().team;
 
   ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, -0.5))
     ..renderShape = true
