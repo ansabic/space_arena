@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/characters/mothership.dart';
+import 'package:space_arena/characters/part.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/di/di.dart';
+import 'package:space_arena/model/part_side.dart';
 import 'package:space_arena/model/team.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/space_arena_game.dart';
@@ -49,7 +51,7 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   void onTransition(Transition<CharacterEvent, CharacterState> transition) {
     super.onTransition(transition);
     final candidates = transition.nextState.characters.toSet().difference(transition.currentState.characters.toSet());
-    getIt<SpaceArenaGame>().addAll(candidates);
+    getIt<SpaceArenaGame>().addAll(candidates.where((element) => element.parent == null));
   }
 
   int getCharacterId({required Character character}) {
@@ -60,10 +62,12 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   }
 
   CharacterManager() : super(CharacterInitial()) {
-    on<InitCharacters>((event, emit) {
+    on<InitCharacters>((event, emit) async {
       final team = event.team;
       final player1 = Fighter.firstPlayer();
       final playerMothership1 = Mothership.firstPlayer();
+      final testPart = WeaponPart(team: team, partSide: PartSide.bottom);
+      await playerMothership1.add(testPart);
       final player2 = Fighter.secondPlayer();
       final playerMothership2 = Mothership.secondPlayer();
       emit(RefreshCharacterState(characters: [player1, playerMothership1, player2, playerMothership2], team: team));

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,7 @@ import '../../di/di.dart';
 import '../bullet.dart';
 import 'character.dart';
 
-abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<MovableState>
-    with CollisionCallbacks, TeamCharacter {
+abstract class Movable extends SpriteAnimationGroupComponent<MovableState> with CollisionCallbacks, TeamCharacter {
   @override
   Future<void> onCollision(Set<Vector2> intersectionPoints, PositionComponent other) async {
     super.onCollision(intersectionPoints, other);
@@ -53,7 +51,7 @@ abstract class MovableSpriteComponent extends SpriteAnimationGroupComponent<Mova
 
   bool thisPlayer() => team == getIt<CharacterManager>().team;
 
-  ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, -0.5))
+  ShapeHitbox get hitBox => CircleHitbox(radius: Constants.partSize.x / 2)
     ..renderShape = true
     ..paint = (Paint()
       ..color = Colors.cyan

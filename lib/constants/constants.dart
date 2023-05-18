@@ -14,4 +14,5 @@ class Constants {
   static final mineSize = Vector2(100, 100);
 
   static const clickProximity = 30;
+  static final partSize = Vector2(50, 50);
 }

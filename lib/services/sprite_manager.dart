@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../di/di.dart';
@@ -36,11 +37,26 @@ class SpriteManager {
 
     ///Mothership
     mothershipIdle = await getIt<SpaceArenaGame>().loadSpriteAnimation(
-        "parts2/ship2_body.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2(37, 25), stepTime: 2));
+        "parts2/ship2_body.png",
+        SpriteAnimationData.sequenced(
+            amount: 1, textureSize: Vector2(37, 37), stepTime: 2, texturePosition: Vector2(0, -6)));
     mothershipMove = await getIt<SpaceArenaGame>().loadSpriteAnimation(
-        "parts2/ship2_body.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2(37, 25), stepTime: 2));
+        "parts2/ship2_body.png",
+        SpriteAnimationData.sequenced(
+            amount: 1, textureSize: Vector2(37, 37), stepTime: 2, texturePosition: Vector2(0, -6)));
     mothershipDamaged = await getIt<SpaceArenaGame>().loadSpriteAnimation(
-        "parts2/ship2_body.png", SpriteAnimationData.sequenced(amount: 1, textureSize: Vector2(37, 25), stepTime: 2));
+        "parts2/ship2_body.png",
+        SpriteAnimationData.sequenced(
+            amount: 1, textureSize: Vector2(37, 37), stepTime: 2, texturePosition: Vector2(0, -6)));
+
+    /// Parts
+    shieldPart = await getIt<SpaceArenaGame>().loadSprite("parts2/ship2_body2.png", srcSize: Constants.partSize);
+    weaponPart = await getIt<SpaceArenaGame>()
+        .loadSprite("parts2/ship2_detail.png", srcSize: Vector2(45, 45), srcPosition: Vector2(0, -18));
+    thrusterPart = await getIt<SpaceArenaGame>()
+        .loadSprite("parts2/ship2_detail2-2.png", srcSize: Vector2(30, 30), srcPosition: Vector2(0, -2));
+    connectionPart = await getIt<SpaceArenaGame>()
+        .loadSprite("parts2/ship2_turbines.png", srcSize: Vector2(21, 21), srcPosition: Vector2(-2.5, -0));
   }
 
   late Sprite bulletSprite;
@@ -61,4 +77,9 @@ class SpriteManager {
   late SpriteAnimation mothershipIdle;
   late SpriteAnimation mothershipMove;
   late SpriteAnimation mothershipDamaged;
+
+  late Sprite shieldPart;
+  late Sprite weaponPart;
+  late Sprite thrusterPart;
+  late Sprite connectionPart;
 }

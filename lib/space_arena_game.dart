@@ -7,7 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
-import 'package:space_arena/characters/types/movable_sprite_component.dart';
+import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/coordinator/events/move_event/move_event.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
@@ -51,8 +51,8 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   void update(double dt) {
     super.update(dt);
     for (var element in _characterManager.characters) {
-      if (element is MovableSpriteComponent) {
-        (element as MovableSpriteComponent).updatePosition(dt);
+      if (element is Movable) {
+        (element as Movable).updatePosition(dt);
       }
     }
   }

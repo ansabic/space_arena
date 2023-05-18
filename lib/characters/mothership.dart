@@ -1,12 +1,9 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
-import 'package:space_arena/characters/types/movable_sprite_component.dart';
+import 'package:space_arena/characters/types/movable.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
@@ -14,7 +11,7 @@ import '../model/fighter_states.dart';
 import '../model/team.dart';
 import '../services/sprite_manager.dart';
 
-class Mothership extends MovableSpriteComponent with Character, HasHealth {
+class Mothership extends Movable with Character, HasHealth {
   @override
   double angleOffset = -pi / 2;
   @override
@@ -35,13 +32,6 @@ class Mothership extends MovableSpriteComponent with Character, HasHealth {
   @override
   bool picked = false;
 
-  @override
-  ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, 0))
-    ..renderShape = true
-    ..paint = (Paint()
-      ..color = Colors.cyan
-      ..style = PaintingStyle.stroke);
-
   Mothership.firstPlayer(
       {this.team = Team.player1, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8 + 50}) {
     animations = {
@@ -51,10 +41,8 @@ class Mothership extends MovableSpriteComponent with Character, HasHealth {
     };
     this.x = x;
     this.y = y;
-    width = 50;
-    height = 50;
+    size = Constants.partSize;
     nativeAngle = angleOffset;
-
     angle = angleOffset;
     anchor = Anchor.center;
   }
@@ -69,8 +57,7 @@ class Mothership extends MovableSpriteComponent with Character, HasHealth {
 
     this.x = x;
     this.y = y;
-    width = 50;
-    height = 50;
+    size = Constants.partSize;
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;

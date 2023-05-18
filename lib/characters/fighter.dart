@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
-import 'package:space_arena/characters/types/movable_sprite_component.dart';
+import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/model/fighter_states.dart';
@@ -12,7 +12,7 @@ import 'package:space_arena/services/sprite_manager.dart';
 import '../di/di.dart';
 import '../model/team.dart';
 
-class Fighter extends MovableSpriteComponent with Character, Shooter, HasHealth {
+class Fighter extends Movable with Character, Shooter, HasHealth {
   @override
   double speed = 200;
   @override
@@ -44,8 +44,7 @@ class Fighter extends MovableSpriteComponent with Character, Shooter, HasHealth 
     };
     this.x = x;
     this.y = y;
-    width = 50;
-    height = 100;
+    size = Constants.partSize;
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
@@ -62,8 +61,7 @@ class Fighter extends MovableSpriteComponent with Character, Shooter, HasHealth 
 
     this.x = x;
     this.y = y;
-    width = 50;
-    height = 100;
+    size = Constants.partSize;
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;

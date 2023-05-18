@@ -14,7 +14,7 @@ import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/event_service.dart';
 
 import '../characters/bullet.dart';
-import '../characters/types/movable_sprite_component.dart';
+import '../characters/types/movable.dart';
 import '../coordinator/events/move_event/move_event.dart';
 import '../coordinator/events/register_event/register_event.dart';
 import '../coordinator/events/start_game_event/start_game_event.dart';
@@ -53,8 +53,7 @@ class ClientConnection {
           if (event is RegisterEvent) {
             addEvent(const StartGameEvent());
           } else if (event is MoveEvent) {
-            (getIt<CharacterManager>().characters[event.characterId] as MovableSpriteComponent)
-                .moveTo(Vector2(event.x, event.y));
+            (getIt<CharacterManager>().characters[event.characterId] as Movable).moveTo(Vector2(event.x, event.y));
           } else if (event is StartGameEvent) {
             //TODO Start game
             debugPrint("Started");
