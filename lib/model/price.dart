@@ -3,5 +3,7 @@ class Price {
   final int crystal;
   final int plasma;
 
-  Price({required this.gold, required this.crystal, required this.plasma});
+  const Price({required this.gold, required this.crystal, required this.plasma});
+
+  bool validate({required Price other}) => other.crystal >= crystal && other.gold >= gold && other.plasma >= plasma;
 }

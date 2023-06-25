@@ -13,12 +13,10 @@ import 'package:space_arena/services/sprite_manager.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
-import '../model/price.dart';
 import '../model/team.dart';
 import 'bullet.dart';
 
 abstract class Part extends SpriteComponent with Character, CollisionCallbacks, HasHealth {
-  final Price price;
   @override
   bool picked = false;
   @override
@@ -37,7 +35,7 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
       ..color = Colors.cyan
       ..style = PaintingStyle.stroke);
 
-  Part({required this.partSide, required this.team, required PartType partType, required this.price}) {
+  Part({required this.partSide, required this.team, required PartType partType}) {
     switch (partType) {
       case PartType.shield:
         sprite = getIt<SpriteManager>().shieldPart;
@@ -47,9 +45,6 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
         break;
       case PartType.thruster:
         sprite = getIt<SpriteManager>().thrusterPart;
-        break;
-      case PartType.connection:
-        sprite = getIt<SpriteManager>().connectionPart;
         break;
     }
     anchor = Anchor.center;
@@ -83,8 +78,7 @@ class WeaponPart extends Part with Shooter {
   @override
   int currentHealth = 15;
 
-  WeaponPart({required super.team, required super.partSide})
-      : super(partType: PartType.weapon, price: Price(gold: 20, plasma: 20, crystal: 0));
+  WeaponPart({required super.team, required super.partSide}) : super(partType: PartType.weapon);
 
   @override
   int get maxHealth => 15;
@@ -100,8 +94,7 @@ class ShieldPart extends Part {
   @override
   int currentHealth = 50;
 
-  ShieldPart({required super.team, required super.partSide})
-      : super(partType: PartType.shield, price: Price(gold: 50, plasma: 5, crystal: 0));
+  ShieldPart({required super.team, required super.partSide}) : super(partType: PartType.shield);
 
   @override
   int get maxHealth => 50;
@@ -114,26 +107,11 @@ class ThrusterPart extends Part {
   @override
   int currentHealth = 10;
 
-  ThrusterPart({required super.team, required super.partSide})
-      : super(partType: PartType.thruster, price: Price(gold: 10, plasma: 15, crystal: 15));
+  ThrusterPart({required super.team, required super.partSide}) : super(partType: PartType.thruster);
 
   @override
   int get maxHealth => 10;
 
   @override
   String name = "Thruster";
-}
-
-class ConnectionPart extends Part {
-  @override
-  int currentHealth = 30;
-
-  ConnectionPart({required super.team, required super.partSide})
-      : super(partType: PartType.connection, price: Price(gold: 40, plasma: 0, crystal: 0));
-
-  @override
-  int get maxHealth => 30;
-
-  @override
-  String name = "Connection";
 }

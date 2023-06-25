@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/coordinator/events/move_event/move_event.dart';
+import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
@@ -71,11 +72,32 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   @override
   void onTapDown(TapDownInfo info) {
     super.onTapDown(info);
+
     final candidate = _characterManager.characters.firstWhereOrNull((element) =>
         (element).team == _characterManager.team &&
         element.position.distanceTo(info.eventPosition.game) < Constants.clickProximity);
-    if (candidate != null) {
-      _characterManager.add(PickCharacter(character: candidate));
+
+    switch (getIt<OverlayCubit>().state) {
+      case OverlayCubitState.overlayEmpty:
+        if (candidate != null) {
+          _characterManager.add(PickCharacter(character: candidate));
+        }
+        break;
+      case OverlayCubitState.overlayDefault:
+        if (candidate != null) {
+          _characterManager.add(PickCharacter(character: candidate));
+        }
+        break;
+      case OverlayCubitState.overlayPlacePart:
+        if (candidate != null && buildContext != null) {
+          getIt<OverlayCubit>().overlaySetPartOrientation(character: candidate, context: buildContext!);
+        }
+        break;
+      case OverlayCubitState.overlayPartOrientation:
+        if (candidate != null) {
+          _characterManager.add(PickCharacter(character: candidate));
+        }
+        break;
     }
   }
 
