@@ -7,6 +7,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/coordinator/events/move_event/move_event.dart';
@@ -16,6 +17,7 @@ import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
+import 'characters/part.dart';
 import 'di/di.dart';
 
 class BackgroundComponent extends SpriteComponent {
@@ -72,32 +74,31 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   @override
   void onTapDown(TapDownInfo info) {
     super.onTapDown(info);
-
-    final candidate = _characterManager.characters.firstWhereOrNull((element) =>
-        (element).team == _characterManager.team &&
-        element.position.distanceTo(info.eventPosition.game) < Constants.clickProximity);
-
-    switch (getIt<OverlayCubit>().state) {
-      case OverlayCubitState.overlayEmpty:
-        if (candidate != null) {
-          _characterManager.add(PickCharacter(character: candidate));
-        }
-        break;
-      case OverlayCubitState.overlayDefault:
-        if (candidate != null) {
-          _characterManager.add(PickCharacter(character: candidate));
-        }
-        break;
-      case OverlayCubitState.overlayPlacePart:
-        if (candidate != null && buildContext != null) {
-          getIt<OverlayCubit>().overlaySetPartOrientation(character: candidate, context: buildContext!);
-        }
-        break;
-      case OverlayCubitState.overlayPartOrientation:
-        if (candidate != null) {
-          _characterManager.add(PickCharacter(character: candidate));
-        }
-        break;
+    final candidate = componentsAtPoint(info.eventPosition.game)
+        .firstWhereOrNull((element) => element is Character && (element).team == _characterManager.team) as Character?;
+    if (candidate != null) {
+      switch (getIt<OverlayCubit>().state) {
+        case OverlayCubitState.overlayEmpty:
+          if (candidate is! Part) {
+            _characterManager.add(PickCharacter(character: candidate));
+          }
+          break;
+        case OverlayCubitState.overlayDefault:
+          if (candidate is! Part) {
+            _characterManager.add(PickCharacter(character: candidate));
+          }
+          break;
+        case OverlayCubitState.overlayPlacePart:
+          if (buildContext != null) {
+            getIt<OverlayCubit>().overlaySetPartOrientation(character: candidate, context: buildContext!);
+          }
+          break;
+        case OverlayCubitState.overlayPartOrientation:
+          if (candidate is! Part) {
+            _characterManager.add(PickCharacter(character: candidate));
+          }
+          break;
+      }
     }
   }
 

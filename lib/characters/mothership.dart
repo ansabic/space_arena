@@ -39,8 +39,7 @@ class Mothership extends Movable with Character, HasHealth {
       MovableState.damaged: getIt<SpriteManager>().mothershipDamaged,
       MovableState.moving: getIt<SpriteManager>().mothershipMove
     };
-    this.x = x;
-    this.y = y;
+    position = Vector2(x, y);
     size = Constants.partSize;
     nativeAngle = angleOffset;
     angle = angleOffset;

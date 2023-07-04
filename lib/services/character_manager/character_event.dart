@@ -16,6 +16,12 @@ class PickCharacter extends CharacterEvent {
   PickCharacter({required this.character});
 }
 
+class AddCharacter extends CharacterEvent {
+  final Character character;
+
+  AddCharacter({required this.character});
+}
+
 class RemoveCharacter extends CharacterEvent {
   final Character character;
 

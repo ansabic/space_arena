@@ -60,6 +60,9 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   }
 
   CharacterManager() : super(CharacterInitial()) {
+    on<AddCharacter>((event, emit) {
+      emit(RefreshCharacterState(characters: [...state.characters, event.character], team: team));
+    });
     on<InitCharacters>((event, emit) async {
       final team = event.team;
       final player1 = Fighter.firstPlayer();

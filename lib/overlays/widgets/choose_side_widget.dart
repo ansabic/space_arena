@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:space_arena/characters/part.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/model/part_side.dart';
+import 'package:space_arena/services/character_manager/character_event.dart';
+import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/parts_manager.dart';
 
 import '../../characters/types/character.dart';
@@ -16,6 +18,7 @@ class ChooseSideWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final characterManager = getIt<CharacterManager>();
     return BlocProvider.value(
       value: getIt<OverlayCubit>(),
       child: BlocBuilder<OverlayCubit, OverlayCubitState>(
@@ -31,11 +34,11 @@ class ChooseSideWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTap: () {
+                  onTap: () async {
                     if (topEnabled) {
                       final part = WeaponPart(team: character.team, partSide: PartSide.top);
                       getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.top);
-                      character.add(part);
+                      await character.add(part);
                       tapped();
                     }
                   },
@@ -54,6 +57,7 @@ class ChooseSideWidget extends StatelessWidget {
                           final part = WeaponPart(team: character.team, partSide: PartSide.left);
                           getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.left);
                           character.add(part);
+                          characterManager.add(AddCharacter(character: part));
                           tapped();
                         }
                       },
@@ -66,6 +70,7 @@ class ChooseSideWidget extends StatelessWidget {
                           final part = WeaponPart(team: character.team, partSide: PartSide.right);
                           getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.right);
                           character.add(part);
+                          characterManager.add(AddCharacter(character: part));
                           tapped();
                         }
                       },
@@ -80,6 +85,7 @@ class ChooseSideWidget extends StatelessWidget {
                       final part = WeaponPart(team: character.team, partSide: PartSide.bottom);
                       getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.bottom);
                       character.add(part);
+                      characterManager.add(AddCharacter(character: part));
                       tapped();
                     }
                   },
