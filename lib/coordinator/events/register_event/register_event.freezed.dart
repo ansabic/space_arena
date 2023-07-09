@@ -23,27 +23,27 @@ mixin _$RegisterEvent {
   Team get team => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $RegisterEventCopyWith<RegisterEvent> get copyWith => throw _privateConstructorUsedError;
+  $RegisterEventCopyWith<RegisterEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $RegisterEventCopyWith<$Res> {
-  factory $RegisterEventCopyWith(RegisterEvent value, $Res Function(RegisterEvent) then) =
+  factory $RegisterEventCopyWith(
+          RegisterEvent value, $Res Function(RegisterEvent) then) =
       _$RegisterEventCopyWithImpl<$Res, RegisterEvent>;
-
   @useResult
   $Res call({Team team});
 }
 
 /// @nodoc
-class _$RegisterEventCopyWithImpl<$Res, $Val extends RegisterEvent> implements $RegisterEventCopyWith<$Res> {
+class _$RegisterEventCopyWithImpl<$Res, $Val extends RegisterEvent>
+    implements $RegisterEventCopyWith<$Res> {
   _$RegisterEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -62,19 +62,23 @@ class _$RegisterEventCopyWithImpl<$Res, $Val extends RegisterEvent> implements $
 }
 
 /// @nodoc
-abstract class _$$_RegisterEventCopyWith<$Res> implements $RegisterEventCopyWith<$Res> {
-  factory _$$_RegisterEventCopyWith(_$_RegisterEvent value, $Res Function(_$_RegisterEvent) then) =
+abstract class _$$_RegisterEventCopyWith<$Res>
+    implements $RegisterEventCopyWith<$Res> {
+  factory _$$_RegisterEventCopyWith(
+          _$_RegisterEvent value, $Res Function(_$_RegisterEvent) then) =
       __$$_RegisterEventCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({Team team});
 }
 
 /// @nodoc
-class __$$_RegisterEventCopyWithImpl<$Res> extends _$RegisterEventCopyWithImpl<$Res, _$_RegisterEvent>
+class __$$_RegisterEventCopyWithImpl<$Res>
+    extends _$RegisterEventCopyWithImpl<$Res, _$_RegisterEvent>
     implements _$$_RegisterEventCopyWith<$Res> {
-  __$$_RegisterEventCopyWithImpl(_$_RegisterEvent _value, $Res Function(_$_RegisterEvent) _then) : super(_value, _then);
+  __$$_RegisterEventCopyWithImpl(
+      _$_RegisterEvent _value, $Res Function(_$_RegisterEvent) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -95,7 +99,8 @@ class __$$_RegisterEventCopyWithImpl<$Res> extends _$RegisterEventCopyWithImpl<$
 class _$_RegisterEvent extends _RegisterEvent {
   const _$_RegisterEvent({required this.team}) : super._();
 
-  factory _$_RegisterEvent.fromJson(Map<String, dynamic> json) => _$$_RegisterEventFromJson(json);
+  factory _$_RegisterEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_RegisterEventFromJson(json);
 
   @override
   final Team team;
@@ -133,15 +138,15 @@ class _$_RegisterEvent extends _RegisterEvent {
 
 abstract class _RegisterEvent extends RegisterEvent {
   const factory _RegisterEvent({required final Team team}) = _$_RegisterEvent;
-
   const _RegisterEvent._() : super._();
 
-  factory _RegisterEvent.fromJson(Map<String, dynamic> json) = _$_RegisterEvent.fromJson;
+  factory _RegisterEvent.fromJson(Map<String, dynamic> json) =
+      _$_RegisterEvent.fromJson;
 
   @override
   Team get team;
-
   @override
   @JsonKey(ignore: true)
-  _$$_RegisterEventCopyWith<_$_RegisterEvent> get copyWith => throw _privateConstructorUsedError;
+  _$$_RegisterEventCopyWith<_$_RegisterEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

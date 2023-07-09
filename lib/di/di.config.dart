@@ -11,7 +11,8 @@ import 'package:space_arena/coordinator/coordinator.dart' as _i12;
 import 'package:space_arena/coordinator/server_connection.dart' as _i9;
 import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart' as _i7;
 import 'package:space_arena/services/bank/bank_bloc.dart' as _i3;
-import 'package:space_arena/services/character_manager/character_manager.dart' as _i4;
+import 'package:space_arena/services/character_manager/character_manager.dart'
+    as _i4;
 import 'package:space_arena/services/client_connection.dart' as _i5;
 import 'package:space_arena/services/event_service.dart' as _i6;
 import 'package:space_arena/services/parts_manager.dart' as _i8;
@@ -38,7 +39,8 @@ _i1.GetIt init(
   gh.lazySingleton<_i7.OverlayCubit>(() => _i7.OverlayCubit());
   gh.lazySingleton<_i8.PartsManager>(() => _i8.PartsManager());
   gh.lazySingleton<_i9.ServerConnection>(() => _i9.ServerConnection());
-  gh.lazySingleton<_i10.SpaceArenaGame>(() => _i10.SpaceArenaGame(gh<_i4.CharacterManager>()));
+  gh.lazySingleton<_i10.SpaceArenaGame>(
+      () => _i10.SpaceArenaGame(gh<_i4.CharacterManager>()));
   gh.lazySingleton<_i11.SpriteManager>(() => _i11.SpriteManager());
   gh.factory<_i12.Coordinator>(() => _i12.Coordinator(
         gh<_i6.EventService>(),

@@ -26,7 +26,7 @@ class PartWidget extends StatelessWidget {
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
                   if (valid) {
-                    getIt<OverlayCubit>().placePart();
+                    getIt<OverlayCubit>().placePart(type: partType);
                   }
                 },
                 child: Image.asset(partType.resource, width: 80, height: 80)),

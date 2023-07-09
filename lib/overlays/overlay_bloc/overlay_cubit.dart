@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:space_arena/overlays/widgets/choose_side_widget.dart';
 
 import '../../characters/types/character.dart';
+import '../../model/part_type.dart';
 
 part 'overlay_cubit_state.dart';
 
@@ -11,11 +12,16 @@ part 'overlay_cubit_state.dart';
 class OverlayCubit extends Cubit<OverlayCubitState> {
   OverlayCubit() : super(OverlayCubitState.overlayEmpty);
 
-  void placePart() => emit(OverlayCubitState.overlayPlacePart);
+  PartType? pickedPart;
 
-  void overlaySetPartOrientation({required Character character, required BuildContext context}) {
+  void placePart({required PartType type}) {
+    pickedPart = type;
+    emit(OverlayCubitState.overlayPlacePart);
+  }
+
+  Future<void> overlaySetPartOrientation({required Character character, required BuildContext context}) async {
     emit(OverlayCubitState.overlayPartOrientation);
-    showDialog(
+    await showDialog(
         context: context,
         builder: (context) {
           final size = MediaQuery.of(context).size;
@@ -24,7 +30,9 @@ class OverlayCubit extends Cubit<OverlayCubitState> {
               child: SizedBox(
                   height: size.height / 2,
                   width: size.width / 2,
-                  child: ChooseSideWidget(tapped: () => Navigator.pop(context), character: character)));
+                  child:
+                      ChooseSideWidget(tapped: () => Navigator.pop(context), character: character, type: pickedPart!)));
         });
+    pickedPart = null;
   }
 }

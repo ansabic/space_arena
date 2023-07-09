@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:injectable/injectable.dart';
-import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../di/di.dart';
@@ -50,7 +49,8 @@ class SpriteManager {
             amount: 1, textureSize: Vector2(37, 37), stepTime: 2, texturePosition: Vector2(0, -6)));
 
     /// Parts
-    shieldPart = await getIt<SpaceArenaGame>().loadSprite("parts2/ship2_body2.png", srcSize: Constants.partSize);
+    shieldPart = await getIt<SpaceArenaGame>()
+        .loadSprite("parts2/ship2_body2.png", srcSize: Vector2(33, 33), srcPosition: Vector2(-3.5, 0));
     weaponPart = await getIt<SpaceArenaGame>()
         .loadSprite("parts2/ship2_detail.png", srcSize: Vector2(45, 45), srcPosition: Vector2(0, -18));
     thrusterPart = await getIt<SpaceArenaGame>()

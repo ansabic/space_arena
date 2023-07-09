@@ -12,7 +12,8 @@ _$_MoveEvent _$$_MoveEventFromJson(Map<String, dynamic> json) => _$_MoveEvent(
       y: (json['y'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_MoveEventToJson(_$_MoveEvent instance) => <String, dynamic>{
+Map<String, dynamic> _$$_MoveEventToJson(_$_MoveEvent instance) =>
+    <String, dynamic>{
       'characterId': instance.characterId,
       'x': instance.x,
       'y': instance.y,

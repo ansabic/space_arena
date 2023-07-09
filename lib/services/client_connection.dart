@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/coordinator/events/create_part_event/create_part_event.dart';
 import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
 import 'package:space_arena/coordinator/events/disconnect_player_event/disconnect_player_event.dart';
 import 'package:space_arena/coordinator/events/event.dart';
@@ -12,12 +13,15 @@ import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/event_service.dart';
+import 'package:space_arena/services/parts_manager.dart';
 
 import '../characters/bullet.dart';
+import '../characters/part.dart';
 import '../characters/types/movable.dart';
 import '../coordinator/events/move_event/move_event.dart';
 import '../coordinator/events/register_event/register_event.dart';
 import '../coordinator/events/start_game_event/start_game_event.dart';
+import '../model/part_type.dart';
 import '../space_arena_game.dart';
 
 @lazySingleton
@@ -67,6 +71,23 @@ class ClientConnection {
                 team: event.team));
           } else if (event is DamageEvent) {
             getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
+          } else if(event is CreatePartEvent) {
+            late final Part part;
+            switch(event.type) {
+              case PartType.shield:
+                part  = ShieldPart(team: event.team, partSide: event.side);
+                break;
+              case PartType.weapon:
+                part  = WeaponPart(team: event.team, partSide: event.side);
+                break;
+              case PartType.thruster:
+                part  = ThrusterPart(team: event.team, partSide: event.side);
+                break;
+            }
+            final from = getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
+            getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
+            await from.add(part);
+            getIt<CharacterManager>().add(AddCharacter(character: part));
           }
         }
       }

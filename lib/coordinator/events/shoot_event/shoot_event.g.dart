@@ -6,7 +6,8 @@ part of 'shoot_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ShootEvent _$$_ShootEventFromJson(Map<String, dynamic> json) => _$_ShootEvent(
+_$_ShootEvent _$$_ShootEventFromJson(Map<String, dynamic> json) =>
+    _$_ShootEvent(
       damage: json['damage'] as int,
       team: $enumDecode(_$TeamEnumMap, json['team']),
       startX: (json['startX'] as num).toDouble(),
@@ -15,7 +16,8 @@ _$_ShootEvent _$$_ShootEventFromJson(Map<String, dynamic> json) => _$_ShootEvent
       dirY: (json['dirY'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$_ShootEventToJson(_$_ShootEvent instance) => <String, dynamic>{
+Map<String, dynamic> _$$_ShootEventToJson(_$_ShootEvent instance) =>
+    <String, dynamic>{
       'damage': instance.damage,
       'team': _$TeamEnumMap[instance.team]!,
       'startX': instance.startX,

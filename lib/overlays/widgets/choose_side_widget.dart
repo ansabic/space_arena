@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:space_arena/characters/part.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/model/part_side.dart';
-import 'package:space_arena/services/character_manager/character_event.dart';
-import 'package:space_arena/services/character_manager/character_manager.dart';
+import 'package:space_arena/model/part_type.dart';
+import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/parts_manager.dart';
 
 import '../../characters/types/character.dart';
+import '../../coordinator/events/create_part_event/create_part_event.dart';
 import '../overlay_bloc/overlay_cubit.dart';
 
 class ChooseSideWidget extends StatelessWidget {
   final void Function() tapped;
   final Character character;
+  final PartType type;
 
-  const ChooseSideWidget({Key? key, required this.tapped, required this.character}) : super(key: key);
+  const ChooseSideWidget({Key? key, required this.tapped, required this.character, required this.type})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final characterManager = getIt<CharacterManager>();
     return BlocProvider.value(
       value: getIt<OverlayCubit>(),
       child: BlocBuilder<OverlayCubit, OverlayCubitState>(
@@ -36,9 +37,8 @@ class ChooseSideWidget extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: () async {
                     if (topEnabled) {
-                      final part = WeaponPart(team: character.team, partSide: PartSide.top);
-                      getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.top);
-                      await character.add(part);
+                      getIt<ClientConnection>().addEvent(CreatePartEvent(
+                          from: character.characterId, side: PartSide.top, team: character.team, type: type));
                       tapped();
                     }
                   },
@@ -54,10 +54,8 @@ class ChooseSideWidget extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         if (leftEnabled) {
-                          final part = WeaponPart(team: character.team, partSide: PartSide.left);
-                          getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.left);
-                          character.add(part);
-                          characterManager.add(AddCharacter(character: part));
+                          getIt<ClientConnection>().addEvent(CreatePartEvent(
+                              from: character.characterId, side: PartSide.left, team: character.team, type: type));
                           tapped();
                         }
                       },
@@ -67,10 +65,8 @@ class ChooseSideWidget extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         if (rightEnabled) {
-                          final part = WeaponPart(team: character.team, partSide: PartSide.right);
-                          getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.right);
-                          character.add(part);
-                          characterManager.add(AddCharacter(character: part));
+                          getIt<ClientConnection>().addEvent(CreatePartEvent(
+                              from: character.characterId, side: PartSide.right, team: character.team, type: type));
                           tapped();
                         }
                       },
@@ -82,10 +78,8 @@ class ChooseSideWidget extends StatelessWidget {
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
                     if (bottomEnabled) {
-                      final part = WeaponPart(team: character.team, partSide: PartSide.bottom);
-                      getIt<PartsManager>().addPart(from: character, part: part, side: PartSide.bottom);
-                      character.add(part);
-                      characterManager.add(AddCharacter(character: part));
+                      getIt<ClientConnection>().addEvent(CreatePartEvent(
+                          from: character.characterId, side: PartSide.bottom, team: character.team, type: type));
                       tapped();
                     }
                   },
