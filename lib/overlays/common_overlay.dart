@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:space_arena/characters/types/has_health.dart';
+import 'package:space_arena/coordinator/events/pause_game_event/pause_game_event.dart';
+import 'package:space_arena/coordinator/events/resume_game_event/resume_game_event.dart';
 import 'package:space_arena/model/part_type.dart';
 import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
 import 'package:space_arena/overlays/widgets/part_widget.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/character_manager/character_state.dart';
+import 'package:space_arena/services/client_connection.dart';
+import 'package:space_arena/services/game_timer/game_timer.dart';
 
 import '../di/di.dart';
 import '../services/bank/bank_bloc.dart';
@@ -16,7 +20,12 @@ class CommonOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [BlocProvider(create: (_) => getIt<BankBloc>())],
+        providers: [
+          BlocProvider(create: (_) => getIt<BankBloc>()),
+          BlocProvider(
+            create: (_) => getIt<GameTimer>(),
+          )
+        ],
         child: BlocBuilder<OverlayCubit, OverlayCubitState>(
           builder: (context, state) {
             return Padding(
@@ -68,7 +77,36 @@ class CommonOverlay extends StatelessWidget {
                               }),
                             ],
                           ),
-                        )
+                        ),
+                        Expanded(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            BlocBuilder<GameTimer, GameTimerState>(builder: (context, state) {
+                              return GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () {
+                                    switch (state.status) {
+                                      case TimerStatus.normal:
+                                        getIt<ClientConnection>().addEvent(const PauseGameEvent());
+                                        break;
+                                      case TimerStatus.paused:
+                                        getIt<ClientConnection>().addEvent(const ResumeGameEvent());
+                                        break;
+                                    }
+                                  },
+                                  child: state.status == TimerStatus.normal
+                                      ? const Icon(
+                                          Icons.pause,
+                                          color: Colors.red,
+                                        )
+                                      : const Icon(
+                                          Icons.play_arrow,
+                                          color: Colors.green,
+                                        ));
+                            })
+                          ],
+                        ))
                       ]),
 
                       ///Bottom row

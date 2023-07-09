@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/shooter.dart';
-import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
 import 'package:space_arena/model/part_side.dart';
 import 'package:space_arena/model/part_type.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
-import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/sprite_manager.dart';
+import 'package:space_arena/space_arena_game.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
@@ -68,9 +67,6 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
   @override
   Future<void> onCollision(Set<Vector2> intersectionPoints, PositionComponent other) async {
     super.onCollision(intersectionPoints, other);
-    if (other is Bullet && other.team != getIt<CharacterManager>().team) {
-      getIt<ClientConnection>().addEvent(DamageEvent(characterId: characterId, damage: other.damage));
-    }
   }
 }
 

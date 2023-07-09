@@ -8,11 +8,14 @@ import 'package:space_arena/coordinator/events/create_part_event/create_part_eve
 import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
 import 'package:space_arena/coordinator/events/disconnect_player_event/disconnect_player_event.dart';
 import 'package:space_arena/coordinator/events/event.dart';
+import 'package:space_arena/coordinator/events/pause_game_event/pause_game_event.dart';
+import 'package:space_arena/coordinator/events/resume_game_event/resume_game_event.dart';
 import 'package:space_arena/coordinator/events/shoot_event/shoot_event.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/event_service.dart';
+import 'package:space_arena/services/game_timer/game_timer.dart';
 import 'package:space_arena/services/parts_manager.dart';
 
 import '../characters/bullet.dart';
@@ -88,6 +91,12 @@ class ClientConnection {
             getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
             await from.add(part);
             getIt<CharacterManager>().add(AddCharacter(character: part));
+          } else if(event is PauseGameEvent) {
+            getIt<SpaceArenaGame>().pauseEngine();
+            getIt<GameTimer>().add(const GameTimerEvent.pause());
+          } else if(event is ResumeGameEvent) {
+            getIt<SpaceArenaGame>().resumeEngine();
+            getIt<GameTimer>().add(const GameTimerEvent.start());
           }
         }
       }

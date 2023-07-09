@@ -4,12 +4,14 @@ import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:space_arena/characters/types/character.dart';
+import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../model/team.dart';
+import '../services/character_manager/character_manager.dart';
 
 class Bullet extends SpriteComponent with CollisionCallbacks {
   final double speed = Constants.bulletSpeed;
@@ -40,6 +42,17 @@ class Bullet extends SpriteComponent with CollisionCallbacks {
     super.onCollision(intersectionPoints, other);
     if (other is TeamCharacter && other.team != team && other is! Bullet) {
       getIt<SpaceArenaGame>().remove(this);
+      if(other is HasHealth) {
+        (other as HasHealth).currentHealth--;
+        if((other as HasHealth).currentHealth <= 0) {
+          if(getIt<CharacterManager>().characters.contains(other)) {
+            getIt<CharacterManager>().characters.remove(other);
+          }
+          getIt<SpaceArenaGame>().remove(other);
+        }
+      }
+
+
     }
   }
 

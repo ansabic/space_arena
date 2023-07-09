@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +14,9 @@ import 'overlays/overlay_bloc/overlay_cubit.dart';
 Future<void> main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
-  await DesktopWindow.setFullScreen(true);
+  if(Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
+    await DesktopWindow.setFullScreen(true);
+  }
   runApp(MaterialApp(
       theme: ThemeData(textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
       home: Scaffold(
