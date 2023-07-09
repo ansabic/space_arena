@@ -83,27 +83,35 @@ class CommonOverlay extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             BlocBuilder<GameTimer, GameTimerState>(builder: (context, state) {
-                              return GestureDetector(
-                                  behavior: HitTestBehavior.opaque,
-                                  onTap: () {
-                                    switch (state.status) {
-                                      case TimerStatus.normal:
-                                        getIt<ClientConnection>().addEvent(const PauseGameEvent());
-                                        break;
-                                      case TimerStatus.paused:
-                                        getIt<ClientConnection>().addEvent(const ResumeGameEvent());
-                                        break;
-                                    }
-                                  },
-                                  child: state.status == TimerStatus.normal
-                                      ? const Icon(
-                                          Icons.pause,
-                                          color: Colors.red,
-                                        )
-                                      : const Icon(
-                                          Icons.play_arrow,
-                                          color: Colors.green,
-                                        ));
+                              return Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                    child: Text("${(state.seconds ~/ 60).toString().padLeft(2,"0")}:${(state.seconds % 60).toString().padLeft(2,"0")}"),
+                                  ),
+                                  GestureDetector(
+                                      behavior: HitTestBehavior.opaque,
+                                      onTap: () {
+                                        switch (state.status) {
+                                          case TimerStatus.normal:
+                                            getIt<ClientConnection>().addEvent(const PauseGameEvent());
+                                            break;
+                                          case TimerStatus.paused:
+                                            getIt<ClientConnection>().addEvent(const ResumeGameEvent());
+                                            break;
+                                        }
+                                      },
+                                      child: state.status == TimerStatus.normal
+                                          ? const Icon(
+                                              Icons.pause,
+                                              color: Colors.red,
+                                            )
+                                          : const Icon(
+                                              Icons.play_arrow,
+                                              color: Colors.green,
+                                            )),
+                                ],
+                              );
                             })
                           ],
                         ))
