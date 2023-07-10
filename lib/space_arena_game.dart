@@ -85,7 +85,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
       }
     } else if (keysPressed.contains(LogicalKeyboardKey.digit2)) {
       final bankState = getIt<BankBloc>().state;
-      final part = PartType.values.firstWhere((element) => element.key == 1);
+      final part = PartType.values.firstWhere((element) => element.key == 2);
       final valid =
           part.price.validate(other: Price(gold: bankState.gold, crystal: bankState.crystal, plasma: bankState.plasma));
       if (valid) {
@@ -93,7 +93,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
       }
     } else if (keysPressed.contains(LogicalKeyboardKey.digit3)) {
       final bankState = getIt<BankBloc>().state;
-      final part = PartType.values.firstWhere((element) => element.key == 1);
+      final part = PartType.values.firstWhere((element) => element.key == 3);
       final valid =
           part.price.validate(other: Price(gold: bankState.gold, crystal: bankState.crystal, plasma: bankState.plasma));
       if (valid) {
@@ -130,8 +130,14 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
             _characterManager.add(PickCharacter(character: candidate));
           }
           break;
+        case OverlayCubitState.overlayDeletePart:
+          if (candidate is Part) {
+            _characterManager.add(RemoveCharacter(character: candidate));
+          }
+          break;
       }
     }
+    getIt<OverlayCubit>().resetState();
   }
 
   @override

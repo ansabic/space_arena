@@ -1,11 +1,13 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:space_arena/characters/mothership.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/model/part_side.dart';
 import 'package:space_arena/model/part_type.dart';
+import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/parts_manager.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
@@ -29,7 +31,7 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
   @override
   void onRemove() {
     super.onRemove();
-    if(getIt<PartsManager>().points.keys.contains(this)) {
+    if (getIt<PartsManager>().points.keys.contains(this)) {
       getIt<PartsManager>().removePart(part: this);
     }
   }
@@ -104,11 +106,25 @@ class ThrusterPart extends Part {
   @override
   int currentHealth = 10;
 
-  ThrusterPart({required super.team, required super.partSide}) : super(partType: PartType.thruster);
+  ThrusterPart({required super.team, required super.partSide}) : super(partType: PartType.thruster) {
+    final motherShip = getIt<CharacterManager>()
+        .characters
+        .firstWhere((element) => element is Mothership && element.team == team) as Mothership;
+    motherShip.speed = motherShip.speed + 10;
+  }
 
   @override
   int get maxHealth => 10;
 
   @override
   String name = "Thruster";
+
+  @override
+  void onRemove() {
+    final motherShip = getIt<CharacterManager>()
+        .characters
+        .firstWhere((element) => element is Mothership && element.team == team) as Mothership;
+    motherShip.speed = motherShip.speed - 10;
+    super.onRemove();
+  }
 }

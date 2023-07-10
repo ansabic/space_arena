@@ -19,6 +19,10 @@ class OverlayCubit extends Cubit<OverlayCubitState> {
     emit(OverlayCubitState.overlayPlacePart);
   }
 
+  void deletePart() {
+    emit(OverlayCubitState.overlayDeletePart);
+  }
+
   Future<void> overlaySetPartOrientation({required Character character, required BuildContext context}) async {
     emit(OverlayCubitState.overlayPartOrientation);
     await showDialog(
@@ -34,5 +38,9 @@ class OverlayCubit extends Cubit<OverlayCubitState> {
                       ChooseSideWidget(tapped: () => Navigator.pop(context), character: character, type: pickedPart!)));
         });
     pickedPart = null;
+  }
+
+  void resetState() {
+    emit(OverlayCubitState.overlayDefault);
   }
 }

@@ -152,7 +152,29 @@ class CommonOverlay extends StatelessWidget {
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: PartType.values.map((e) => PartWidget(partType: e)).toList(),
+                    children: [
+                      ...PartType.values.map((e) => PartWidget(partType: e)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            BlocProvider.of<OverlayCubit>(context).deletePart();
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(border: Border.all(color: Colors.green)),
+                            child: const SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),

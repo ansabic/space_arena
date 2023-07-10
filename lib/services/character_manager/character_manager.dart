@@ -35,8 +35,18 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   @override
   void onTransition(Transition<CharacterEvent, CharacterState> transition) {
     super.onTransition(transition);
-    final candidates = transition.nextState.characters.toSet().difference(transition.currentState.characters.toSet());
-    getIt<SpaceArenaGame>().addAll(candidates.where((element) => element.parent == null));
+    final candidatesToAdd =
+        transition.nextState.characters.toSet().difference(transition.currentState.characters.toSet());
+    final candidatesToRemove =
+        transition.currentState.characters.toSet().difference(transition.nextState.characters.toSet());
+    if (candidatesToAdd.isNotEmpty) {
+      getIt<SpaceArenaGame>().addAll(candidatesToAdd.where((element) => element.parent == null));
+    }
+    if (candidatesToRemove.isNotEmpty) {
+      for (var e in candidatesToRemove) {
+        e.removeFromParent();
+      }
+    }
   }
 
   int getCharacterId({required Character character}) {
@@ -86,7 +96,6 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
       final character = event.character;
       final tempChars = [...characters];
       tempChars.remove(character);
-      getIt<SpaceArenaGame>().remove(character);
       emit(RefreshCharacterState(characters: tempChars, team: state.team));
     });
     on<DamageCharacter>((event, emit) {

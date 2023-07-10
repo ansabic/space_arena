@@ -92,7 +92,7 @@ class ClientConnection {
             final from =
                 getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
             getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
-            await from.add(part);
+            await part.addToParent(from);
             getIt<CharacterManager>().add(AddCharacter(character: part));
           } else if (event is PauseGameEvent) {
             getIt<SpaceArenaGame>().pauseEngine();
