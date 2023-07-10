@@ -9,6 +9,10 @@ import '../characters/types/character.dart';
 class PartsManager {
   final Map<Character, Point<int>> points = {};
 
+  void removePart({required Character part}) {
+    points.remove(part);
+  }
+
   void addPart({required Character? from, required Character part, required PartSide side}) {
     if (from == null) {
       points[part] = const Point(0, 0);

@@ -29,7 +29,19 @@ class PartWidget extends StatelessWidget {
                     getIt<OverlayCubit>().placePart(type: partType);
                   }
                 },
-                child: Image.asset(partType.resource, width: 80, height: 80)),
+                child: Stack(
+                  children: [
+                    Center(child: Image.asset(partType.resource, width: 80, height: 80)),
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(partType.key.toString()),
+                      ),
+                    )
+                  ],
+                )),
           );
         },
       ),

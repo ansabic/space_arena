@@ -6,6 +6,7 @@ import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/model/part_side.dart';
 import 'package:space_arena/model/part_type.dart';
+import 'package:space_arena/services/parts_manager.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import '../constants/constants.dart';
@@ -23,6 +24,14 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
   Future<void> onLoad() async {
     add(hitBox);
     return super.onLoad();
+  }
+
+  @override
+  void onRemove() {
+    super.onRemove();
+    if(getIt<PartsManager>().points.keys.contains(this)) {
+      getIt<PartsManager>().removePart(part: this);
+    }
   }
 
   ShapeHitbox get hitBox => RectangleHitbox(size: Constants.partSize)

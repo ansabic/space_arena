@@ -19,7 +19,9 @@ import '../../characters/mine.dart';
 import '../../di/di.dart';
 
 part 'game_timer.freezed.dart';
+
 part 'game_timer_event.dart';
+
 part 'game_timer_state.dart';
 
 @lazySingleton
@@ -33,7 +35,7 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
       }, tick: (value) async {
         if (state.status == TimerStatus.normal) {
           emit(state.copyWith(seconds: state.seconds - 1));
-          if (state.seconds % 30 == 0 &&
+          if (state.seconds % Constants.crystalMineGeneratePeriod == 0 &&
               getIt<SpaceArenaGame>()
                       .children
                       .firstWhereOrNull((element) => element is Mine && element.mineType == MineType.crystal) ==
@@ -58,7 +60,7 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
             }
             getIt<ClientConnection>().addEvent(RandomMineEvent(x: randomX!, y: randomY!, type: MineType.crystal));
           }
-          if (state.seconds % 60 == 0) {
+          if (state.seconds % Constants.goldMineGeneratePeriod == 0) {
             double? randomX;
             double? randomY;
             int maxCounter = 0;
@@ -79,7 +81,7 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
             }
             getIt<ClientConnection>().addEvent(RandomMineEvent(x: randomX!, y: randomY!, type: MineType.gold));
           }
-          if (state.seconds % 60 == 0) {
+          if (state.seconds % Constants.plasmaMineGeneratePeriod == 0) {
             double? randomX;
             double? randomY;
             int maxCounter = 0;

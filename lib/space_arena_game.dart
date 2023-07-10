@@ -11,7 +11,9 @@ import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/coordinator/events/move_event/move_event.dart';
+import 'package:space_arena/model/part_type.dart';
 import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
+import 'package:space_arena/services/bank/bank_bloc.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
@@ -19,6 +21,7 @@ import 'package:space_arena/services/sprite_manager.dart';
 
 import 'characters/part.dart';
 import 'di/di.dart';
+import 'model/price.dart';
 
 class BackgroundComponent extends SpriteComponent {
   BackgroundComponent(Sprite sprite, Vector2 size) : super(sprite: sprite, size: size);
@@ -66,10 +69,36 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
       if (_characterManager.characters.where((element) => element.team == _characterManager.team).length == 1) {
         return super.onKeyEvent(event, keysPressed);
       }
-      _characterManager.add(PickCharacter(
-          character: (_characterManager.pickedCharacter == _characterManager.fighter
-              ? _characterManager.mothership
-              : _characterManager.fighter) as Character));
+      final character = (_characterManager.pickedCharacter == _characterManager.fighter
+          ? _characterManager.mothership
+          : _characterManager.fighter) as Character?;
+      if (character != null) {
+        _characterManager.add(PickCharacter(character: character));
+      }
+    } else if (keysPressed.contains(LogicalKeyboardKey.digit1)) {
+      final bankState = getIt<BankBloc>().state;
+      final part = PartType.values.firstWhere((element) => element.key == 1);
+      final valid =
+          part.price.validate(other: Price(gold: bankState.gold, crystal: bankState.crystal, plasma: bankState.plasma));
+      if (valid) {
+        getIt<OverlayCubit>().placePart(type: part);
+      }
+    } else if (keysPressed.contains(LogicalKeyboardKey.digit2)) {
+      final bankState = getIt<BankBloc>().state;
+      final part = PartType.values.firstWhere((element) => element.key == 1);
+      final valid =
+          part.price.validate(other: Price(gold: bankState.gold, crystal: bankState.crystal, plasma: bankState.plasma));
+      if (valid) {
+        getIt<OverlayCubit>().placePart(type: part);
+      }
+    } else if (keysPressed.contains(LogicalKeyboardKey.digit3)) {
+      final bankState = getIt<BankBloc>().state;
+      final part = PartType.values.firstWhere((element) => element.key == 1);
+      final valid =
+          part.price.validate(other: Price(gold: bankState.gold, crystal: bankState.crystal, plasma: bankState.plasma));
+      if (valid) {
+        getIt<OverlayCubit>().placePart(type: part);
+      }
     }
     return super.onKeyEvent(event, keysPressed);
   }

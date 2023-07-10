@@ -16,4 +16,7 @@ class Constants {
   static const clickProximity = 30;
   static final partSize = Vector2(50, 50);
   static const respawnTime = 20;
+  static const goldMineGeneratePeriod = 60;
+  static const plasmaMineGeneratePeriod = 75;
+  static const crystalMineGeneratePeriod = 30;
 }

@@ -48,7 +48,7 @@ class Bullet extends SpriteComponent with CollisionCallbacks {
           if(getIt<CharacterManager>().characters.contains(other)) {
             getIt<CharacterManager>().characters.remove(other);
           }
-          getIt<SpaceArenaGame>().remove(other);
+          other.removeFromParent();
         }
       }
 
