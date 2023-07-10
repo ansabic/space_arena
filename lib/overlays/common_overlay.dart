@@ -87,7 +87,8 @@ class CommonOverlay extends StatelessWidget {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                    child: Text("${(state.seconds ~/ 60).toString().padLeft(2,"0")}:${(state.seconds % 60).toString().padLeft(2,"0")}"),
+                                    child: Text(
+                                        "${(state.seconds ~/ 60).toString().padLeft(2, "0")}:${(state.seconds % 60).toString().padLeft(2, "0")}"),
                                   ),
                                   GestureDetector(
                                       behavior: HitTestBehavior.opaque,

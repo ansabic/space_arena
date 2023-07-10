@@ -15,4 +15,5 @@ class Constants {
 
   static const clickProximity = 30;
   static final partSize = Vector2(50, 50);
+  static const respawnTime = 20;
 }

@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:space_arena/characters/mine.dart';
 import 'package:space_arena/coordinator/events/create_part_event/create_part_event.dart';
+import 'package:space_arena/coordinator/events/crystal_mine_event/random_mine_event.dart';
 import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
 import 'package:space_arena/coordinator/events/disconnect_player_event/disconnect_player_event.dart';
 import 'package:space_arena/coordinator/events/event.dart';
@@ -74,29 +76,33 @@ class ClientConnection {
                 team: event.team));
           } else if (event is DamageEvent) {
             getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
-          } else if(event is CreatePartEvent) {
+          } else if (event is CreatePartEvent) {
             late final Part part;
-            switch(event.type) {
+            switch (event.type) {
               case PartType.shield:
-                part  = ShieldPart(team: event.team, partSide: event.side);
+                part = ShieldPart(team: event.team, partSide: event.side);
                 break;
               case PartType.weapon:
-                part  = WeaponPart(team: event.team, partSide: event.side);
+                part = WeaponPart(team: event.team, partSide: event.side);
                 break;
               case PartType.thruster:
-                part  = ThrusterPart(team: event.team, partSide: event.side);
+                part = ThrusterPart(team: event.team, partSide: event.side);
                 break;
             }
-            final from = getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
+            final from =
+                getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
             getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
             await from.add(part);
             getIt<CharacterManager>().add(AddCharacter(character: part));
-          } else if(event is PauseGameEvent) {
+          } else if (event is PauseGameEvent) {
             getIt<SpaceArenaGame>().pauseEngine();
             getIt<GameTimer>().add(const GameTimerEvent.pause());
-          } else if(event is ResumeGameEvent) {
+          } else if (event is ResumeGameEvent) {
             getIt<SpaceArenaGame>().resumeEngine();
             getIt<GameTimer>().add(const GameTimerEvent.start());
+          } else if (event is RandomMineEvent) {
+            getIt<CharacterManager>()
+                .add(AddCharacter(character: Mine(mineType: event.type)..position = Vector2(event.x, event.y)));
           }
         }
       }

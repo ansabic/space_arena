@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:space_arena/characters/fighter.dart';
@@ -19,31 +21,16 @@ import 'character_state.dart';
 class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   List<Character> get characters => state.characters;
 
-  Character? get pickedCharacter => characters.isNotEmpty ? characters.firstWhere((element) => element.picked) : null;
+  Character? get pickedCharacter =>
+      characters.isNotEmpty ? characters.firstWhereOrNull((element) => element.picked) : null;
 
   Team get team => state.team;
 
-  Character get fighter {
-    switch (team) {
-      case Team.player1:
-        return characters[0];
-      case Team.player2:
-        return characters[2];
-      case Team.neutral:
-        throw Exception("Player shouldn't be neutral!");
-    }
-  }
+  Fighter? get fighter =>
+      characters.firstWhereOrNull((element) => element.team == team && element is Fighter) as Fighter?;
 
-  Character get mothership {
-    switch (team) {
-      case Team.player1:
-        return characters[1];
-      case Team.player2:
-        return characters[3];
-      case Team.neutral:
-        throw Exception("Player shouldn't be neutral!");
-    }
-  }
+  Mothership? get mothership =>
+      characters.firstWhereOrNull((element) => element.team == team && element is Mothership) as Mothership?;
 
   @override
   void onTransition(Transition<CharacterEvent, CharacterState> transition) {
@@ -54,7 +41,7 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
 
   int getCharacterId({required Character character}) {
     if (!characters.contains(character)) {
-      throw Exception("Not valid character found!");
+      debugPrint("Character $character is already destroyed!");
     }
     return characters.indexOf(character);
   }
@@ -70,13 +57,14 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
       final player2 = Fighter.secondPlayer();
       final playerMothership2 = Mothership.secondPlayer();
       emit(RefreshCharacterState(characters: [player1, playerMothership1, player2, playerMothership2], team: team));
-      getIt<SpaceArenaGame>().camera.followComponent(fighter);
+      getIt<SpaceArenaGame>().camera.followComponent(fighter!);
       add(GenerateInitialMines());
     });
     on<GenerateInitialMines>((event, emit) {
       final goldMinePlayer1 = Mine(mineType: MineType.gold)
         ..position = Vector2(Constants.worldSizeX / 2, Constants.worldSizeY - Constants.mineSize.y / 2);
-      final goldMinePlayer2 = Mine(mineType: MineType.gold)..position = Vector2(Constants.worldSizeX / 2, 0);
+      final goldMinePlayer2 = Mine(mineType: MineType.gold)
+        ..position = Vector2(Constants.worldSizeX / 2, Constants.mineSize.y / 2);
       final plasmaMinePlayer1 = Mine(mineType: MineType.plasma)
         ..position = Vector2(Constants.worldSizeX / 2 - Constants.mineSize.x, Constants.worldSizeY / 2);
       final plasmaMinePlayer2 = Mine(mineType: MineType.plasma)
@@ -87,8 +75,8 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
     });
     on<PickCharacter>((event, emit) {
       final newList = [...characters];
-      final oldPicked = newList.firstWhere((element) => element.picked);
-      oldPicked.picked = !oldPicked.picked;
+      final oldPicked = newList.firstWhereOrNull((element) => element.picked);
+      oldPicked?.picked = !oldPicked.picked;
       final newPicked = newList.firstWhere((element) => element == event.character);
       newPicked.picked = !newPicked.picked;
       emit(RefreshCharacterState(characters: newList, team: team));
@@ -103,8 +91,8 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
     });
     on<DamageCharacter>((event, emit) {
       final newList = [...characters];
-      final candidate = newList.firstWhere((e) => e.characterId == event.characterId);
-      (candidate as HasHealth).currentHealth--;
+      final candidate = newList.firstWhereOrNull((e) => e.characterId == event.characterId);
+      (candidate as HasHealth?)?.currentHealth--;
       emit(RefreshCharacterState(characters: newList, team: team));
     });
   }

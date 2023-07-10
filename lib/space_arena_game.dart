@@ -63,10 +63,13 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   @override
   KeyEventResult onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (keysPressed.contains(LogicalKeyboardKey.tab)) {
+      if (_characterManager.characters.where((element) => element.team == _characterManager.team).length == 1) {
+        return super.onKeyEvent(event, keysPressed);
+      }
       _characterManager.add(PickCharacter(
-          character: _characterManager.pickedCharacter == _characterManager.fighter
+          character: (_characterManager.pickedCharacter == _characterManager.fighter
               ? _characterManager.mothership
-              : _characterManager.fighter));
+              : _characterManager.fighter) as Character));
     }
     return super.onKeyEvent(event, keysPressed);
   }

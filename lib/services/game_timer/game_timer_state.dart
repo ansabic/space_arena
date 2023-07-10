@@ -4,11 +4,10 @@ part of 'game_timer.dart';
 class GameTimerState with _$GameTimerState {
   const factory GameTimerState({
     required int seconds,
-    required TimerStatus status
-}) = _GameTimerState;
+    required TimerStatus status,
+    int? playerOneFighterDeath,
+    int? playerTwoFighterDeath,
+  }) = _GameTimerState;
 }
 
-enum TimerStatus {
-  normal,
-  paused
-}
+enum TimerStatus { normal, paused }

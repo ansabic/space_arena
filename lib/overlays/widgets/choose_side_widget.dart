@@ -24,10 +24,11 @@ class ChooseSideWidget extends StatelessWidget {
       value: getIt<OverlayCubit>(),
       child: BlocBuilder<OverlayCubit, OverlayCubitState>(
         builder: (context, state) {
-          final topEnabled = !getIt<PartsManager>().hasUp(character: character);
+          final topEnabled = type == PartType.thruster ? false : !getIt<PartsManager>().hasUp(character: character);
           final bottomEnabled = !getIt<PartsManager>().hasDown(character: character);
-          final leftEnabled = !getIt<PartsManager>().hasLeft(character: character);
-          final rightEnabled = !getIt<PartsManager>().hasRight(character: character);
+          final leftEnabled = type == PartType.thruster ? false : !getIt<PartsManager>().hasLeft(character: character);
+          final rightEnabled =
+              type == PartType.thruster ? false : !getIt<PartsManager>().hasRight(character: character);
           return SizedBox(
             width: 250,
             height: 250,
