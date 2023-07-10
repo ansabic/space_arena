@@ -22,10 +22,6 @@ abstract class Movable extends SpriteAnimationGroupComponent<MovableState> with 
     if (other is Bullet && other.team != team) {
       if (thisPlayer()) {
         getIt<SpaceArenaGame>().camera.shake(intensity: 3);
-        if (this is HasHealth && this is Character) {
-          getIt<ClientConnection>()
-              .addEvent(DamageEvent(characterId: (this as Character).characterId, damage: other.damage));
-        }
       }
       if (current != MovableState.damaged) {
         current = MovableState.damaged;

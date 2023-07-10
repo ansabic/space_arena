@@ -6,14 +6,11 @@ import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/model/part_side.dart';
 import 'package:space_arena/model/part_type.dart';
-import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/sprite_manager.dart';
-import 'package:space_arena/space_arena_game.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
 import '../model/team.dart';
-import 'bullet.dart';
 
 abstract class Part extends SpriteComponent with Character, CollisionCallbacks, HasHealth {
   @override
@@ -62,11 +59,6 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
         position = Vector2(-size.x / 2, size.y / 2);
         break;
     }
-  }
-
-  @override
-  Future<void> onCollision(Set<Vector2> intersectionPoints, PositionComponent other) async {
-    super.onCollision(intersectionPoints, other);
   }
 }
 
