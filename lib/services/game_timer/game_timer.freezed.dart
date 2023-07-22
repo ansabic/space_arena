@@ -26,7 +26,6 @@ mixin _$GameTimerEvent {
     required TResult Function() playerTwoFighterDead,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? start,
@@ -48,7 +47,6 @@ mixin _$GameTimerEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Start value) start,
@@ -59,7 +57,6 @@ mixin _$GameTimerEvent {
     required TResult Function(_PlayerTwoFighterDead value) playerTwoFighterDead,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Start value)? start,
@@ -85,29 +82,34 @@ mixin _$GameTimerEvent {
 
 /// @nodoc
 abstract class $GameTimerEventCopyWith<$Res> {
-  factory $GameTimerEventCopyWith(GameTimerEvent value, $Res Function(GameTimerEvent) then) =
+  factory $GameTimerEventCopyWith(
+          GameTimerEvent value, $Res Function(GameTimerEvent) then) =
       _$GameTimerEventCopyWithImpl<$Res, GameTimerEvent>;
 }
 
 /// @nodoc
-class _$GameTimerEventCopyWithImpl<$Res, $Val extends GameTimerEvent> implements $GameTimerEventCopyWith<$Res> {
+class _$GameTimerEventCopyWithImpl<$Res, $Val extends GameTimerEvent>
+    implements $GameTimerEventCopyWith<$Res> {
   _$GameTimerEventCopyWithImpl(this._value, this._then);
 
-// ignore: unused_field
+  // ignore: unused_field
   final $Val _value;
-// ignore: unused_field
+  // ignore: unused_field
   final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$_StartCopyWith<$Res> {
-  factory _$$_StartCopyWith(_$_Start value, $Res Function(_$_Start) then) = __$$_StartCopyWithImpl<$Res>;
+  factory _$$_StartCopyWith(_$_Start value, $Res Function(_$_Start) then) =
+      __$$_StartCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StartCopyWithImpl<$Res> extends _$GameTimerEventCopyWithImpl<$Res, _$_Start>
+class __$$_StartCopyWithImpl<$Res>
+    extends _$GameTimerEventCopyWithImpl<$Res, _$_Start>
     implements _$$_StartCopyWith<$Res> {
-  __$$_StartCopyWithImpl(_$_Start _value, $Res Function(_$_Start) _then) : super(_value, _then);
+  __$$_StartCopyWithImpl(_$_Start _value, $Res Function(_$_Start) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -122,7 +124,8 @@ class _$_Start implements _Start {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_Start);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Start);
   }
 
   @override
@@ -221,13 +224,16 @@ abstract class _Start implements GameTimerEvent {
 
 /// @nodoc
 abstract class _$$_PauseCopyWith<$Res> {
-  factory _$$_PauseCopyWith(_$_Pause value, $Res Function(_$_Pause) then) = __$$_PauseCopyWithImpl<$Res>;
+  factory _$$_PauseCopyWith(_$_Pause value, $Res Function(_$_Pause) then) =
+      __$$_PauseCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PauseCopyWithImpl<$Res> extends _$GameTimerEventCopyWithImpl<$Res, _$_Pause>
+class __$$_PauseCopyWithImpl<$Res>
+    extends _$GameTimerEventCopyWithImpl<$Res, _$_Pause>
     implements _$$_PauseCopyWith<$Res> {
-  __$$_PauseCopyWithImpl(_$_Pause _value, $Res Function(_$_Pause) _then) : super(_value, _then);
+  __$$_PauseCopyWithImpl(_$_Pause _value, $Res Function(_$_Pause) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -242,7 +248,8 @@ class _$_Pause implements _Pause {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_Pause);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Pause);
   }
 
   @override
@@ -341,15 +348,18 @@ abstract class _Pause implements GameTimerEvent {
 
 /// @nodoc
 abstract class _$$_DoneCopyWith<$Res> {
-  factory _$$_DoneCopyWith(_$_Done value, $Res Function(_$_Done) then) = __$$_DoneCopyWithImpl<$Res>;
+  factory _$$_DoneCopyWith(_$_Done value, $Res Function(_$_Done) then) =
+      __$$_DoneCopyWithImpl<$Res>;
   @useResult
   $Res call({Team winner});
 }
 
 /// @nodoc
-class __$$_DoneCopyWithImpl<$Res> extends _$GameTimerEventCopyWithImpl<$Res, _$_Done>
+class __$$_DoneCopyWithImpl<$Res>
+    extends _$GameTimerEventCopyWithImpl<$Res, _$_Done>
     implements _$$_DoneCopyWith<$Res> {
-  __$$_DoneCopyWithImpl(_$_Done _value, $Res Function(_$_Done) _then) : super(_value, _then);
+  __$$_DoneCopyWithImpl(_$_Done _value, $Res Function(_$_Done) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -392,7 +402,8 @@ class _$_Done implements _Done {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DoneCopyWith<_$_Done> get copyWith => __$$_DoneCopyWithImpl<_$_Done>(this, _$identity);
+  _$$_DoneCopyWith<_$_Done> get copyWith =>
+      __$$_DoneCopyWithImpl<_$_Done>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -491,13 +502,16 @@ abstract class _Done implements GameTimerEvent {
 
 /// @nodoc
 abstract class _$$_TickCopyWith<$Res> {
-  factory _$$_TickCopyWith(_$_Tick value, $Res Function(_$_Tick) then) = __$$_TickCopyWithImpl<$Res>;
+  factory _$$_TickCopyWith(_$_Tick value, $Res Function(_$_Tick) then) =
+      __$$_TickCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_TickCopyWithImpl<$Res> extends _$GameTimerEventCopyWithImpl<$Res, _$_Tick>
+class __$$_TickCopyWithImpl<$Res>
+    extends _$GameTimerEventCopyWithImpl<$Res, _$_Tick>
     implements _$$_TickCopyWith<$Res> {
-  __$$_TickCopyWithImpl(_$_Tick _value, $Res Function(_$_Tick) _then) : super(_value, _then);
+  __$$_TickCopyWithImpl(_$_Tick _value, $Res Function(_$_Tick) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -512,7 +526,8 @@ class _$_Tick implements _Tick {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_Tick);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_Tick);
   }
 
   @override
@@ -611,14 +626,17 @@ abstract class _Tick implements GameTimerEvent {
 
 /// @nodoc
 abstract class _$$_PlayerOneFighterDeadCopyWith<$Res> {
-  factory _$$_PlayerOneFighterDeadCopyWith(_$_PlayerOneFighterDead value, $Res Function(_$_PlayerOneFighterDead) then) =
+  factory _$$_PlayerOneFighterDeadCopyWith(_$_PlayerOneFighterDead value,
+          $Res Function(_$_PlayerOneFighterDead) then) =
       __$$_PlayerOneFighterDeadCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PlayerOneFighterDeadCopyWithImpl<$Res> extends _$GameTimerEventCopyWithImpl<$Res, _$_PlayerOneFighterDead>
+class __$$_PlayerOneFighterDeadCopyWithImpl<$Res>
+    extends _$GameTimerEventCopyWithImpl<$Res, _$_PlayerOneFighterDead>
     implements _$$_PlayerOneFighterDeadCopyWith<$Res> {
-  __$$_PlayerOneFighterDeadCopyWithImpl(_$_PlayerOneFighterDead _value, $Res Function(_$_PlayerOneFighterDead) _then)
+  __$$_PlayerOneFighterDeadCopyWithImpl(_$_PlayerOneFighterDead _value,
+      $Res Function(_$_PlayerOneFighterDead) _then)
       : super(_value, _then);
 }
 
@@ -634,7 +652,8 @@ class _$_PlayerOneFighterDead implements _PlayerOneFighterDead {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_PlayerOneFighterDead);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_PlayerOneFighterDead);
   }
 
   @override
@@ -733,14 +752,17 @@ abstract class _PlayerOneFighterDead implements GameTimerEvent {
 
 /// @nodoc
 abstract class _$$_PlayerTwoFighterDeadCopyWith<$Res> {
-  factory _$$_PlayerTwoFighterDeadCopyWith(_$_PlayerTwoFighterDead value, $Res Function(_$_PlayerTwoFighterDead) then) =
+  factory _$$_PlayerTwoFighterDeadCopyWith(_$_PlayerTwoFighterDead value,
+          $Res Function(_$_PlayerTwoFighterDead) then) =
       __$$_PlayerTwoFighterDeadCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_PlayerTwoFighterDeadCopyWithImpl<$Res> extends _$GameTimerEventCopyWithImpl<$Res, _$_PlayerTwoFighterDead>
+class __$$_PlayerTwoFighterDeadCopyWithImpl<$Res>
+    extends _$GameTimerEventCopyWithImpl<$Res, _$_PlayerTwoFighterDead>
     implements _$$_PlayerTwoFighterDeadCopyWith<$Res> {
-  __$$_PlayerTwoFighterDeadCopyWithImpl(_$_PlayerTwoFighterDead _value, $Res Function(_$_PlayerTwoFighterDead) _then)
+  __$$_PlayerTwoFighterDeadCopyWithImpl(_$_PlayerTwoFighterDead _value,
+      $Res Function(_$_PlayerTwoFighterDead) _then)
       : super(_value, _then);
 }
 
@@ -756,7 +778,8 @@ class _$_PlayerTwoFighterDead implements _PlayerTwoFighterDead {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_PlayerTwoFighterDead);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_PlayerTwoFighterDead);
   }
 
   @override
@@ -862,24 +885,32 @@ mixin _$GameTimerState {
   int? get playerTwoFighterDeath => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $GameTimerStateCopyWith<GameTimerState> get copyWith => throw _privateConstructorUsedError;
+  $GameTimerStateCopyWith<GameTimerState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $GameTimerStateCopyWith<$Res> {
-  factory $GameTimerStateCopyWith(GameTimerState value, $Res Function(GameTimerState) then) =
+  factory $GameTimerStateCopyWith(
+          GameTimerState value, $Res Function(GameTimerState) then) =
       _$GameTimerStateCopyWithImpl<$Res, GameTimerState>;
   @useResult
-  $Res call({int seconds, TimerStatus status, Team? winner, int? playerOneFighterDeath, int? playerTwoFighterDeath});
+  $Res call(
+      {int seconds,
+      TimerStatus status,
+      Team? winner,
+      int? playerOneFighterDeath,
+      int? playerTwoFighterDeath});
 }
 
 /// @nodoc
-class _$GameTimerStateCopyWithImpl<$Res, $Val extends GameTimerState> implements $GameTimerStateCopyWith<$Res> {
+class _$GameTimerStateCopyWithImpl<$Res, $Val extends GameTimerState>
+    implements $GameTimerStateCopyWith<$Res> {
   _$GameTimerStateCopyWithImpl(this._value, this._then);
 
-// ignore: unused_field
+  // ignore: unused_field
   final $Val _value;
-// ignore: unused_field
+  // ignore: unused_field
   final $Res Function($Val) _then;
 
   @pragma('vm:prefer-inline')
@@ -917,18 +948,27 @@ class _$GameTimerStateCopyWithImpl<$Res, $Val extends GameTimerState> implements
 }
 
 /// @nodoc
-abstract class _$$_GameTimerStateCopyWith<$Res> implements $GameTimerStateCopyWith<$Res> {
-  factory _$$_GameTimerStateCopyWith(_$_GameTimerState value, $Res Function(_$_GameTimerState) then) =
+abstract class _$$_GameTimerStateCopyWith<$Res>
+    implements $GameTimerStateCopyWith<$Res> {
+  factory _$$_GameTimerStateCopyWith(
+          _$_GameTimerState value, $Res Function(_$_GameTimerState) then) =
       __$$_GameTimerStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int seconds, TimerStatus status, Team? winner, int? playerOneFighterDeath, int? playerTwoFighterDeath});
+  $Res call(
+      {int seconds,
+      TimerStatus status,
+      Team? winner,
+      int? playerOneFighterDeath,
+      int? playerTwoFighterDeath});
 }
 
 /// @nodoc
-class __$$_GameTimerStateCopyWithImpl<$Res> extends _$GameTimerStateCopyWithImpl<$Res, _$_GameTimerState>
+class __$$_GameTimerStateCopyWithImpl<$Res>
+    extends _$GameTimerStateCopyWithImpl<$Res, _$_GameTimerState>
     implements _$$_GameTimerStateCopyWith<$Res> {
-  __$$_GameTimerStateCopyWithImpl(_$_GameTimerState _value, $Res Function(_$_GameTimerState) _then)
+  __$$_GameTimerStateCopyWithImpl(
+      _$_GameTimerState _value, $Res Function(_$_GameTimerState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1006,7 +1046,8 @@ class _$_GameTimerState implements _GameTimerState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, seconds, status, winner, playerOneFighterDeath, playerTwoFighterDeath);
+  int get hashCode => Object.hash(runtimeType, seconds, status, winner,
+      playerOneFighterDeath, playerTwoFighterDeath);
 
   @JsonKey(ignore: true)
   @override
@@ -1035,5 +1076,6 @@ abstract class _GameTimerState implements GameTimerState {
   int? get playerTwoFighterDeath;
   @override
   @JsonKey(ignore: true)
-  _$$_GameTimerStateCopyWith<_$_GameTimerState> get copyWith => throw _privateConstructorUsedError;
+  _$$_GameTimerStateCopyWith<_$_GameTimerState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

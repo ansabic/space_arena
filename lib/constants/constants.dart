@@ -1,6 +1,6 @@
 import 'package:flame/components.dart';
 
-class Constants {
+abstract class Constants {
   static const worldSizeX = 2000.0;
   static const worldSizeY = 1200.0;
   static final worldSize = Vector2(worldSizeX, worldSizeY);
@@ -19,4 +19,13 @@ class Constants {
   static const goldMineGeneratePeriod = 60;
   static const plasmaMineGeneratePeriod = 75;
   static const crystalMineGeneratePeriod = 30;
+  static const gameDurationSeconds = 600;
+
+
+
+  static final routes = Routes();
+}
+class Routes {
+  final game = "game";
+  final settings = "settings";
 }

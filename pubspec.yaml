@@ -41,18 +41,17 @@ dependencies:
   flame: ^1.6.0
   get_it: ^7.2.0
   injectable: ^2.1.0
-  injectable_generator: ^2.1.4
-  build_runner: ^2.3.3
+
   collection: ^1.17.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
-  json_serializable: ^6.6.1
-  json_annotation: ^4.8.0
   desktop_window: ^0.4.0
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
 
 dev_dependencies:
+  injectable_generator: ^2.1.4
+  build_runner: ^2.3.3
   flutter_test:
     sdk: flutter
 

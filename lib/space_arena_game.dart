@@ -50,7 +50,6 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     await getIt<SpriteManager>().loadGameSprites();
     final connection = getIt<ClientConnection>();
     await connection.connect();
-
     await super.onLoad();
   }
 

@@ -18,6 +18,7 @@ import 'package:space_arena/space_arena_game.dart';
 
 import '../../characters/mine.dart';
 import '../../di/di.dart';
+import '../../settings/bloc/settings_bloc.dart';
 
 part 'game_timer.freezed.dart';
 part 'game_timer_event.dart';
@@ -25,7 +26,8 @@ part 'game_timer_state.dart';
 
 @lazySingleton
 class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
-  GameTimer() : super(const GameTimerState(status: TimerStatus.normal, seconds: 600)) {
+  final SettingsBloc _settingsBloc;
+  GameTimer(this._settingsBloc) : super(GameTimerState(status: TimerStatus.normal, seconds: _settingsBloc.state.gameDurationSeconds)) {
     on<GameTimerEvent>((event, emit) async {
       await event.map(start: (value) async {
         emit(state.copyWith(status: TimerStatus.normal));
@@ -34,7 +36,7 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
       }, tick: (value) async {
         if (state.status == TimerStatus.normal) {
           emit(state.copyWith(seconds: state.seconds - 1));
-          if (state.seconds % Constants.crystalMineGeneratePeriod == 0 &&
+          if (state.seconds % _settingsBloc.state.crystalMineCoolDown == 0 &&
               getIt<SpaceArenaGame>()
                       .children
                       .firstWhereOrNull((element) => element is Mine && element.mineType == MineType.crystal) ==

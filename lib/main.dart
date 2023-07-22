@@ -1,29 +1,24 @@
 import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
-import 'package:space_arena/space_arena_game.dart';
-
-import 'overlays/common_overlay.dart';
-import 'overlays/mothership_overlay.dart';
-import 'overlays/overlay_bloc/overlay_cubit.dart';
+import 'package:space_arena/game_screen/games_screen.dart';
+import 'package:space_arena/main_menu/main_menu.dart';
+import 'package:space_arena/settings/settings.dart';
 
 Future<void> main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
-  if(Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
+  if (Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
     await DesktopWindow.setFullScreen(true);
   }
   runApp(MaterialApp(
+    routes: {
+      Constants.routes.game : (_) => const GameScreen(),
+      Constants.routes.settings : (_) => const SettingsScreen()
+    },
       theme: ThemeData(textTheme: const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
-      home: Scaffold(
-          body: BlocProvider(
-        create: (_) => getIt<OverlayCubit>(),
-        child: Stack(
-            fit: StackFit.expand,
-            children: [GameWidget(game: getIt<SpaceArenaGame>()), const CommonOverlay(), const MothershipOverlay()]),
-      ))));
+      home: const MainMenu()));
 }

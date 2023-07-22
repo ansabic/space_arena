@@ -36,13 +36,15 @@ class ClientConnection {
   final eventMap = {};
   bool _registered = false;
 
+
   Future<void> connect() async {
-    _connection = await Socket.connect("192.168.1.9", 55555);
+    _connection = await Socket.connect("localhost", 55555);
     _subscribe();
   }
 
   Future<void> addEvent(Event event) async {
     _connection?.add(event.getBytes());
+
   }
 
   void _subscribe() {
