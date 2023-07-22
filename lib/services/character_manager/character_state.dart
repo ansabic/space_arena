@@ -1,6 +1,5 @@
+import 'package:model/team.dart';
 import 'package:space_arena/characters/types/character.dart';
-
-import '../../model/team.dart';
 
 abstract class CharacterState {
   final Team team;

@@ -1,7 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:space_arena/model/part_type.dart';
-import 'package:space_arena/model/price.dart';
+import 'package:model/part_type.dart';
+import 'package:model/price.dart';
 import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
 
 import '../../di/di.dart';
@@ -31,7 +32,12 @@ class PartWidget extends StatelessWidget {
                 },
                 child: Stack(
                   children: [
-                    Center(child: Image.asset(partType.resource, width: 80, height: 80)),
+                    Center(
+                        child: Image.asset(
+                      partType.resource,
+                      width: [MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height].min / 7,
+                      height: [MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height].min / 7,
+                    )),
                     Positioned(
                       top: 0,
                       left: 0,

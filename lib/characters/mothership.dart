@@ -1,14 +1,15 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:model/fighter_states.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/movable.dart';
+import 'package:space_arena/services/game_timer/game_timer.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
-import '../model/fighter_states.dart';
-import '../model/team.dart';
 import '../services/sprite_manager.dart';
 
 class Mothership extends Movable with Character, HasHealth {
@@ -31,6 +32,13 @@ class Mothership extends Movable with Character, HasHealth {
   int get maxHealth => 25;
   @override
   bool picked = false;
+
+  @override
+  onRemove() {
+    super.onRemove();
+    getIt<GameTimer>().add(
+        GameTimerEvent.done(winner: Team.values.firstWhere((element) => element != Team.neutral && element != team)));
+  }
 
   Mothership.firstPlayer(
       {this.team = Team.player1, double x = Constants.worldSizeX / 2, double y = Constants.worldSizeY * 0.8 + 50}) {

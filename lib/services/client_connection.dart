@@ -1,38 +1,38 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:events/create_part_event/create_part_event.dart';
+import 'package:events/crystal_mine_event/random_mine_event.dart';
+import 'package:events/damage_event/damage_event.dart';
+import 'package:events/disconnect_player_event/disconnect_player_event.dart';
+import 'package:events/event.dart';
+import 'package:events/event_service.dart';
+import 'package:events/move_event/move_event.dart';
+import 'package:events/pause_game_event/pause_game_event.dart';
+import 'package:events/register_event/register_event.dart';
+import 'package:events/resume_game_event/resume_game_event.dart';
+import 'package:events/shoot_event/shoot_event.dart';
+import 'package:events/start_game_event/start_game_event.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:model/part_type.dart';
 import 'package:space_arena/characters/mine.dart';
-import 'package:space_arena/coordinator/events/create_part_event/create_part_event.dart';
-import 'package:space_arena/coordinator/events/crystal_mine_event/random_mine_event.dart';
-import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
-import 'package:space_arena/coordinator/events/disconnect_player_event/disconnect_player_event.dart';
-import 'package:space_arena/coordinator/events/event.dart';
-import 'package:space_arena/coordinator/events/pause_game_event/pause_game_event.dart';
-import 'package:space_arena/coordinator/events/resume_game_event/resume_game_event.dart';
-import 'package:space_arena/coordinator/events/shoot_event/shoot_event.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
-import 'package:space_arena/services/event_service.dart';
 import 'package:space_arena/services/game_timer/game_timer.dart';
 import 'package:space_arena/services/parts_manager.dart';
 
 import '../characters/bullet.dart';
 import '../characters/part.dart';
 import '../characters/types/movable.dart';
-import '../coordinator/events/move_event/move_event.dart';
-import '../coordinator/events/register_event/register_event.dart';
-import '../coordinator/events/start_game_event/start_game_event.dart';
-import '../model/part_type.dart';
 import '../space_arena_game.dart';
 
 @lazySingleton
 class ClientConnection {
   Socket? _connection;
-  final eventService = EventService();
+  final eventService = getIt<EventService>();
   final eventMap = {};
   bool _registered = false;
 

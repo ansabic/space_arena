@@ -1,19 +1,19 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:model/part_side.dart';
+import 'package:model/part_type.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/mothership.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/shooter.dart';
-import 'package:space_arena/model/part_side.dart';
-import 'package:space_arena/model/part_type.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/parts_manager.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import '../constants/constants.dart';
 import '../di/di.dart';
-import '../model/team.dart';
 
 abstract class Part extends SpriteComponent with Character, CollisionCallbacks, HasHealth {
   @override

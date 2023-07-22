@@ -1,4 +1,4 @@
-import 'package:space_arena/model/team.dart';
+import 'package:model/team.dart';
 
 import '../../characters/types/character.dart';
 

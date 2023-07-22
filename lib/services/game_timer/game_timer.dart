@@ -3,13 +3,14 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
+import 'package:events/crystal_mine_event/random_mine_event.dart';
 import 'package:flame/components.dart' as f;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:model/mine_type.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/constants/constants.dart';
-import 'package:space_arena/coordinator/events/crystal_mine_event/random_mine_event.dart';
-import 'package:space_arena/model/mine_type.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
@@ -19,9 +20,7 @@ import '../../characters/mine.dart';
 import '../../di/di.dart';
 
 part 'game_timer.freezed.dart';
-
 part 'game_timer_event.dart';
-
 part 'game_timer_state.dart';
 
 @lazySingleton
@@ -118,6 +117,9 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
         emit(state.copyWith(playerOneFighterDeath: state.seconds));
       }, playerTwoFighterDead: (_PlayerTwoFighterDead value) {
         emit(state.copyWith(playerTwoFighterDeath: state.seconds));
+      }, done: (_Done value) {
+        getIt<SpaceArenaGame>().pauseEngine();
+        emit(state.copyWith(status: TimerStatus.done, winner: value.winner));
       });
     });
     Timer.periodic(const Duration(seconds: 1), (timer) {

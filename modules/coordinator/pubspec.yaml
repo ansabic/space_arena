@@ -1,0 +1,20 @@
+name: coordinator
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+version: 1.0.0+1
+publish_to: 'none'
+dependencies:
+  model:
+    path: ../model
+  events:
+    path: ../events
+
+  get_it: ^7.2.0
+  injectable: ^2.1.0
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  injectable_generator: ^2.1.4
+  build_runner: ^2.3.3
+  flutter_test:
+    sdk: flutter

@@ -1,17 +1,19 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:collection/collection.dart';
+import 'package:events/move_event/move_event.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
+import 'package:model/part_type.dart';
+import 'package:model/price.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/constants/constants.dart';
-import 'package:space_arena/coordinator/events/move_event/move_event.dart';
-import 'package:space_arena/model/part_type.dart';
 import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
 import 'package:space_arena/services/bank/bank_bloc.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
@@ -21,7 +23,6 @@ import 'package:space_arena/services/sprite_manager.dart';
 
 import 'characters/part.dart';
 import 'di/di.dart';
-import 'model/price.dart';
 
 class BackgroundComponent extends SpriteComponent {
   BackgroundComponent(Sprite sprite, Vector2 size) : super(sprite: sprite, size: size);
@@ -135,6 +136,12 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
             _characterManager.add(RemoveCharacter(character: candidate));
           }
           break;
+      }
+    } else if (Platform.isAndroid) {
+      final pickedCharacter = _characterManager.pickedCharacter;
+      if (pickedCharacter != null) {
+        getIt<ClientConnection>().addEvent(MoveEvent(
+            characterId: pickedCharacter.characterId, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
       }
     }
     getIt<OverlayCubit>().resetState();

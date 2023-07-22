@@ -3,18 +3,18 @@ import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:model/mine_type.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/characters/mothership.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/di/di.dart';
-import 'package:space_arena/model/team.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../../characters/mine.dart';
 import '../../characters/types/character.dart';
 import '../../constants/constants.dart';
-import '../../model/mine_type.dart';
 import 'character_state.dart';
 
 @lazySingleton

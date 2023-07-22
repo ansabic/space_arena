@@ -1,7 +1,7 @@
+import 'package:events/shoot_event/shoot_event.dart';
 import 'package:flame/components.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/constants/constants.dart';
-import 'package:space_arena/coordinator/events/shoot_event/shoot_event.dart';
-import 'package:space_arena/model/team.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 
 import '../../di/di.dart';

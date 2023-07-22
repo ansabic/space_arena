@@ -1,13 +1,13 @@
+import 'package:events/create_part_event/create_part_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:model/part_side.dart';
+import 'package:model/part_type.dart';
 import 'package:space_arena/di/di.dart';
-import 'package:space_arena/model/part_side.dart';
-import 'package:space_arena/model/part_type.dart';
 import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/parts_manager.dart';
 
 import '../../characters/types/character.dart';
-import '../../coordinator/events/create_part_event/create_part_event.dart';
 import '../overlay_bloc/overlay_cubit.dart';
 
 class ChooseSideWidget extends StatelessWidget {

@@ -2,18 +2,18 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:flame/components.dart';
+import 'package:model/fighter_states.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/movable.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/constants/constants.dart';
-import 'package:space_arena/model/fighter_states.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/game_timer/game_timer.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import '../di/di.dart';
-import '../model/team.dart';
 import '../services/character_manager/character_event.dart';
 
 class Fighter extends Movable with Character, Shooter, HasHealth {

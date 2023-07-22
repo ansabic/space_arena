@@ -4,15 +4,14 @@ import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:model/mine_type.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/types/character.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
-import 'package:space_arena/model/team.dart';
-import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 
-import '../model/mine_type.dart';
 import '../services/bank/bank_bloc.dart';
 import '../services/sprite_manager.dart';
 import 'bullet.dart';

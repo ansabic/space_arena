@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
+import 'package:model/team.dart';
 
 import '../../di/di.dart';
-import '../../model/team.dart';
 import '../../services/character_manager/character_manager.dart';
 
 /// Generalized mixin which represents server-aware in-game character

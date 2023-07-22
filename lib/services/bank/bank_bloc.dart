@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:space_arena/model/mine_type.dart';
+import 'package:model/mine_type.dart';
 
 part 'bank_event.dart';
 part 'bank_state.dart';

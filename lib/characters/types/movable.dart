@@ -3,11 +3,8 @@ import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:space_arena/characters/types/has_health.dart';
-import 'package:space_arena/coordinator/events/damage_event/damage_event.dart';
-import 'package:space_arena/model/fighter_states.dart';
+import 'package:model/fighter_states.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
-import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/space_arena_game.dart';
 
 import '../../constants/constants.dart';

@@ -1,0 +1,11 @@
+name: model
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+version: 1.0.0+1
+publish_to: 'none'
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

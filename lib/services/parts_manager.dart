@@ -2,17 +2,18 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
-import 'package:space_arena/characters/mothership.dart';
+import 'package:model/part_side.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/di/di.dart';
-import 'package:space_arena/model/part_side.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 
 import '../characters/types/character.dart';
-import '../model/team.dart';
 
 @lazySingleton
 class PartsManager {
   final Map<Character, Point<int>> points = {};
+
+  Iterable<Point<int>> get nonRootPoints => points.values.where((e) => e.y != 0 || e.x != 0);
 
   void removePart({required Character part}) {
     points.remove(part);
@@ -78,10 +79,9 @@ class PartsManager {
   }
 
   void _setSpeedWithFurthestPart({required Team team}) {
-    final furthestDistance = points.isNotEmpty ? points.values.map((e) => e.distanceTo(const Point(0, 0))).max : 1;
-    final mothership = getIt<CharacterManager>()
-        .characters
-        .firstWhere((element) => element is Mothership && element.team == team) as Mothership;
-    mothership.rotationSpeed = 1 / (furthestDistance * furthestDistance);
+    final furthestDistance =
+        nonRootPoints.isNotEmpty ? nonRootPoints.map((e) => e.distanceTo(const Point(0, 0))).max : 1;
+    final mothership = getIt<CharacterManager>().mothership;
+    mothership?.rotationSpeed = 1 / (furthestDistance * furthestDistance);
   }
 }
