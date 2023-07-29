@@ -1,9 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:space_arena/constants/constants.dart';
+import 'package:intranet_ip/intranet_ip.dart';
 
-import '../../services/my_address_test.dart';
+import '../../constants/constants.dart';
 
 part 'settings_bloc.freezed.dart';
 
@@ -13,9 +14,13 @@ part 'settings_state.dart';
 
 @lazySingleton
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  final MyAddressTest _myAddressTest;
+  final goldCd = TextEditingController();
+  final crystalCd = TextEditingController();
+  final plasmaCd = TextEditingController();
+  final gameDuration = TextEditingController();
+  final ipAddress = TextEditingController();
 
-  SettingsBloc(this._myAddressTest)
+  SettingsBloc()
       : super(const SettingsState(
             crystalMineCoolDown: Constants.crystalMineGeneratePeriod,
             gameDurationSeconds: Constants.gameDurationSeconds,
@@ -34,8 +39,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           emit(state.copyWith(plasmaMineCoolDown: value.plasmaMineCoolDown));
         },
         setMyIpAddress: (_SetMyIpAddress value) async {
-          final address = await _myAddressTest.getMyIpAddress();
-          print(address);
+          final address = (await intranetIpv4()).address;
           emit(state.copyWith(serverIpAddress: address));
         },
         setOtherAddress: (_SetOtherIpAddress value) {
@@ -45,7 +49,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           emit(state.copyWith(gameDurationSeconds: value.gameDurationSeconds));
         },
       );
-      add(const SettingsEvent.setMyIpAddress());
+
     });
+    add(const SettingsEvent.setMyIpAddress());
   }
 }

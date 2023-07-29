@@ -14,11 +14,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final goldCd = TextEditingController();
-    final crystalCd = TextEditingController();
-    final plasmaCd = TextEditingController();
-    final gameDuration = TextEditingController();
-    final ipAddress = TextEditingController();
+    final bloc = getIt<SettingsBloc>();
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocProvider(
@@ -30,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Expanded(
+                  const Expanded(
                     flex: 1,
                     child: Padding(
                       padding: EdgeInsets.symmetric(vertical: 40),
@@ -54,15 +50,15 @@ class SettingsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TextField(
-                                    controller: goldCd,
+                                    controller: bloc.goldCd,
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                   ),
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      final value = goldCd.text;
+                                      final value = bloc.goldCd.text;
                                       if (value.isNotEmpty) {
-                                        BlocProvider.of<SettingsBloc>(context)
+                                        getIt<SettingsBloc>()
                                             .add(SettingsEvent.setGoldMineCoolDown(goldMineCoolDown: int.parse(value)));
                                       }
                                     },
@@ -81,15 +77,15 @@ class SettingsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TextField(
-                                    controller: crystalCd,
+                                    controller: bloc.crystalCd,
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                   ),
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      final value = crystalCd.text;
+                                      final value = bloc.crystalCd.text;
                                       if (value.isNotEmpty) {
-                                        BlocProvider.of<SettingsBloc>(context).add(SettingsEvent.setCrystalMineCoolDown(
+                                        getIt<SettingsBloc>().add(SettingsEvent.setCrystalMineCoolDown(
                                             crystalMineCoolDown: int.parse(value)));
                                       }
                                     },
@@ -108,15 +104,15 @@ class SettingsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TextField(
-                                    controller: plasmaCd,
+                                    controller: bloc.plasmaCd,
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                   ),
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      final value = plasmaCd.text;
+                                      final value = bloc.plasmaCd.text;
                                       if (value.isNotEmpty) {
-                                        BlocProvider.of<SettingsBloc>(context).add(
+                                        getIt<SettingsBloc>().add(
                                             SettingsEvent.setPlasmaMineCoolDown(plasmaMineCoolDown: int.parse(value)));
                                       }
                                     },
@@ -135,7 +131,7 @@ class SettingsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TextField(
-                                    controller: gameDuration,
+                                    controller: bloc.gameDuration,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(RegExp(r'^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$'))
                                     ],
@@ -143,12 +139,12 @@ class SettingsScreen extends StatelessWidget {
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      final value = gameDuration.text;
+                                      final value =bloc.gameDuration.text;
                                       if (value.contains(":") && !value.endsWith(":") && !value.startsWith(":")) {
                                         final split = value.split(":");
                                         final mins = int.parse(split[0]) * 60;
                                         final secs = int.parse(split[1]);
-                                        BlocProvider.of<SettingsBloc>(context)
+                                        getIt<SettingsBloc>()
                                             .add(SettingsEvent.setGameDuration(gameDurationSeconds: mins + secs));
                                       }
                                     },
@@ -167,14 +163,14 @@ class SettingsScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: TextField(
-                                    controller: ipAddress,
+                                    controller: bloc.ipAddress,
                                   ),
                                 ),
                                 TextButton(
                                     onPressed: () {
-                                      final value = ipAddress.text;
+                                      final value = bloc.ipAddress.text;
                                       if (value.isNotEmpty) {
-                                        BlocProvider.of<SettingsBloc>(context)
+                                        getIt<SettingsBloc>()
                                             .add(SettingsEvent.setOtherAddress(address: value));
                                       }
                                     },

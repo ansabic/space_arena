@@ -33,6 +33,8 @@ dependencies:
 
   model:
     path: modules/model
+  coordinator:
+    path: modules/coordinator
   events:
     path: modules/events
   # The following adds the Cupertino Icons font to your application.
@@ -41,7 +43,7 @@ dependencies:
   flame: ^1.6.0
   get_it: ^7.2.0
   injectable: ^2.1.0
-
+  intranet_ip: ^1.0.2
   collection: ^1.17.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0

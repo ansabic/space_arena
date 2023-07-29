@@ -30,7 +30,7 @@ _i1.GetIt init(
     environmentFilter,
   );
   gh.lazySingleton<_i3.ServerConnection>(() => _i3.ServerConnection());
-  gh.factory<_i4.Coordinator>(() => _i4.Coordinator(
+  gh.lazySingleton<_i4.Coordinator>(() => _i4.Coordinator(
         gh<_i5.EventService>(),
         gh<_i3.ServerConnection>(),
       ));

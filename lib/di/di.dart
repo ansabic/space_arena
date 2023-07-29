@@ -1,3 +1,4 @@
+import 'package:coordinator/di/di.dart';
 import 'package:events/di/di.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -12,5 +13,5 @@ final getIt = GetIt.instance;
 )
 void configureDependencies() {
   init(getIt);
-  configureEventsDependencies();
+  configureCoordinatorDependencies();
 }

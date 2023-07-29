@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:coordinator/coordinator.dart';
+import 'package:events/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:intranet_ip/intranet_ip.dart';
 
 import '../constants/constants.dart';
 
@@ -35,8 +38,11 @@ class MainMenu extends StatelessWidget {
                   children: [
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        Navigator.popAndPushNamed(context, Constants.routes.game);
+                      onTap: () async {
+                        await getIt<Coordinator>().runServer(ip:  (await intranetIpv4()).address);
+                        if(context.mounted) {
+                          Navigator.popAndPushNamed(context, Constants.routes.game);
+                        }
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),

@@ -13,18 +13,18 @@ import 'di/di.dart';
 Future<void> main(List<String> args) async {
   configureCoordinatorDependencies();
   final coordinator = getIt<Coordinator>();
-  coordinator.runServer();
+  coordinator.runServer(ip: "192.168.1.9");
 }
 
-@injectable
+@lazySingleton
 class Coordinator {
   final EventService _eventService;
   final ServerConnection _connectionsService;
 
   Coordinator(this._eventService, this._connectionsService);
 
-  Future<void> runServer() async {
-    final socket = await ServerSocket.bind("192.168.1.9", 55555);
+  Future<void> runServer({required String ip}) async {
+    final socket = await ServerSocket.bind(ip, 55555);
     print("Server started");
 
     try {

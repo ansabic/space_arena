@@ -16,6 +16,7 @@ import 'package:events/start_game_event/start_game_event.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intranet_ip/intranet_ip.dart';
 import 'package:model/part_type.dart';
 import 'package:space_arena/characters/mine.dart';
 import 'package:space_arena/di/di.dart';
@@ -38,7 +39,7 @@ class ClientConnection {
 
 
   Future<void> connect() async {
-    _connection = await Socket.connect("localhost", 55555);
+    _connection = await Socket.connect((await intranetIpv4()).address, 55555);
     _subscribe();
   }
 
