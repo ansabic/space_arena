@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: TextField(
+                                  child: TextField(style: const TextStyle(color: Colors.white),
                                     controller: bloc.goldCd,
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                   ),
@@ -76,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: TextField(
+                                  child: TextField(style: const TextStyle(color: Colors.white),
                                     controller: bloc.crystalCd,
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                   ),
@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: TextField(
+                                  child: TextField(style: const TextStyle(color: Colors.white),
                                     controller: bloc.plasmaCd,
                                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                   ),
@@ -130,7 +130,7 @@ class SettingsScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: TextField(
+                                  child: TextField(style: const TextStyle(color: Colors.white),
                                     controller: bloc.gameDuration,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(RegExp(r'^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$'))
@@ -154,32 +154,6 @@ class SettingsScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                      Row(
-                        children: [
-                          const Expanded(child: Text("Server ip address:")),
-                          Expanded(child: Text(state.serverIpAddress)),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller: bloc.ipAddress,
-                                  ),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      final value = bloc.ipAddress.text;
-                                      if (value.isNotEmpty) {
-                                        getIt<SettingsBloc>()
-                                            .add(SettingsEvent.setOtherAddress(address: value));
-                                      }
-                                    },
-                                    child: const Text("Update"))
-                              ],
-                            ),
-                          )
-                        ],
-                      )
                     ],
                   )),
                   Padding(

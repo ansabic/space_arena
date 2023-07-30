@@ -28,4 +28,5 @@ abstract class Constants {
 class Routes {
   final game = "game";
   final settings = "settings";
+  final multiplayerMenu = "multiplayerMenu";
 }

@@ -9,7 +9,8 @@ import 'package:model/team.dart';
 class ServerConnection {
   final List<Socket> _connections = [];
 
-  void addConnection({required Socket connection}) {
+  void addConnection(Socket connection) {
+    print("added connection");
     _connections.add(connection);
     _registerClient(connection: connection);
   }
@@ -21,7 +22,7 @@ class ServerConnection {
   }
 
   ///The idea is to cache nothing within server but only to send data to all clients once server gets event
-  Future<void> broadcastEvent({required Event event}) async {
+  void broadcastEvent({required Event event})  {
     for (var connection in _connections) {
       connection.add(event.getBytes());
     }

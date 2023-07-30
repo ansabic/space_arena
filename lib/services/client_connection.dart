@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:coordinator/coordinator.dart';
+import 'package:coordinator/server_connection.dart';
 import 'package:events/create_part_event/create_part_event.dart';
 import 'package:events/crystal_mine_event/random_mine_event.dart';
 import 'package:events/damage_event/damage_event.dart';
@@ -16,10 +18,12 @@ import 'package:events/start_game_event/start_game_event.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intranet_ip/intranet_ip.dart';
 import 'package:model/part_type.dart';
+import 'package:model/team.dart';
 import 'package:space_arena/characters/mine.dart';
+import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
+import 'package:space_arena/main.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/game_timer/game_timer.dart';
@@ -37,38 +41,48 @@ class ClientConnection {
   final eventMap = {};
   bool _registered = false;
 
-
-  Future<void> connect() async {
-    _connection = await Socket.connect((await intranetIpv4()).address, 55555);
+  Future<bool> connect({required String ipAddress}) async {
+    if(_connection != null) {
+      return false;
+    }
+    _connection = await Socket.connect(ipAddress, 55555);
     _subscribe();
+    return _connection != null;
   }
 
   Future<void> addEvent(Event event) async {
     _connection?.add(event.getBytes());
-
   }
 
   void _subscribe() {
     _connection?.listen((bytes) async {
       final events = eventService.getEvents(utf8Message: utf8.decode(bytes));
+
+      print("size: ${events.length}");
       for (var event in events) {
+        ///Handle only registration events here
+
         if (!_registered) {
           if (event is RegisterEvent) {
+            print("first registration");
             _registered = true;
             getIt<CharacterManager>().add(InitCharacters(team: event.team));
           }
-          break;
         }
 
         /// Handle all the other events here
-        if (_registered) {
+        else {
+          print("event: " + event.toString());
           if (event is RegisterEvent) {
+            print("second registration");
             addEvent(const StartGameEvent());
           } else if (event is MoveEvent) {
             (getIt<CharacterManager>().characters[event.characterId] as Movable).moveTo(Vector2(event.x, event.y));
           } else if (event is StartGameEvent) {
-            //TODO Start game
-            debugPrint("Started");
+            if (globalKey.currentContext == null) {
+              throw Exception("No context attached!");
+            }
+            Navigator.pushNamedAndRemoveUntil(globalKey.currentContext!, Constants.routes.game, (_) => true);
           } else if (event is DisconnectPlayerEvent) {
             //TODO Pause game
           } else if (event is ShootEvent) {
@@ -108,9 +122,8 @@ class ClientConnection {
                 .add(AddCharacter(character: Mine(mineType: event.type)..position = Vector2(event.x, event.y)));
           }
         }
-      }
 
-      ///Handle only registration events here
+      }
     });
   }
 }

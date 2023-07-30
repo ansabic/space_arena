@@ -37,8 +37,8 @@ _i1.GetIt init(
   gh.lazySingleton<_i6.OverlayCubit>(() => _i6.OverlayCubit());
   gh.lazySingleton<_i7.PartsManager>(() => _i7.PartsManager());
   gh.lazySingleton<_i8.SettingsBloc>(() => _i8.SettingsBloc());
-  gh.lazySingleton<_i9.SpaceArenaGame>(
-      () => _i9.SpaceArenaGame(gh<_i4.CharacterManager>()));
+  gh.singleton<_i9.SpaceArenaGame>(
+      _i9.SpaceArenaGame(gh<_i4.CharacterManager>()));
   gh.lazySingleton<_i10.SpriteManager>(() => _i10.SpriteManager());
   gh.lazySingleton<_i11.GameTimer>(
       () => _i11.GameTimer(gh<_i8.SettingsBloc>()));

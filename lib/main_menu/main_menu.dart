@@ -27,7 +27,10 @@ class MainMenu extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Space arena", style: TextStyle(fontSize: 32),),
+                    Text(
+                      "Space arena",
+                      style: TextStyle(fontSize: 32),
+                    ),
                   ],
                 ),
               ),
@@ -39,24 +42,30 @@ class MainMenu extends StatelessWidget {
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () async {
-                        await getIt<Coordinator>().runServer(ip:  (await intranetIpv4()).address);
-                        if(context.mounted) {
+                        await getIt<Coordinator>().runGameServer();
+                        if (context.mounted) {
                           Navigator.popAndPushNamed(context, Constants.routes.game);
                         }
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Test", style: TextStyle(fontSize: 30),),
+                        child: Text(
+                          "Test",
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ),
                     ),
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-
+                        Navigator.pushNamed(context, Constants.routes.multiplayerMenu);
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Multiplayer",style: TextStyle(fontSize: 30),),
+                        child: Text(
+                          "Multiplayer",
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -66,7 +75,10 @@ class MainMenu extends StatelessWidget {
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Settings",style: TextStyle(fontSize: 30),),
+                        child: Text(
+                          "Settings",
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -76,7 +88,10 @@ class MainMenu extends StatelessWidget {
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Exit",style: TextStyle(fontSize: 30),),
+                        child: Text(
+                          "Exit",
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ),
                     )
                   ],

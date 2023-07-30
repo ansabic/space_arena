@@ -35,7 +35,7 @@ class BackgroundComponent extends SpriteComponent {
   }
 }
 
-@lazySingleton
+@singleton
 class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDetection, TapDetector, KeyboardEvents {
   final CharacterManager _characterManager;
 
@@ -47,9 +47,6 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   @override
   Future<void>? onLoad() async {
     camera.worldBounds = const Rect.fromLTWH(0, 0, Constants.worldSizeX, Constants.worldSizeY);
-    await getIt<SpriteManager>().loadGameSprites();
-    final connection = getIt<ClientConnection>();
-    await connection.connect();
     await super.onLoad();
   }
 

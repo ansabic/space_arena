@@ -18,7 +18,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final crystalCd = TextEditingController();
   final plasmaCd = TextEditingController();
   final gameDuration = TextEditingController();
-  final ipAddress = TextEditingController();
 
   SettingsBloc()
       : super(const SettingsState(
