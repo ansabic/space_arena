@@ -39,11 +39,7 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
     Player.playShipExplosion();
   }
 
-  ShapeHitbox get hitBox => RectangleHitbox(size: Constants.partSize)
-    ..renderShape = true
-    ..paint = (Paint()
-      ..color = Colors.cyan
-      ..style = PaintingStyle.stroke);
+  ShapeHitbox get hitBox => RectangleHitbox(size: Constants.partSize);
 
   Part({required this.partSide, required this.team, required PartType partType}) {
     switch (partType) {

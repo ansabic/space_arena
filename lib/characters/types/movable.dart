@@ -44,11 +44,7 @@ abstract class Movable extends SpriteAnimationGroupComponent<MovableState> with 
 
   bool thisPlayer() => team == getIt<CharacterManager>().team;
 
-  ShapeHitbox get hitBox => CircleHitbox(radius: Constants.partSize.x / 2)
-    ..renderShape = true
-    ..paint = (Paint()
-      ..color = Colors.cyan
-      ..style = PaintingStyle.stroke);
+  ShapeHitbox get hitBox => CircleHitbox(radius: Constants.partSize.x / 2);
 
   void moveTo(Vector2 destination) {
     this.destination = destination;

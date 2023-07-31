@@ -33,11 +33,7 @@ class Mine extends SpriteComponent with CollisionCallbacks, Character, HasHealth
     return super.onLoad();
   }
 
-  ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, 0))
-    ..renderShape = true
-    ..paint = (Paint()
-      ..color = Colors.cyan
-      ..style = PaintingStyle.stroke);
+  ShapeHitbox get hitBox => CircleHitbox(radius: [width, height].min / 2, anchor: const Anchor(0, 0));
 
   Mine({required this.mineType, this.team = Team.neutral}) {
     anchor = Anchor.center;
