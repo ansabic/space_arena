@@ -52,8 +52,6 @@ class SpriteManager {
         .loadSprite("parts2/ship2_detail.png", srcSize: Vector2(45, 45), srcPosition: Vector2(0, -18));
     thrusterPart = await getIt<SpaceArenaGame>()
         .loadSprite("parts2/ship2_detail2-2.png", srcSize: Vector2(30, 30), srcPosition: Vector2(0, -2));
-    connectionPart = await getIt<SpaceArenaGame>()
-        .loadSprite("parts2/ship2_turbines.png", srcSize: Vector2(21, 21), srcPosition: Vector2(-2.5, -0));
   }
 
   late Sprite bulletSprite;
@@ -78,5 +76,4 @@ class SpriteManager {
   late Sprite shieldPart;
   late Sprite weaponPart;
   late Sprite thrusterPart;
-  late Sprite connectionPart;
 }

@@ -105,13 +105,7 @@ flutter:
     - assets/images/corvette/
     - assets/images/fighter/
     - assets/images/icons/
-    - assets/images/parts1/
     - assets/images/parts2/
-    - assets/images/parts3/
-    - assets/images/parts4/
-    - assets/images/parts5/
-    - assets/images/parts6/
-    - assets/images/weapons/
     - assets/images/background/
   # assets:
   #   - images/a_dot_burr.jpeg
