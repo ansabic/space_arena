@@ -47,11 +47,12 @@ dependencies:
   collection: ^1.17.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
-  desktop_window: ^0.4.0
   bloc: ^8.1.1
   flutter_bloc: ^8.1.2
   flame_audio: ^1.4.1
   audioplayers: ^3.0.1
+  window_manager: ^0.3.5
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   injectable_generator: ^2.1.4

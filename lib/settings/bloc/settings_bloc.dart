@@ -19,6 +19,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final plasmaCd = TextEditingController();
   final gameDuration = TextEditingController();
 
+  void _clearAllTexts() {
+    goldCd.clear();
+    crystalCd.clear();
+    plasmaCd.clear();
+    gameDuration.clear();
+  }
+
   SettingsBloc()
       : super(const SettingsState(
             crystalMineCoolDown: Constants.crystalMineGeneratePeriod,
@@ -29,22 +36,28 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEvent>((event, emit) async {
       await event.map(
         setGoldMineCoolDown: (_SetGoldMineCD value) {
+          _clearAllTexts();
           emit(state.copyWith(goldMineCoolDown: value.goldMineCoolDown));
         },
         setCrystalMineCoolDown: (value) {
+          _clearAllTexts();
           emit(state.copyWith(crystalMineCoolDown: value.crystalMineCoolDown));
         },
         setPlasmaMineCoolDown: (value) {
+          _clearAllTexts();
           emit(state.copyWith(plasmaMineCoolDown: value.plasmaMineCoolDown));
         },
         setMyIpAddress: (_SetMyIpAddress value) async {
+          _clearAllTexts();
           final address = (await intranetIpv4()).address;
           emit(state.copyWith(serverIpAddress: address));
         },
         setOtherAddress: (_SetOtherIpAddress value) {
+          _clearAllTexts();
           emit(state.copyWith(serverIpAddress: value.address));
         },
         setGameDuration: (_SetGameDurationSeconds value) {
+          _clearAllTexts();
           emit(state.copyWith(gameDurationSeconds: value.gameDurationSeconds));
         },
       );

@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/game_screen/games_screen.dart';
@@ -11,6 +10,7 @@ import 'package:space_arena/main_menu/main_menu.dart';
 import 'package:space_arena/services/player/player.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 import 'package:space_arena/settings/settings.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'main_menu/bloc/main_menu_bloc.dart';
 import 'main_menu/multiplayer_menu/multiplayer_menu.dart';
@@ -23,7 +23,8 @@ Future<void> main() async {
   Player.playBackgroundIdle();
   await getIt<SpriteManager>().loadGameSprites();
   if (Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
-    await DesktopWindow.setFullScreen(true);
+    await windowManager.ensureInitialized();
+    await WindowManager.instance.setFullScreen(true);
   }
   runApp(MaterialApp(
       navigatorKey: globalKey,

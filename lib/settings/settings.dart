@@ -18,8 +18,8 @@ class SettingsScreen extends StatelessWidget {
     final bloc = getIt<SettingsBloc>();
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: BlocProvider(
-        create: (_) => getIt<SettingsBloc>(),
+      body: BlocProvider.value(
+        value: getIt<SettingsBloc>(),
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
             return Padding(
@@ -128,7 +128,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Expanded(child: Text("Game duration:")),
+                              const Expanded(child: Text("Game duration: ")),
                               Expanded(child: Text(state.gameDurationSeconds.timeFormat)),
                               Expanded(
                                 child: Row(
@@ -137,21 +137,15 @@ class SettingsScreen extends StatelessWidget {
                                       child: TextField(
                                         style: const TextStyle(color: Colors.white),
                                         controller: bloc.gameDuration,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.allow(
-                                              RegExp(r'^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$'))
-                                        ],
+                                        inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$"))],
                                       ),
                                     ),
                                     TextButton(
                                         onPressed: () {
                                           final value = bloc.gameDuration.text;
-                                          if (value.contains(":") && !value.endsWith(":") && !value.startsWith(":")) {
-                                            final split = value.split(":");
-                                            final mins = int.parse(split[0]) * 60;
-                                            final secs = int.parse(split[1]);
-                                            getIt<SettingsBloc>()
-                                                .add(SettingsEvent.setGameDuration(gameDurationSeconds: mins + secs));
+                                          if (value.isNotEmpty) {
+                                            getIt<SettingsBloc>().add(
+                                                SettingsEvent.setGameDuration(gameDurationSeconds: int.parse(value)));
                                           }
                                         },
                                         child: const Text("Update"))

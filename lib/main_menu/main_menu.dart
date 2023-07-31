@@ -32,7 +32,7 @@ class MainMenu extends StatelessWidget {
                   children: [
                     Text(
                       "Space arena",
-                      style: TextStyle(fontSize: 32),
+                      style: TextStyle(fontSize: 32, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
