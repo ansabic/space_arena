@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/characters/types/shooter.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/parts_manager.dart';
+import 'package:space_arena/services/player/player.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import '../constants/constants.dart';
@@ -34,6 +36,7 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
     if (getIt<PartsManager>().points.keys.contains(this)) {
       getIt<PartsManager>().removePart(part: this);
     }
+    Player.playShipExplosion();
   }
 
   ShapeHitbox get hitBox => RectangleHitbox(size: Constants.partSize)

@@ -19,6 +19,7 @@ import 'package:space_arena/services/bank/bank_bloc.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
+import 'package:space_arena/services/player/player.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 
 import 'characters/part.dart';
@@ -47,6 +48,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   @override
   Future<void>? onLoad() async {
     camera.worldBounds = const Rect.fromLTWH(0, 0, Constants.worldSizeX, Constants.worldSizeY);
+    Player.playBackgroundGame();
     await super.onLoad();
   }
 

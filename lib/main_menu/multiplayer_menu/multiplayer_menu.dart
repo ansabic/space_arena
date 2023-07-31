@@ -67,7 +67,7 @@ class MultiplayerMenu extends StatelessWidget {
                                 return;
                               }
                               final myAddress = (await intranetIpv4()).address;
-                              getIt<Coordinator>().udpSocket.send(utf8.encode("stop_udp_space_arena$myAddress$address"),
+                              getIt<Coordinator>().udpSocket?.send(utf8.encode("stop_udp_space_arena$myAddress$address"),
                                   InternetAddress("255.255.255.255"), 55600);
                               if (address.startsWith(myAddress)) {
                                 await getIt<ClientConnection>().connect(ipAddress: address.replaceAll(myAddress, ""));

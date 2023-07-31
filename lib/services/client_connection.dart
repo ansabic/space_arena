@@ -28,6 +28,7 @@ import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/game_timer/game_timer.dart';
 import 'package:space_arena/services/parts_manager.dart';
+import 'package:space_arena/services/player/player.dart';
 
 import '../characters/bullet.dart';
 import '../characters/part.dart';
@@ -64,7 +65,7 @@ class ClientConnection {
 
         if (!_registered) {
           if (event is RegisterEvent) {
-            print("first registration");
+            print("first registration: ${event.toJson()}");
             _registered = true;
             getIt<CharacterManager>().add(InitCharacters(team: event.team));
           }
@@ -91,6 +92,7 @@ class ClientConnection {
                 start: Vector2(event.startX, event.startY),
                 direction: Vector2(event.dirX, event.dirY),
                 team: event.team));
+                        Player.playLaser();
           } else if (event is DamageEvent) {
             getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
           } else if (event is CreatePartEvent) {

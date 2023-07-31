@@ -15,6 +15,7 @@ import 'package:space_arena/services/sprite_manager.dart';
 
 import '../di/di.dart';
 import '../services/character_manager/character_event.dart';
+import '../services/player/player.dart';
 
 class Fighter extends Movable with Character, Shooter, HasHealth {
   @override
@@ -87,5 +88,6 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
         getIt<CharacterManager>().add(PickCharacter(character: other));
       }
     }
+    Player.playShipExplosion();
   }
 }

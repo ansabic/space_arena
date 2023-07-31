@@ -6,6 +6,7 @@ import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/game_screen/games_screen.dart';
 import 'package:space_arena/main_menu/main_menu.dart';
+import 'package:space_arena/services/player/player.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 import 'package:space_arena/settings/settings.dart';
 
@@ -16,6 +17,7 @@ final globalKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
+  Player.playBackgroundIdle();
   await getIt<SpriteManager>().loadGameSprites();
   if (Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
     await DesktopWindow.setFullScreen(true);

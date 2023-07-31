@@ -4,6 +4,7 @@ import 'package:coordinator/coordinator.dart';
 import 'package:events/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:intranet_ip/intranet_ip.dart';
+import 'package:space_arena/services/client_connection.dart';
 
 import '../constants/constants.dart';
 
@@ -43,6 +44,7 @@ class MainMenu extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: () async {
                         await getIt<Coordinator>().runGameServer();
+                        await getIt<ClientConnection>().connect(ipAddress: (await intranetIpv4()).address);
                         if (context.mounted) {
                           Navigator.popAndPushNamed(context, Constants.routes.game);
                         }

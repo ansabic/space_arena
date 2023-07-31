@@ -13,6 +13,7 @@ import 'package:space_arena/di/di.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 
 import '../services/bank/bank_bloc.dart';
+import '../services/player/player.dart';
 import '../services/sprite_manager.dart';
 import 'bullet.dart';
 
@@ -68,4 +69,10 @@ class Mine extends SpriteComponent with CollisionCallbacks, Character, HasHealth
 
   @override
   late int currentHealth;
+
+  @override
+  void onRemove() {
+    super.onRemove();
+    Player.playShipExplosion();
+  }
 }

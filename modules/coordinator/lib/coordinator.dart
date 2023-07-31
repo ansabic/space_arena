@@ -21,23 +21,24 @@ Future<void> main(List<String> args) async {
 class Coordinator {
   final EventService _eventService;
   final ServerConnection _connectionsService;
-  late RawDatagramSocket udpSocket;
+  RawDatagramSocket? udpSocket;
   late ServerSocket _tcpSocket;
   Timer? timer;
   bool _stoppedUdp = false;
 
   Coordinator(this._eventService, this._connectionsService);
 
-  void stopHostServer() {
+  void _stopHostServer() {
     print("stopped listening udp...");
+    _stoppedUdp = true;
     timer?.cancel();
-    udpSocket.close();
+    udpSocket?.close();
   }
 
   Stream<String?> hostServerListener({required bool isHost}) async* {
     await initHostServer();
-    yield* udpSocket.map((event) {
-      final data = udpSocket.receive();
+    yield* udpSocket?.map((event) {
+      final data = udpSocket?.receive();
       final message = utf8.decode(data?.data ?? []);
       if (message.startsWith("space_arena_host")) {
         final ip = message.replaceAll("space_arena_host", "");
@@ -45,30 +46,31 @@ class Coordinator {
       }
       if (message.startsWith("stop_udp_space_arena")) {
         final ip = message.replaceAll("stop_udp_space_arena", "");
-        stopHostServer();
+        _stopHostServer();
         _stoppedUdp = true;
         return ip;
       }
       return null;
-    });
+    }) ?? Stream.empty();
   }
 
   Future<void> initHostServer() async {
     udpSocket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, 55600);
-    udpSocket.broadcastEnabled = true;
-    udpSocket.readEventsEnabled = true;
+    udpSocket?.broadcastEnabled = true;
+    udpSocket?.readEventsEnabled = true;
     print("Udp server started");
   }
 
   void ping() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) async {
       print("ping");
-      udpSocket.send(
+      udpSocket?.send(
           utf8.encode("space_arena_host" + (await intranetIpv4()).address), InternetAddress("255.255.255.255"), 55600);
     });
   }
 
   Future<void> runGameServer() async {
+    _stopHostServer();
     _tcpSocket = await ServerSocket.bind(InternetAddress.anyIPv4, 55555);
     print("Tcp server started");
     _listenToTcpEvents();
