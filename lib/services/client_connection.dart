@@ -24,6 +24,7 @@ import 'package:space_arena/characters/mine.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/main.dart';
+import 'package:space_arena/services/bank/bank_bloc.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/game_timer/game_timer.dart';
@@ -43,7 +44,7 @@ class ClientConnection {
   bool _registered = false;
 
   Future<bool> connect({required String ipAddress}) async {
-    if(_connection != null) {
+    if (_connection != null) {
       return false;
     }
     _connection = await Socket.connect(ipAddress, 55555);
@@ -92,7 +93,7 @@ class ClientConnection {
                 start: Vector2(event.startX, event.startY),
                 direction: Vector2(event.dirX, event.dirY),
                 team: event.team));
-                        Player.playLaser();
+            Player.playLaser();
           } else if (event is DamageEvent) {
             getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
           } else if (event is CreatePartEvent) {
@@ -113,6 +114,9 @@ class ClientConnection {
             getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
             await part.addToParent(from);
             getIt<CharacterManager>().add(AddCharacter(character: part));
+            if (event.team == getIt<CharacterManager>().team) {
+              getIt<BankBloc>().add(BuyPart(part: event.type));
+            }
           } else if (event is PauseGameEvent) {
             getIt<SpaceArenaGame>().pauseEngine();
             getIt<GameTimer>().add(const GameTimerEvent.pause());
@@ -124,7 +128,6 @@ class ClientConnection {
                 .add(AddCharacter(character: Mine(mineType: event.type)..position = Vector2(event.x, event.y)));
           }
         }
-
       }
     });
   }

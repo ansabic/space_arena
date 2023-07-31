@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:model/mine_type.dart';
+import 'package:model/part_type.dart';
 
 part 'bank_event.dart';
+
 part 'bank_state.dart';
 
 @lazySingleton
@@ -21,6 +23,12 @@ class BankBloc extends Bloc<BankEvent, BankState> {
           emit(RefreshBankState(gold: state.gold, crystal: state.crystal + yield, plasma: state.plasma));
           break;
       }
+    });
+    on<BuyPart>((event, emit) {
+      emit(RefreshBankState(
+          gold: state.gold - event.part.price.gold,
+          crystal: state.crystal - event.part.price.crystal,
+          plasma: state.plasma - event.part.price.plasma));
     });
   }
 }

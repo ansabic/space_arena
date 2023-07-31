@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:coordinator/coordinator.dart';
 import 'package:coordinator/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intranet_ip/intranet_ip.dart';
+import 'package:space_arena/main_menu/bloc/main_menu_bloc.dart';
 import 'package:space_arena/services/client_connection.dart';
 
 enum MultiplayerMenuState {
@@ -22,7 +24,7 @@ class MultiplayerMenu extends StatelessWidget {
     final stateController = StreamController<MultiplayerMenuState>();
     stateController.add(MultiplayerMenuState.idle);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       body: StreamBuilder<MultiplayerMenuState>(
           stream: stateController.stream,
           builder: (context, data) {
@@ -67,8 +69,10 @@ class MultiplayerMenu extends StatelessWidget {
                                 return;
                               }
                               final myAddress = (await intranetIpv4()).address;
-                              getIt<Coordinator>().udpSocket?.send(utf8.encode("stop_udp_space_arena$myAddress$address"),
-                                  InternetAddress("255.255.255.255"), 55600);
+                              getIt<Coordinator>().udpSocket?.send(
+                                  utf8.encode("stop_udp_space_arena$myAddress$address"),
+                                  InternetAddress("255.255.255.255"),
+                                  55600);
                               if (address.startsWith(myAddress)) {
                                 await getIt<ClientConnection>().connect(ipAddress: address.replaceAll(myAddress, ""));
                               }
@@ -82,18 +86,76 @@ class MultiplayerMenu extends StatelessWidget {
                             ),
                           ),
                         ),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            BlocProvider.of<MainMenuBloc>(context)
+                                .add(const MainMenuEvent.changePage(entry: MainMenuEntry.mainMenu));
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 15.0),
+                            child: Text(
+                              "Main menu",
+                              style: TextStyle(fontSize: 30),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 );
               case MultiplayerMenuState.hostPinging:
                 getIt<Coordinator>().ping();
-                return const Center(
-                  child: Text("Waiting for another player to join...."),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Waiting for another player to join...."),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () async {
+                          await getIt<Coordinator>().stopPingingOrListening();
+                          if (context.mounted) {
+                            BlocProvider.of<MainMenuBloc>(context)
+                                .add(const MainMenuEvent.changePage(entry: MainMenuEntry.mainMenu));
+                          }
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            "Main menu",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               case MultiplayerMenuState.clientJoining:
-                return const Center(
-                  child: Text("Waiting to establish connection with the host..."),
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Waiting to establish connection with the host..."),
+                      GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () async {
+                          await getIt<Coordinator>().stopPingingOrListening();
+                          if(context.mounted) {
+                            BlocProvider.of<MainMenuBloc>(context)
+                              .add(const MainMenuEvent.changePage(entry: MainMenuEntry.mainMenu));
+                          }
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15.0),
+                          child: Text(
+                            "Main menu",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               default:
                 return const Center(child: CircularProgressIndicator.adaptive());

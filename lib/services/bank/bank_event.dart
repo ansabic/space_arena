@@ -7,3 +7,9 @@ class AddValue extends BankEvent {
 
   AddValue({required this.mineType});
 }
+
+class BuyPart extends BankEvent {
+  final PartType part;
+
+  BuyPart({required this.part});
+}

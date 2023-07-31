@@ -69,6 +69,12 @@ class Coordinator {
     });
   }
 
+  Future<void> stopPingingOrListening() async {
+    _stopHostServer();
+    await _tcpSocket.close();
+    _stoppedUdp = false;
+  }
+
   Future<void> runGameServer() async {
     _stopHostServer();
     _tcpSocket = await ServerSocket.bind(InternetAddress.anyIPv4, 55555);

@@ -10,9 +10,6 @@ class SpriteManager {
     ///Bullet
     bulletSprite = await getIt<SpaceArenaGame>().loadSprite("bomber/Charge_1.png");
 
-    ///Background
-    background = await getIt<SpaceArenaGame>().loadSprite("background/purple_space.png");
-
     ///Mines
     goldMine = await getIt<SpaceArenaGame>().loadSprite("icons/15.png", srcSize: Vector2(512, 512));
     crystalMine = await getIt<SpaceArenaGame>().loadSprite("icons/20.png", srcSize: Vector2(512, 512));

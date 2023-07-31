@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:coordinator/coordinator.dart';
 import 'package:events/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intranet_ip/intranet_ip.dart';
 import 'package:space_arena/services/client_connection.dart';
 
 import '../constants/constants.dart';
+import 'bloc/main_menu_bloc.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
@@ -14,7 +16,7 @@ class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.transparent,
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -60,7 +62,8 @@ class MainMenu extends StatelessWidget {
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        Navigator.pushNamed(context, Constants.routes.multiplayerMenu);
+                        BlocProvider.of<MainMenuBloc>(context)
+                            .add(const MainMenuEvent.changePage(entry: MainMenuEntry.multiplayer));
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -73,7 +76,8 @@ class MainMenu extends StatelessWidget {
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
-                        Navigator.pushNamed(context, Constants.routes.settings);
+                        BlocProvider.of<MainMenuBloc>(context)
+                            .add(const MainMenuEvent.changePage(entry: MainMenuEntry.settings));
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
