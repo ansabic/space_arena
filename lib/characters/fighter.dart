@@ -29,10 +29,7 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
   @override
   Team team;
   @override
-  String name = "Fighter";
-  @override
   int currentHealth = 10;
-
   @override
   int get maxHealth => 10;
   @override
@@ -54,6 +51,7 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
     anchor = Anchor.center;
     position = Vector2(x, y);
     picked = true;
+    name = "first_fighter";
   }
 
   Fighter.secondPlayer(
@@ -69,6 +67,8 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
+    picked = true;
+    name = "second_fighter";
   }
 
   @override
@@ -80,14 +80,14 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
       getIt<GameTimer>().add(const GameTimerEvent.playerTwoFighterDead());
     }
     if (picked) {
-      final other = getIt<CharacterManager>()
-          .state
-          .characters
-          .firstWhereOrNull((element) => element.team == team && element is Movable);
+      final other = getIt<CharacterManager>().mothership;
       if (other != null) {
         getIt<CharacterManager>().add(PickCharacter(character: other));
       }
     }
     Player.playShipExplosion();
   }
+
+  @override
+  late String name;
 }

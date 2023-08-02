@@ -25,7 +25,7 @@ class Mothership extends Movable with Character, HasHealth {
   @override
   double speed = 15;
   @override
-  String name = "Mothership";
+  late String name;
   @override
   int currentHealth = 25;
 
@@ -54,6 +54,7 @@ class Mothership extends Movable with Character, HasHealth {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
+    name = "first_mothership";
   }
 
   Mothership.secondPlayer(
@@ -70,5 +71,7 @@ class Mothership extends Movable with Character, HasHealth {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
+    name = "second_mothership";
+
   }
 }

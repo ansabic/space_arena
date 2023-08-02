@@ -25,31 +25,35 @@ mixin _$StartGameEvent {
 
 /// @nodoc
 abstract class $StartGameEventCopyWith<$Res> {
-  factory $StartGameEventCopyWith(StartGameEvent value, $Res Function(StartGameEvent) then) =
+  factory $StartGameEventCopyWith(
+          StartGameEvent value, $Res Function(StartGameEvent) then) =
       _$StartGameEventCopyWithImpl<$Res, StartGameEvent>;
 }
 
 /// @nodoc
-class _$StartGameEventCopyWithImpl<$Res, $Val extends StartGameEvent> implements $StartGameEventCopyWith<$Res> {
+class _$StartGameEventCopyWithImpl<$Res, $Val extends StartGameEvent>
+    implements $StartGameEventCopyWith<$Res> {
   _$StartGameEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 }
 
 /// @nodoc
 abstract class _$$_StartGameEventCopyWith<$Res> {
-  factory _$$_StartGameEventCopyWith(_$_StartGameEvent value, $Res Function(_$_StartGameEvent) then) =
+  factory _$$_StartGameEventCopyWith(
+          _$_StartGameEvent value, $Res Function(_$_StartGameEvent) then) =
       __$$_StartGameEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_StartGameEventCopyWithImpl<$Res> extends _$StartGameEventCopyWithImpl<$Res, _$_StartGameEvent>
+class __$$_StartGameEventCopyWithImpl<$Res>
+    extends _$StartGameEventCopyWithImpl<$Res, _$_StartGameEvent>
     implements _$$_StartGameEventCopyWith<$Res> {
-  __$$_StartGameEventCopyWithImpl(_$_StartGameEvent _value, $Res Function(_$_StartGameEvent) _then)
+  __$$_StartGameEventCopyWithImpl(
+      _$_StartGameEvent _value, $Res Function(_$_StartGameEvent) _then)
       : super(_value, _then);
 }
 
@@ -58,7 +62,8 @@ class __$$_StartGameEventCopyWithImpl<$Res> extends _$StartGameEventCopyWithImpl
 class _$_StartGameEvent extends _StartGameEvent {
   const _$_StartGameEvent() : super._();
 
-  factory _$_StartGameEvent.fromJson(Map<String, dynamic> json) => _$$_StartGameEventFromJson(json);
+  factory _$_StartGameEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_StartGameEventFromJson(json);
 
   @override
   String toString() {
@@ -67,7 +72,8 @@ class _$_StartGameEvent extends _StartGameEvent {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is _$_StartGameEvent);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_StartGameEvent);
   }
 
   @JsonKey(ignore: true)
@@ -84,8 +90,8 @@ class _$_StartGameEvent extends _StartGameEvent {
 
 abstract class _StartGameEvent extends StartGameEvent {
   const factory _StartGameEvent() = _$_StartGameEvent;
-
   const _StartGameEvent._() : super._();
 
-  factory _StartGameEvent.fromJson(Map<String, dynamic> json) = _$_StartGameEvent.fromJson;
+  factory _StartGameEvent.fromJson(Map<String, dynamic> json) =
+      _$_StartGameEvent.fromJson;
 }

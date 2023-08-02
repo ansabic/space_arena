@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:events/event.dart';
 import 'package:events/register_event/register_event.dart';
+import 'package:events/start_game_event/start_game_event.dart';
 import 'package:injectable/injectable.dart';
 import 'package:model/team.dart';
 
@@ -10,9 +11,11 @@ class ServerConnection {
   final List<Socket> _connections = [];
 
   void addConnection(Socket connection) {
-    print("added connection");
     _connections.add(connection);
     _registerClient(connection: connection);
+    if(_connections.length == 2) {
+      broadcastEvent(event: const StartGameEvent());
+    }
   }
 
   void _registerClient({required Socket connection}) {

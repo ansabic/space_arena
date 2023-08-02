@@ -20,13 +20,13 @@ Future<void> main(List<String> args) async {
 @lazySingleton
 class Coordinator {
   final EventService _eventService;
-  final ServerConnection _connectionsService;
+  final ServerConnection _coordinator;
   RawDatagramSocket? udpSocket;
   late ServerSocket _tcpSocket;
   Timer? timer;
   bool _stoppedUdp = false;
 
-  Coordinator(this._eventService, this._connectionsService);
+  Coordinator(this._eventService, this._coordinator);
 
   void _stopHostServer() {
     print("stopped listening udp...");
@@ -35,7 +35,7 @@ class Coordinator {
     udpSocket?.close();
   }
 
-  Stream<String?> hostServerListener({required bool isHost}) async* {
+  Stream<String?> get hostServerListener async* {
     await initHostServer();
     yield* udpSocket?.map((event) {
       final data = udpSocket?.receive();
@@ -69,14 +69,11 @@ class Coordinator {
     });
   }
 
-  Future<void> stopPingingOrListening() async {
-    _stopHostServer();
-    await _tcpSocket.close();
-    _stoppedUdp = false;
+  void stopPingingOrListening()  {
+    _stoppedUdp = true;
   }
 
   Future<void> runGameServer() async {
-    _stopHostServer();
     _tcpSocket = await ServerSocket.bind(InternetAddress.anyIPv4, 55555);
     print("Tcp server started");
     _listenToTcpEvents();
@@ -90,18 +87,18 @@ class Coordinator {
           return;
         }
         print("Added connection to server: " + connection.remoteAddress.address);
-        _connectionsService.addConnection(connection);
         connection.listen((message) {
           final events = _eventService.getEvents(utf8Message: utf8.decode(message));
           for (var element in events) {
-            _connectionsService.broadcastEvent(event: element);
+            _coordinator.broadcastEvent(event: element);
           }
         }, onDone: () async {
-          final index = _connectionsService.removeConnection(connection: connection);
-          _connectionsService.broadcastEvent(
+          final index = _coordinator.removeConnection(connection: connection);
+          _coordinator.broadcastEvent(
               event: DisconnectPlayerEvent(team: Team.values.firstWhere((element) => element.index == index)));
-          await _connectionsService.checkIfEmpty();
+          await _coordinator.checkIfEmpty();
         });
+        _coordinator.addConnection(connection);
       });
     } on Exception catch (e) {
       print(e);

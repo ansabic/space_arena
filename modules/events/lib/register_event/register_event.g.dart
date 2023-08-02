@@ -6,11 +6,13 @@ part of 'register_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_RegisterEvent _$$_RegisterEventFromJson(Map<String, dynamic> json) => _$_RegisterEvent(
+_$_RegisterEvent _$$_RegisterEventFromJson(Map<String, dynamic> json) =>
+    _$_RegisterEvent(
       team: $enumDecode(_$TeamEnumMap, json['team']),
     );
 
-Map<String, dynamic> _$$_RegisterEventToJson(_$_RegisterEvent instance) => <String, dynamic>{
+Map<String, dynamic> _$$_RegisterEventToJson(_$_RegisterEvent instance) =>
+    <String, dynamic>{
       'team': _$TeamEnumMap[instance.team]!,
     };
 

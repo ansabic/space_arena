@@ -21,33 +21,31 @@ RandomMineEvent _$RandomMineEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RandomMineEvent {
   double get x => throw _privateConstructorUsedError;
-
   double get y => throw _privateConstructorUsedError;
-
   MineType get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $RandomMineEventCopyWith<RandomMineEvent> get copyWith => throw _privateConstructorUsedError;
+  $RandomMineEventCopyWith<RandomMineEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $RandomMineEventCopyWith<$Res> {
-  factory $RandomMineEventCopyWith(RandomMineEvent value, $Res Function(RandomMineEvent) then) =
+  factory $RandomMineEventCopyWith(
+          RandomMineEvent value, $Res Function(RandomMineEvent) then) =
       _$RandomMineEventCopyWithImpl<$Res, RandomMineEvent>;
-
   @useResult
   $Res call({double x, double y, MineType type});
 }
 
 /// @nodoc
-class _$RandomMineEventCopyWithImpl<$Res, $Val extends RandomMineEvent> implements $RandomMineEventCopyWith<$Res> {
+class _$RandomMineEventCopyWithImpl<$Res, $Val extends RandomMineEvent>
+    implements $RandomMineEventCopyWith<$Res> {
   _$RandomMineEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -76,19 +74,22 @@ class _$RandomMineEventCopyWithImpl<$Res, $Val extends RandomMineEvent> implemen
 }
 
 /// @nodoc
-abstract class _$$_RandomMineEventCopyWith<$Res> implements $RandomMineEventCopyWith<$Res> {
-  factory _$$_RandomMineEventCopyWith(_$_RandomMineEvent value, $Res Function(_$_RandomMineEvent) then) =
+abstract class _$$_RandomMineEventCopyWith<$Res>
+    implements $RandomMineEventCopyWith<$Res> {
+  factory _$$_RandomMineEventCopyWith(
+          _$_RandomMineEvent value, $Res Function(_$_RandomMineEvent) then) =
       __$$_RandomMineEventCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({double x, double y, MineType type});
 }
 
 /// @nodoc
-class __$$_RandomMineEventCopyWithImpl<$Res> extends _$RandomMineEventCopyWithImpl<$Res, _$_RandomMineEvent>
+class __$$_RandomMineEventCopyWithImpl<$Res>
+    extends _$RandomMineEventCopyWithImpl<$Res, _$_RandomMineEvent>
     implements _$$_RandomMineEventCopyWith<$Res> {
-  __$$_RandomMineEventCopyWithImpl(_$_RandomMineEvent _value, $Res Function(_$_RandomMineEvent) _then)
+  __$$_RandomMineEventCopyWithImpl(
+      _$_RandomMineEvent _value, $Res Function(_$_RandomMineEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -118,9 +119,12 @@ class __$$_RandomMineEventCopyWithImpl<$Res> extends _$RandomMineEventCopyWithIm
 /// @nodoc
 @JsonSerializable()
 class _$_RandomMineEvent extends _RandomMineEvent {
-  const _$_RandomMineEvent({required this.x, required this.y, required this.type}) : super._();
+  const _$_RandomMineEvent(
+      {required this.x, required this.y, required this.type})
+      : super._();
 
-  factory _$_RandomMineEvent.fromJson(Map<String, dynamic> json) => _$$_RandomMineEventFromJson(json);
+  factory _$_RandomMineEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_RandomMineEventFromJson(json);
 
   @override
   final double x;
@@ -163,23 +167,23 @@ class _$_RandomMineEvent extends _RandomMineEvent {
 }
 
 abstract class _RandomMineEvent extends RandomMineEvent {
-  const factory _RandomMineEvent({required final double x, required final double y, required final MineType type}) =
-      _$_RandomMineEvent;
-
+  const factory _RandomMineEvent(
+      {required final double x,
+      required final double y,
+      required final MineType type}) = _$_RandomMineEvent;
   const _RandomMineEvent._() : super._();
 
-  factory _RandomMineEvent.fromJson(Map<String, dynamic> json) = _$_RandomMineEvent.fromJson;
+  factory _RandomMineEvent.fromJson(Map<String, dynamic> json) =
+      _$_RandomMineEvent.fromJson;
 
   @override
   double get x;
-
   @override
   double get y;
-
   @override
   MineType get type;
-
   @override
   @JsonKey(ignore: true)
-  _$$_RandomMineEventCopyWith<_$_RandomMineEvent> get copyWith => throw _privateConstructorUsedError;
+  _$$_RandomMineEventCopyWith<_$_RandomMineEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -6,14 +6,16 @@ part of 'create_part_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CreatePartEvent _$$_CreatePartEventFromJson(Map<String, dynamic> json) => _$_CreatePartEvent(
+_$_CreatePartEvent _$$_CreatePartEventFromJson(Map<String, dynamic> json) =>
+    _$_CreatePartEvent(
       team: $enumDecode(_$TeamEnumMap, json['team']),
       from: json['from'] as int,
       side: $enumDecode(_$PartSideEnumMap, json['side']),
       type: $enumDecode(_$PartTypeEnumMap, json['type']),
     );
 
-Map<String, dynamic> _$$_CreatePartEventToJson(_$_CreatePartEvent instance) => <String, dynamic>{
+Map<String, dynamic> _$$_CreatePartEventToJson(_$_CreatePartEvent instance) =>
+    <String, dynamic>{
       'team': _$TeamEnumMap[instance.team]!,
       'from': instance.from,
       'side': _$PartSideEnumMap[instance.side]!,

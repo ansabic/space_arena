@@ -41,7 +41,6 @@ class ClientConnection {
   Socket? _connection;
   final eventService = getIt<EventService>();
   final eventMap = {};
-  bool _registered = false;
 
   Future<bool> connect({required String ipAddress}) async {
     if (_connection != null) {
@@ -59,74 +58,58 @@ class ClientConnection {
   void _subscribe() {
     _connection?.listen((bytes) async {
       final events = eventService.getEvents(utf8Message: utf8.decode(bytes));
-
-      print("size: ${events.length}");
       for (var event in events) {
-        ///Handle only registration events here
-
-        if (!_registered) {
-          if (event is RegisterEvent) {
-            print("first registration: ${event.toJson()}");
-            _registered = true;
-            getIt<CharacterManager>().add(InitCharacters(team: event.team));
+        if (event is RegisterEvent) {
+          getIt<CharacterManager>().add(InitCharacters(team: event.team));
+        } else if (event is MoveEvent) {
+          (getIt<CharacterManager>().characters.firstWhere((element) => element.name == event.name) as Movable)
+              .moveTo(Vector2(event.x, event.y));
+        } else if (event is StartGameEvent) {
+          if (globalKey.currentContext == null) {
+            throw Exception("No context attached!");
           }
-        }
-
-        /// Handle all the other events here
-        else {
-          print("event: " + event.toString());
-          if (event is RegisterEvent) {
-            print("second registration");
-            addEvent(const StartGameEvent());
-          } else if (event is MoveEvent) {
-            (getIt<CharacterManager>().characters[event.characterId] as Movable).moveTo(Vector2(event.x, event.y));
-          } else if (event is StartGameEvent) {
-            if (globalKey.currentContext == null) {
-              throw Exception("No context attached!");
-            }
-            Navigator.pushNamedAndRemoveUntil(globalKey.currentContext!, Constants.routes.game, (_) => true);
-          } else if (event is DisconnectPlayerEvent) {
-            //TODO Pause game
-          } else if (event is ShootEvent) {
-            getIt<SpaceArenaGame>().add(Bullet(
-                damage: event.damage,
-                start: Vector2(event.startX, event.startY),
-                direction: Vector2(event.dirX, event.dirY),
-                team: event.team));
-            Player.playLaser();
-          } else if (event is DamageEvent) {
-            getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
-          } else if (event is CreatePartEvent) {
-            late final Part part;
-            switch (event.type) {
-              case PartType.shield:
-                part = ShieldPart(team: event.team, partSide: event.side);
-                break;
-              case PartType.weapon:
-                part = WeaponPart(team: event.team, partSide: event.side);
-                break;
-              case PartType.thruster:
-                part = ThrusterPart(team: event.team, partSide: event.side);
-                break;
-            }
-            final from =
-                getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
-            getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
-            await part.addToParent(from);
-            getIt<CharacterManager>().add(AddCharacter(character: part));
-            if (event.team == getIt<CharacterManager>().team) {
-              getIt<BankBloc>().add(BuyPart(part: event.type));
-            }
-          } else if (event is PauseGameEvent) {
-            getIt<SpaceArenaGame>().pauseEngine();
-            getIt<GameTimer>().add(const GameTimerEvent.pause());
-          } else if (event is ResumeGameEvent) {
-            getIt<SpaceArenaGame>().resumeEngine();
-            getIt<GameTimer>().add(const GameTimerEvent.start());
-          } else if (event is RandomMineEvent) {
-            getIt<CharacterManager>()
-                .add(AddCharacter(character: Mine(mineType: event.type)..position = Vector2(event.x, event.y)));
+          Navigator.pushNamedAndRemoveUntil(globalKey.currentContext!, Constants.routes.game, (_) => true);
+        } else if (event is DisconnectPlayerEvent) {
+          //TODO Pause game
+        } else if (event is ShootEvent) {
+          getIt<SpaceArenaGame>().add(Bullet(
+              damage: event.damage,
+              start: Vector2(event.startX, event.startY),
+              direction: Vector2(event.dirX, event.dirY),
+              team: event.team));
+          Player.playLaser();
+        } else if (event is DamageEvent) {
+          getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
+        } else if (event is CreatePartEvent) {
+          late final Part part;
+          switch (event.type) {
+            case PartType.shield:
+              part = ShieldPart(team: event.team, partSide: event.side);
+              break;
+            case PartType.weapon:
+              part = WeaponPart(team: event.team, partSide: event.side);
+              break;
+            case PartType.thruster:
+              part = ThrusterPart(team: event.team, partSide: event.side);
+              break;
           }
+          final from =
+              getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
+          getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
+          await part.addToParent(from);
+          getIt<CharacterManager>().add(AddCharacter(character: part));
+          if (event.team == getIt<CharacterManager>().team) {
+            getIt<BankBloc>().add(BuyPart(part: event.type));
+          }
+        } else if (event is PauseGameEvent) {
+          getIt<SpaceArenaGame>().pauseEngine();
+          getIt<GameTimer>().add(const GameTimerEvent.pause());
+        } else if (event is ResumeGameEvent) {
+          getIt<SpaceArenaGame>().resumeEngine();
+          getIt<GameTimer>().add(const GameTimerEvent.start());
+        } else if (event is RandomMineEvent) {
+          getIt<CharacterManager>()
+              .add(AddCharacter(character: Mine(mineType: event.type)..position = Vector2(event.x, event.y)));
         }
       }
     });

@@ -21,35 +21,32 @@ CreatePartEvent _$CreatePartEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CreatePartEvent {
   Team get team => throw _privateConstructorUsedError;
-
   int get from => throw _privateConstructorUsedError;
-
   PartSide get side => throw _privateConstructorUsedError;
-
   PartType get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $CreatePartEventCopyWith<CreatePartEvent> get copyWith => throw _privateConstructorUsedError;
+  $CreatePartEventCopyWith<CreatePartEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $CreatePartEventCopyWith<$Res> {
-  factory $CreatePartEventCopyWith(CreatePartEvent value, $Res Function(CreatePartEvent) then) =
+  factory $CreatePartEventCopyWith(
+          CreatePartEvent value, $Res Function(CreatePartEvent) then) =
       _$CreatePartEventCopyWithImpl<$Res, CreatePartEvent>;
-
   @useResult
   $Res call({Team team, int from, PartSide side, PartType type});
 }
 
 /// @nodoc
-class _$CreatePartEventCopyWithImpl<$Res, $Val extends CreatePartEvent> implements $CreatePartEventCopyWith<$Res> {
+class _$CreatePartEventCopyWithImpl<$Res, $Val extends CreatePartEvent>
+    implements $CreatePartEventCopyWith<$Res> {
   _$CreatePartEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -83,19 +80,22 @@ class _$CreatePartEventCopyWithImpl<$Res, $Val extends CreatePartEvent> implemen
 }
 
 /// @nodoc
-abstract class _$$_CreatePartEventCopyWith<$Res> implements $CreatePartEventCopyWith<$Res> {
-  factory _$$_CreatePartEventCopyWith(_$_CreatePartEvent value, $Res Function(_$_CreatePartEvent) then) =
+abstract class _$$_CreatePartEventCopyWith<$Res>
+    implements $CreatePartEventCopyWith<$Res> {
+  factory _$$_CreatePartEventCopyWith(
+          _$_CreatePartEvent value, $Res Function(_$_CreatePartEvent) then) =
       __$$_CreatePartEventCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({Team team, int from, PartSide side, PartType type});
 }
 
 /// @nodoc
-class __$$_CreatePartEventCopyWithImpl<$Res> extends _$CreatePartEventCopyWithImpl<$Res, _$_CreatePartEvent>
+class __$$_CreatePartEventCopyWithImpl<$Res>
+    extends _$CreatePartEventCopyWithImpl<$Res, _$_CreatePartEvent>
     implements _$$_CreatePartEventCopyWith<$Res> {
-  __$$_CreatePartEventCopyWithImpl(_$_CreatePartEvent _value, $Res Function(_$_CreatePartEvent) _then)
+  __$$_CreatePartEventCopyWithImpl(
+      _$_CreatePartEvent _value, $Res Function(_$_CreatePartEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -130,10 +130,15 @@ class __$$_CreatePartEventCopyWithImpl<$Res> extends _$CreatePartEventCopyWithIm
 /// @nodoc
 @JsonSerializable()
 class _$_CreatePartEvent extends _CreatePartEvent {
-  const _$_CreatePartEvent({required this.team, required this.from, required this.side, required this.type})
+  const _$_CreatePartEvent(
+      {required this.team,
+      required this.from,
+      required this.side,
+      required this.type})
       : super._();
 
-  factory _$_CreatePartEvent.fromJson(Map<String, dynamic> json) => _$$_CreatePartEventFromJson(json);
+  factory _$_CreatePartEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_CreatePartEventFromJson(json);
 
   @override
   final Team team;
@@ -184,24 +189,21 @@ abstract class _CreatePartEvent extends CreatePartEvent {
       required final int from,
       required final PartSide side,
       required final PartType type}) = _$_CreatePartEvent;
-
   const _CreatePartEvent._() : super._();
 
-  factory _CreatePartEvent.fromJson(Map<String, dynamic> json) = _$_CreatePartEvent.fromJson;
+  factory _CreatePartEvent.fromJson(Map<String, dynamic> json) =
+      _$_CreatePartEvent.fromJson;
 
   @override
   Team get team;
-
   @override
   int get from;
-
   @override
   PartSide get side;
-
   @override
   PartType get type;
-
   @override
   @JsonKey(ignore: true)
-  _$$_CreatePartEventCopyWith<_$_CreatePartEvent> get copyWith => throw _privateConstructorUsedError;
+  _$$_CreatePartEventCopyWith<_$_CreatePartEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

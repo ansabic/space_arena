@@ -6,11 +6,15 @@ part of 'disconnect_player_event.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_DisconnectPlayerEvent _$$_DisconnectPlayerEventFromJson(Map<String, dynamic> json) => _$_DisconnectPlayerEvent(
+_$_DisconnectPlayerEvent _$$_DisconnectPlayerEventFromJson(
+        Map<String, dynamic> json) =>
+    _$_DisconnectPlayerEvent(
       team: $enumDecode(_$TeamEnumMap, json['team']),
     );
 
-Map<String, dynamic> _$$_DisconnectPlayerEventToJson(_$_DisconnectPlayerEvent instance) => <String, dynamic>{
+Map<String, dynamic> _$$_DisconnectPlayerEventToJson(
+        _$_DisconnectPlayerEvent instance) =>
+    <String, dynamic>{
       'team': _$TeamEnumMap[instance.team]!,
     };
 

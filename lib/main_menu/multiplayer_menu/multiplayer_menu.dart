@@ -41,16 +41,16 @@ class MultiplayerMenu extends StatelessWidget {
                           behavior: HitTestBehavior.opaque,
                           onTap: () async {
                             stateController.add(MultiplayerMenuState.hostPinging);
-                            getIt<Coordinator>().hostServerListener(isHost: true).listen((event) async {
+                            getIt<Coordinator>().hostServerListener.listen((event) async {
                               if (event == null) {
                                 return;
                               }
                               final myAddress = (await intranetIpv4()).address;
                               if (event != myAddress) {
+                                await getIt<Coordinator>().runGameServer();
                                 await getIt<ClientConnection>().connect(ipAddress: myAddress);
                               }
                             });
-                            await getIt<Coordinator>().runGameServer();
                           },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -64,7 +64,7 @@ class MultiplayerMenu extends StatelessWidget {
                           behavior: HitTestBehavior.opaque,
                           onTap: () {
                             stateController.add(MultiplayerMenuState.clientJoining);
-                            getIt<Coordinator>().hostServerListener(isHost: false).listen((address) async {
+                            getIt<Coordinator>().hostServerListener.listen((address) async {
                               if (address == null) {
                                 return;
                               }
@@ -113,12 +113,10 @@ class MultiplayerMenu extends StatelessWidget {
                       const Text("Waiting for another player to join...."),
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onTap: () async {
-                          await getIt<Coordinator>().stopPingingOrListening();
-                          if (context.mounted) {
-                            BlocProvider.of<MainMenuBloc>(context)
-                                .add(const MainMenuEvent.changePage(entry: MainMenuEntry.mainMenu));
-                          }
+                        onTap: () {
+                          getIt<Coordinator>().stopPingingOrListening();
+                          BlocProvider.of<MainMenuBloc>(context)
+                              .add(const MainMenuEvent.changePage(entry: MainMenuEntry.mainMenu));
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 15.0),
@@ -139,12 +137,10 @@ class MultiplayerMenu extends StatelessWidget {
                       const Text("Waiting to establish connection with the host..."),
                       GestureDetector(
                         behavior: HitTestBehavior.opaque,
-                        onTap: () async {
-                          await getIt<Coordinator>().stopPingingOrListening();
-                          if(context.mounted) {
-                            BlocProvider.of<MainMenuBloc>(context)
+                        onTap: () {
+                          getIt<Coordinator>().stopPingingOrListening();
+                          BlocProvider.of<MainMenuBloc>(context)
                               .add(const MainMenuEvent.changePage(entry: MainMenuEntry.mainMenu));
-                          }
                         },
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 15.0),

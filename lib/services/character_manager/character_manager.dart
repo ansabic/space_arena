@@ -22,7 +22,7 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   List<Character> get characters => state.characters;
 
   Character? get pickedCharacter =>
-      characters.isNotEmpty ? characters.firstWhereOrNull((element) => element.picked) : null;
+      characters.isNotEmpty ? characters.firstWhereOrNull((element) => element.team == team && element.picked) : null;
 
   Team get team => state.team;
 
@@ -84,11 +84,12 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
           team: state.team));
     });
     on<PickCharacter>((event, emit) {
-      final newList = [...characters];
+      final newList = [...characters.where((element) => element != event.character)];
       final oldPicked = newList.firstWhereOrNull((element) => element.picked);
       oldPicked?.picked = !oldPicked.picked;
-      final newPicked = newList.firstWhere((element) => element == event.character);
-      newPicked.picked = !newPicked.picked;
+      final newPicked = event.character;
+      newPicked.picked = true;
+      newList.add(newPicked);
       emit(RefreshCharacterState(characters: newList, team: team));
       getIt<SpaceArenaGame>().camera.followComponent(event.character);
     });

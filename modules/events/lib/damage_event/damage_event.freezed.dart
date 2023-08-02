@@ -21,31 +21,30 @@ DamageEvent _$DamageEventFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DamageEvent {
   int get characterId => throw _privateConstructorUsedError;
-
   int get damage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $DamageEventCopyWith<DamageEvent> get copyWith => throw _privateConstructorUsedError;
+  $DamageEventCopyWith<DamageEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $DamageEventCopyWith<$Res> {
-  factory $DamageEventCopyWith(DamageEvent value, $Res Function(DamageEvent) then) =
+  factory $DamageEventCopyWith(
+          DamageEvent value, $Res Function(DamageEvent) then) =
       _$DamageEventCopyWithImpl<$Res, DamageEvent>;
-
   @useResult
   $Res call({int characterId, int damage});
 }
 
 /// @nodoc
-class _$DamageEventCopyWithImpl<$Res, $Val extends DamageEvent> implements $DamageEventCopyWith<$Res> {
+class _$DamageEventCopyWithImpl<$Res, $Val extends DamageEvent>
+    implements $DamageEventCopyWith<$Res> {
   _$DamageEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -69,19 +68,23 @@ class _$DamageEventCopyWithImpl<$Res, $Val extends DamageEvent> implements $Dama
 }
 
 /// @nodoc
-abstract class _$$_DamageEventCopyWith<$Res> implements $DamageEventCopyWith<$Res> {
-  factory _$$_DamageEventCopyWith(_$_DamageEvent value, $Res Function(_$_DamageEvent) then) =
+abstract class _$$_DamageEventCopyWith<$Res>
+    implements $DamageEventCopyWith<$Res> {
+  factory _$$_DamageEventCopyWith(
+          _$_DamageEvent value, $Res Function(_$_DamageEvent) then) =
       __$$_DamageEventCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({int characterId, int damage});
 }
 
 /// @nodoc
-class __$$_DamageEventCopyWithImpl<$Res> extends _$DamageEventCopyWithImpl<$Res, _$_DamageEvent>
+class __$$_DamageEventCopyWithImpl<$Res>
+    extends _$DamageEventCopyWithImpl<$Res, _$_DamageEvent>
     implements _$$_DamageEventCopyWith<$Res> {
-  __$$_DamageEventCopyWithImpl(_$_DamageEvent _value, $Res Function(_$_DamageEvent) _then) : super(_value, _then);
+  __$$_DamageEventCopyWithImpl(
+      _$_DamageEvent _value, $Res Function(_$_DamageEvent) _then)
+      : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -105,9 +108,11 @@ class __$$_DamageEventCopyWithImpl<$Res> extends _$DamageEventCopyWithImpl<$Res,
 /// @nodoc
 @JsonSerializable()
 class _$_DamageEvent extends _DamageEvent {
-  const _$_DamageEvent({required this.characterId, required this.damage}) : super._();
+  const _$_DamageEvent({required this.characterId, required this.damage})
+      : super._();
 
-  factory _$_DamageEvent.fromJson(Map<String, dynamic> json) => _$$_DamageEventFromJson(json);
+  factory _$_DamageEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_DamageEventFromJson(json);
 
   @override
   final int characterId;
@@ -124,7 +129,8 @@ class _$_DamageEvent extends _DamageEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DamageEvent &&
-            (identical(other.characterId, characterId) || other.characterId == characterId) &&
+            (identical(other.characterId, characterId) ||
+                other.characterId == characterId) &&
             (identical(other.damage, damage) || other.damage == damage));
   }
 
@@ -147,19 +153,20 @@ class _$_DamageEvent extends _DamageEvent {
 }
 
 abstract class _DamageEvent extends DamageEvent {
-  const factory _DamageEvent({required final int characterId, required final int damage}) = _$_DamageEvent;
-
+  const factory _DamageEvent(
+      {required final int characterId,
+      required final int damage}) = _$_DamageEvent;
   const _DamageEvent._() : super._();
 
-  factory _DamageEvent.fromJson(Map<String, dynamic> json) = _$_DamageEvent.fromJson;
+  factory _DamageEvent.fromJson(Map<String, dynamic> json) =
+      _$_DamageEvent.fromJson;
 
   @override
   int get characterId;
-
   @override
   int get damage;
-
   @override
   @JsonKey(ignore: true)
-  _$$_DamageEventCopyWith<_$_DamageEvent> get copyWith => throw _privateConstructorUsedError;
+  _$$_DamageEventCopyWith<_$_DamageEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

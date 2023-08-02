@@ -12,7 +12,7 @@ part 'move_event.g.dart';
 class MoveEvent with _$MoveEvent implements Event {
   const MoveEvent._();
 
-  const factory MoveEvent({required int characterId, required double x, required double y}) = _MoveEvent;
+  const factory MoveEvent({required String name, required double x, required double y}) = _MoveEvent;
 
   factory MoveEvent.fromJson(Map<String, Object?> json) => _$MoveEventFromJson(json);
 

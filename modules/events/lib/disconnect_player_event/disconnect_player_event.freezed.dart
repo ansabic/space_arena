@@ -14,7 +14,8 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-DisconnectPlayerEvent _$DisconnectPlayerEventFromJson(Map<String, dynamic> json) {
+DisconnectPlayerEvent _$DisconnectPlayerEventFromJson(
+    Map<String, dynamic> json) {
   return _DisconnectPlayerEvent.fromJson(json);
 }
 
@@ -23,28 +24,28 @@ mixin _$DisconnectPlayerEvent {
   Team get team => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $DisconnectPlayerEventCopyWith<DisconnectPlayerEvent> get copyWith => throw _privateConstructorUsedError;
+  $DisconnectPlayerEventCopyWith<DisconnectPlayerEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $DisconnectPlayerEventCopyWith<$Res> {
-  factory $DisconnectPlayerEventCopyWith(DisconnectPlayerEvent value, $Res Function(DisconnectPlayerEvent) then) =
+  factory $DisconnectPlayerEventCopyWith(DisconnectPlayerEvent value,
+          $Res Function(DisconnectPlayerEvent) then) =
       _$DisconnectPlayerEventCopyWithImpl<$Res, DisconnectPlayerEvent>;
-
   @useResult
   $Res call({Team team});
 }
 
 /// @nodoc
-class _$DisconnectPlayerEventCopyWithImpl<$Res, $Val extends DisconnectPlayerEvent>
+class _$DisconnectPlayerEventCopyWithImpl<$Res,
+        $Val extends DisconnectPlayerEvent>
     implements $DisconnectPlayerEventCopyWith<$Res> {
   _$DisconnectPlayerEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -63,11 +64,11 @@ class _$DisconnectPlayerEventCopyWithImpl<$Res, $Val extends DisconnectPlayerEve
 }
 
 /// @nodoc
-abstract class _$$_DisconnectPlayerEventCopyWith<$Res> implements $DisconnectPlayerEventCopyWith<$Res> {
-  factory _$$_DisconnectPlayerEventCopyWith(
-          _$_DisconnectPlayerEvent value, $Res Function(_$_DisconnectPlayerEvent) then) =
+abstract class _$$_DisconnectPlayerEventCopyWith<$Res>
+    implements $DisconnectPlayerEventCopyWith<$Res> {
+  factory _$$_DisconnectPlayerEventCopyWith(_$_DisconnectPlayerEvent value,
+          $Res Function(_$_DisconnectPlayerEvent) then) =
       __$$_DisconnectPlayerEventCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({Team team});
@@ -77,7 +78,8 @@ abstract class _$$_DisconnectPlayerEventCopyWith<$Res> implements $DisconnectPla
 class __$$_DisconnectPlayerEventCopyWithImpl<$Res>
     extends _$DisconnectPlayerEventCopyWithImpl<$Res, _$_DisconnectPlayerEvent>
     implements _$$_DisconnectPlayerEventCopyWith<$Res> {
-  __$$_DisconnectPlayerEventCopyWithImpl(_$_DisconnectPlayerEvent _value, $Res Function(_$_DisconnectPlayerEvent) _then)
+  __$$_DisconnectPlayerEventCopyWithImpl(_$_DisconnectPlayerEvent _value,
+      $Res Function(_$_DisconnectPlayerEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +101,8 @@ class __$$_DisconnectPlayerEventCopyWithImpl<$Res>
 class _$_DisconnectPlayerEvent extends _DisconnectPlayerEvent {
   const _$_DisconnectPlayerEvent({required this.team}) : super._();
 
-  factory _$_DisconnectPlayerEvent.fromJson(Map<String, dynamic> json) => _$$_DisconnectPlayerEventFromJson(json);
+  factory _$_DisconnectPlayerEvent.fromJson(Map<String, dynamic> json) =>
+      _$$_DisconnectPlayerEventFromJson(json);
 
   @override
   final Team team;
@@ -125,7 +128,8 @@ class _$_DisconnectPlayerEvent extends _DisconnectPlayerEvent {
   @override
   @pragma('vm:prefer-inline')
   _$$_DisconnectPlayerEventCopyWith<_$_DisconnectPlayerEvent> get copyWith =>
-      __$$_DisconnectPlayerEventCopyWithImpl<_$_DisconnectPlayerEvent>(this, _$identity);
+      __$$_DisconnectPlayerEventCopyWithImpl<_$_DisconnectPlayerEvent>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -136,16 +140,17 @@ class _$_DisconnectPlayerEvent extends _DisconnectPlayerEvent {
 }
 
 abstract class _DisconnectPlayerEvent extends DisconnectPlayerEvent {
-  const factory _DisconnectPlayerEvent({required final Team team}) = _$_DisconnectPlayerEvent;
-
+  const factory _DisconnectPlayerEvent({required final Team team}) =
+      _$_DisconnectPlayerEvent;
   const _DisconnectPlayerEvent._() : super._();
 
-  factory _DisconnectPlayerEvent.fromJson(Map<String, dynamic> json) = _$_DisconnectPlayerEvent.fromJson;
+  factory _DisconnectPlayerEvent.fromJson(Map<String, dynamic> json) =
+      _$_DisconnectPlayerEvent.fromJson;
 
   @override
   Team get team;
-
   @override
   @JsonKey(ignore: true)
-  _$$_DisconnectPlayerEventCopyWith<_$_DisconnectPlayerEvent> get copyWith => throw _privateConstructorUsedError;
+  _$$_DisconnectPlayerEventCopyWith<_$_DisconnectPlayerEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -139,7 +139,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
       final pickedCharacter = _characterManager.pickedCharacter;
       if (pickedCharacter != null) {
         getIt<ClientConnection>().addEvent(MoveEvent(
-            characterId: pickedCharacter.characterId, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
+            name: pickedCharacter.name, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
       }
     }
     getIt<OverlayCubit>().resetState();
@@ -151,7 +151,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     final pickedCharacter = _characterManager.pickedCharacter;
     if (pickedCharacter != null) {
       getIt<ClientConnection>().addEvent(MoveEvent(
-          characterId: pickedCharacter.characterId, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
+          name: pickedCharacter.name, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
     }
   }
 }

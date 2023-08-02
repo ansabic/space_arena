@@ -41,6 +41,7 @@ abstract class Movable extends SpriteAnimationGroupComponent<MovableState> with 
   abstract double speed;
   abstract double angleOffset;
   abstract Vector2? destination;
+  abstract String name;
 
   bool thisPlayer() => team == getIt<CharacterManager>().team;
 
