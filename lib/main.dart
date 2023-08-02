@@ -7,6 +7,7 @@ import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/game_screen/games_screen.dart';
 import 'package:space_arena/main_menu/main_menu.dart';
+import 'package:space_arena/rules_menu/rules_menu.dart';
 import 'package:space_arena/services/player/player.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 import 'package:space_arena/settings/settings.dart';
@@ -59,6 +60,9 @@ Future<void> main() async {
                     return const MultiplayerMenu();
                   case MainMenuEntry.settings:
                     return const SettingsScreen();
+                  case MainMenuEntry.rules:
+                    return RulesMenu();
+                    break;
                 }
               },
             ),

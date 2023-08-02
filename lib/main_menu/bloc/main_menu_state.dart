@@ -8,5 +8,5 @@ class MainMenuState with _$MainMenuState {
 }
 
 enum MainMenuEntry {
-  mainMenu, multiplayer, settings;
+  mainMenu, multiplayer, settings, rules;
 }
