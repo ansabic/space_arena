@@ -45,6 +45,45 @@ class PartWidget extends StatelessWidget {
                         padding: const EdgeInsets.all(4.0),
                         child: Text(partType.key.toString()),
                       ),
+                    ),
+                    Positioned(
+                      top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(partType.name,textAlign: TextAlign.center),
+                    )),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              partType.price.gold.toString(),
+                              style: TextStyle(color: Colors.amber),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              partType.price.plasma.toString(),
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(
+                              partType.price.crystal.toString(),
+                              style: TextStyle(color: Colors.purple),
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 )),
