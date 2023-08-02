@@ -95,10 +95,10 @@ class ClientConnection {
           }
           final from =
               getIt<CharacterManager>().state.characters.firstWhere((element) => element.characterId == event.from);
-          getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
           await part.addToParent(from);
           getIt<CharacterManager>().add(AddCharacter(character: part));
           if (event.team == getIt<CharacterManager>().team) {
+            getIt<PartsManager>().addPart(from: from, part: part, side: event.side);
             getIt<BankBloc>().add(BuyPart(part: event.type));
           }
         } else if (event is PauseGameEvent) {

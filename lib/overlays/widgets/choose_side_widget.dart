@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:model/part_side.dart';
 import 'package:model/part_type.dart';
 import 'package:space_arena/di/di.dart';
+import 'package:space_arena/services/character_manager/character_manager.dart';
 import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/parts_manager.dart';
 
@@ -39,7 +40,7 @@ class ChooseSideWidget extends StatelessWidget {
                   onTap: () async {
                     if (topEnabled) {
                       getIt<ClientConnection>().addEvent(CreatePartEvent(
-                          from: character.characterId, side: PartSide.top, team: character.team, type: type));
+                          from: character.characterId, side: PartSide.top, team: getIt<CharacterManager>().team, type: type));
                       tapped();
                     }
                   },
@@ -56,7 +57,7 @@ class ChooseSideWidget extends StatelessWidget {
                       onTap: () {
                         if (leftEnabled) {
                           getIt<ClientConnection>().addEvent(CreatePartEvent(
-                              from: character.characterId, side: PartSide.left, team: character.team, type: type));
+                              from: character.characterId, side: PartSide.left, team:  getIt<CharacterManager>().team, type: type));
                           tapped();
                         }
                       },
@@ -67,7 +68,7 @@ class ChooseSideWidget extends StatelessWidget {
                       onTap: () {
                         if (rightEnabled) {
                           getIt<ClientConnection>().addEvent(CreatePartEvent(
-                              from: character.characterId, side: PartSide.right, team: character.team, type: type));
+                              from: character.characterId, side: PartSide.right, team:  getIt<CharacterManager>().team, type: type));
                           tapped();
                         }
                       },
@@ -80,7 +81,7 @@ class ChooseSideWidget extends StatelessWidget {
                   onTap: () {
                     if (bottomEnabled) {
                       getIt<ClientConnection>().addEvent(CreatePartEvent(
-                          from: character.characterId, side: PartSide.bottom, team: character.team, type: type));
+                          from: character.characterId, side: PartSide.bottom, team: getIt<CharacterManager>().team, type: type));
                       tapped();
                     }
                   },
