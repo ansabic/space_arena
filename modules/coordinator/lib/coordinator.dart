@@ -38,20 +38,21 @@ class Coordinator {
   Stream<String?> get hostServerListener async* {
     await initHostServer();
     yield* udpSocket?.map((event) {
-      final data = udpSocket?.receive();
-      final message = utf8.decode(data?.data ?? []);
-      if (message.startsWith("space_arena_host")) {
-        final ip = message.replaceAll("space_arena_host", "");
-        return ip;
-      }
-      if (message.startsWith("stop_udp_space_arena")) {
-        final ip = message.replaceAll("stop_udp_space_arena", "");
-        _stopHostServer();
-        _stoppedUdp = true;
-        return ip;
-      }
-      return null;
-    }) ?? Stream.empty();
+          final data = udpSocket?.receive();
+          final message = utf8.decode(data?.data ?? []);
+          if (message.startsWith("space_arena_host")) {
+            final ip = message.replaceAll("space_arena_host", "");
+            return ip;
+          }
+          if (message.startsWith("stop_udp_space_arena")) {
+            final ip = message.replaceAll("stop_udp_space_arena", "");
+            _stopHostServer();
+            _stoppedUdp = true;
+            return ip;
+          }
+          return null;
+        }) ??
+        Stream.empty();
   }
 
   Future<void> initHostServer() async {
@@ -69,21 +70,21 @@ class Coordinator {
     });
   }
 
-  void stopPingingOrListening()  {
+  void stopPingingOrListening() {
     _stoppedUdp = true;
   }
 
-  Future<void> runGameServer() async {
+  Future<void> runGameServer({bool test = false}) async {
     _tcpSocket = await ServerSocket.bind(InternetAddress.anyIPv4, 55555);
     print("Tcp server started");
-    _listenToTcpEvents();
+    _listenToTcpEvents(test: test);
   }
 
-  void _listenToTcpEvents() {
+  void _listenToTcpEvents({bool test = false}) {
     print("started listening tcp...");
     try {
       _tcpSocket.listen((connection) {
-        if(!_stoppedUdp) {
+        if (!_stoppedUdp) {
           return;
         }
         print("Added connection to server: " + connection.remoteAddress.address);
@@ -98,7 +99,7 @@ class Coordinator {
               event: DisconnectPlayerEvent(team: Team.values.firstWhere((element) => element.index == index)));
           await _coordinator.checkIfEmpty();
         });
-        _coordinator.addConnection(connection);
+        _coordinator.addConnection(connection, test: test);
       });
     } on Exception catch (e) {
       print(e);

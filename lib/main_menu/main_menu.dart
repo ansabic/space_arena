@@ -45,11 +45,9 @@ class MainMenu extends StatelessWidget {
                     GestureDetector(
                       behavior: HitTestBehavior.opaque,
                       onTap: () async {
-                        await getIt<Coordinator>().runGameServer();
+                        getIt<Coordinator>().stopPingingOrListening();
+                        await getIt<Coordinator>().runGameServer(test: true);
                         await getIt<ClientConnection>().connect(ipAddress: (await intranetIpv4()).address);
-                        if (context.mounted) {
-                          Navigator.popAndPushNamed(context, Constants.routes.game);
-                        }
                       },
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),

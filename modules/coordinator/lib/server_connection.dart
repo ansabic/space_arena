@@ -10,10 +10,11 @@ import 'package:model/team.dart';
 class ServerConnection {
   final List<Socket> _connections = [];
 
-  void addConnection(Socket connection) {
+
+  void addConnection(Socket connection, {bool test = false}) {
     _connections.add(connection);
     _registerClient(connection: connection);
-    if(_connections.length == 2) {
+    if(_connections.length == (test ? 1 : 2)) {
       broadcastEvent(event: const StartGameEvent());
     }
   }

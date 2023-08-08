@@ -21,13 +21,17 @@ import '../../di/di.dart';
 import '../../settings/bloc/settings_bloc.dart';
 
 part 'game_timer.freezed.dart';
+
 part 'game_timer_event.dart';
+
 part 'game_timer_state.dart';
 
 @lazySingleton
 class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
   final SettingsBloc _settingsBloc;
-  GameTimer(this._settingsBloc) : super(GameTimerState(status: TimerStatus.normal, seconds: _settingsBloc.state.gameDurationSeconds)) {
+
+  GameTimer(this._settingsBloc)
+      : super(GameTimerState(status: TimerStatus.normal, seconds: _settingsBloc.state.gameDurationSeconds)) {
     on<GameTimerEvent>((event, emit) async {
       await event.map(start: (value) async {
         emit(state.copyWith(status: TimerStatus.normal));
@@ -45,12 +49,11 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
             double? randomY;
             int maxCounter = 0;
             while (randomX == null && randomY == null || maxCounter < 300) {
+              final randomizer = Random(DateTime.now().microsecondsSinceEpoch);
               randomX = Constants.mineSize.x / 2 +
-                  (Constants.worldSizeX - Constants.mineSize.x / 2) *
-                      Random(DateTime.now().microsecondsSinceEpoch).nextDouble();
+                  (Constants.worldSizeX - Constants.mineSize.x / 2) * randomizer.nextDouble();
               randomY = Constants.mineSize.y / 2 +
-                  (Constants.worldSizeY - Constants.mineSize.y / 2) *
-                      Random(DateTime.now().microsecondsSinceEpoch).nextDouble();
+                  (Constants.worldSizeY - Constants.mineSize.y / 2) * randomizer.nextDouble();
               if (getIt<SpaceArenaGame>().children.whereType<Mine>().firstWhereOrNull(
                       (element) => f.Vector2(randomX!, randomY!).distanceTo(element.position) < Constants.mineSize.x) !=
                   null) {
@@ -66,12 +69,11 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
             double? randomY;
             int maxCounter = 0;
             while (randomX == null && randomY == null || maxCounter < 300) {
+              final randomizer = Random(DateTime.now().microsecondsSinceEpoch);
               randomX = Constants.mineSize.x / 2 +
-                  (Constants.worldSizeX - Constants.mineSize.x / 2) *
-                      Random(DateTime.now().microsecondsSinceEpoch).nextDouble();
+                  (Constants.worldSizeX - Constants.mineSize.x / 2) * randomizer.nextDouble();
               randomY = Constants.mineSize.y / 2 +
-                  (Constants.worldSizeY - Constants.mineSize.y / 2) *
-                      Random(DateTime.now().microsecondsSinceEpoch).nextDouble();
+                  (Constants.worldSizeY - Constants.mineSize.y / 2) * randomizer.nextDouble();
               if (getIt<SpaceArenaGame>().children.whereType<Mine>().firstWhereOrNull(
                       (element) => f.Vector2(randomX!, randomY!).distanceTo(element.position) < Constants.mineSize.x) !=
                   null) {
@@ -87,12 +89,11 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
             double? randomY;
             int maxCounter = 0;
             while (randomX == null && randomY == null || maxCounter < 300) {
+              final randomizer = Random(DateTime.now().microsecondsSinceEpoch);
               randomX = Constants.mineSize.x / 2 +
-                  (Constants.worldSizeX - Constants.mineSize.x / 2) *
-                      Random(DateTime.now().microsecondsSinceEpoch).nextDouble();
+                  (Constants.worldSizeX - Constants.mineSize.x / 2) * randomizer.nextDouble();
               randomY = Constants.mineSize.y / 2 +
-                  (Constants.worldSizeY - Constants.mineSize.y / 2) *
-                      Random(DateTime.now().microsecondsSinceEpoch).nextDouble();
+                  (Constants.worldSizeY - Constants.mineSize.y / 2) * randomizer.nextDouble();
               if (getIt<SpaceArenaGame>().children.whereType<Mine>().firstWhereOrNull(
                       (element) => f.Vector2(randomX!, randomY!).distanceTo(element.position) < Constants.mineSize.x) !=
                   null) {
