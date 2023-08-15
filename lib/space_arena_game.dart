@@ -53,16 +53,6 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
   }
 
   @override
-  void update(double dt) {
-    super.update(dt);
-    for (var element in _characterManager.characters) {
-      if (element is Movable) {
-        (element as Movable).updatePosition(dt);
-      }
-    }
-  }
-
-  @override
   KeyEventResult onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     if (keysPressed.contains(LogicalKeyboardKey.tab)) {
       if (_characterManager.characters.where((element) => element.team == _characterManager.team).length == 1) {
@@ -138,8 +128,8 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     } else if (Platform.isAndroid) {
       final pickedCharacter = _characterManager.pickedCharacter;
       if (pickedCharacter != null) {
-        getIt<ClientConnection>().addEvent(MoveEvent(
-            name: pickedCharacter.name, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
+        getIt<ClientConnection>().addEvent(
+            MoveEvent(name: pickedCharacter.name, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
       }
     }
     getIt<OverlayCubit>().resetState();
@@ -150,8 +140,8 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     super.onSecondaryTapDown(info);
     final pickedCharacter = _characterManager.pickedCharacter;
     if (pickedCharacter != null) {
-      getIt<ClientConnection>().addEvent(MoveEvent(
-          name: pickedCharacter.name, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
+      getIt<ClientConnection>()
+          .addEvent(MoveEvent(name: pickedCharacter.name, x: info.eventPosition.game.x, y: info.eventPosition.game.y));
     }
   }
 }

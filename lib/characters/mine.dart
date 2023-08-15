@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:model/mine_type.dart';
 import 'package:model/team.dart';
 import 'package:space_arena/characters/types/character.dart';

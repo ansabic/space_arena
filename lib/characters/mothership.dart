@@ -54,7 +54,7 @@ class Mothership extends Movable with Character, HasHealth {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
-    name = "first_mothership";
+    name = "Mothership 1";
   }
 
   Mothership.secondPlayer(
@@ -71,7 +71,6 @@ class Mothership extends Movable with Character, HasHealth {
     nativeAngle = angleOffset;
     angle = angleOffset;
     anchor = Anchor.center;
-    name = "second_mothership";
-
+    name = "Mothership 2";
   }
 }

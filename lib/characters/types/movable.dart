@@ -53,7 +53,13 @@ abstract class Movable extends SpriteAnimationGroupComponent<MovableState> with 
 
   @override
   void update(double dt) {
-    ///Native rotation is not good so i implemented it by myself
+    updateAngle(dt);
+    updatePosition(dt);
+    super.update(dt);
+  }
+
+  void updateAngle(double dt) {
+    ///Native rotation is not intuitive for this game so it is implemented in a custom way
     if (destination != null) {
       final dir = Vector2(1, 0)..rotate(angle);
       final diff = destination! - position;
@@ -64,27 +70,27 @@ abstract class Movable extends SpriteAnimationGroupComponent<MovableState> with 
         angle += rotationSpeed * dt * ang;
       }
     }
-    super.update(dt);
   }
 
   void updatePosition(double dt) {
-    if (destination != null) {
-      final diff = destination! - position;
-      final newPosition = position + diff.normalized() * speed * dt;
-      if (newPosition.x > 0 &&
-          newPosition.y > 0 &&
-          newPosition.x < Constants.worldSizeX &&
-          newPosition.y < Constants.worldSizeY) {
-        position = newPosition;
-      }
+    if (destination == null) {
+      return;
+    }
+    final diff = destination! - position;
+    final newPosition = position + diff.normalized() * speed * dt;
+    if (newPosition.x > 0 &&
+        newPosition.y > 0 &&
+        newPosition.x < Constants.worldSizeX &&
+        newPosition.y < Constants.worldSizeY) {
+      position = newPosition;
+    }
+    if (current != MovableState.damaged) {
+      current = MovableState.moving;
+    }
+    if (diff.length < Constants.proximityDistance) {
+      destination = null;
       if (current != MovableState.damaged) {
-        current = MovableState.moving;
-      }
-      if (diff.length < Constants.proximityDistance) {
-        destination = null;
-        if (current != MovableState.damaged) {
-          current = MovableState.idle;
-        }
+        current = MovableState.idle;
       }
     }
   }

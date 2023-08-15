@@ -30,6 +30,7 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
   Team team;
   @override
   int currentHealth = 10;
+
   @override
   int get maxHealth => 10;
   @override
@@ -51,7 +52,7 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
     anchor = Anchor.center;
     position = Vector2(x, y);
     picked = true;
-    name = "first_fighter";
+    name = "Fighter 1";
   }
 
   Fighter.secondPlayer(
@@ -68,7 +69,7 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
     angle = angleOffset;
     anchor = Anchor.center;
     picked = true;
-    name = "second_fighter";
+    name = "Fighter 2";
   }
 
   @override

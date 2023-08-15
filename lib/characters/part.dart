@@ -1,7 +1,5 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:model/part_side.dart';
 import 'package:model/part_type.dart';
 import 'package:model/team.dart';
