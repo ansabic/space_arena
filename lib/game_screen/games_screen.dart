@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../di/di.dart';
 import '../overlays/common_overlay.dart';
-import '../overlays/mothership_overlay.dart';
 import '../overlays/overlay_bloc/overlay_cubit.dart';
 import '../space_arena_game.dart';
 
@@ -18,7 +17,7 @@ class GameScreen extends StatelessWidget {
       create: (_) => getIt<OverlayCubit>(),
       child: Stack(
           fit: StackFit.expand,
-          children: [GameWidget(game: getIt<SpaceArenaGame>()), const CommonOverlay(), const MothershipOverlay()]),
+          children: [GameWidget(game: getIt<SpaceArenaGame>()), const CommonOverlay()]),
     ));
   }
 }

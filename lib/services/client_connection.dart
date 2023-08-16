@@ -46,7 +46,7 @@ class ClientConnection {
     if (_connection != null) {
       return false;
     }
-    _connection = await Socket.connect(ipAddress, 55555);
+    _connection = await Socket.connect(ipAddress, 33333);
     _subscribe();
     return _connection != null;
   }
