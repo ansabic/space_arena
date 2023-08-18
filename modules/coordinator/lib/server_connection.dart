@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:events/event.dart';
 import 'package:events/register_event/register_event.dart';
 import 'package:events/start_game_event/start_game_event.dart';
+import 'package:events/start_sync_event/start_sync_event.dart';
 import 'package:injectable/injectable.dart';
 import 'package:model/team.dart';
 
@@ -11,11 +12,13 @@ class ServerConnection {
   final List<Socket> _connections = [];
 
 
-  void addConnection(Socket connection, {bool test = false}) {
+  void addConnection(Socket connection, {bool test = false, Team? disconnected = null}) {
     _connections.add(connection);
     _registerClient(connection: connection);
-    if(_connections.length == (test ? 1 : 2)) {
+    if (_connections.length == (test ? 1 : 2) && disconnected == null) {
       broadcastEvent(event: const StartGameEvent());
+    } else if(_connections.length == (test ? 1 : 2) && disconnected != null) {
+      broadcastEvent(event: StartSyncEvent(disconnected: disconnected));
     }
   }
 

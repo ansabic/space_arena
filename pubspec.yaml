@@ -53,6 +53,7 @@ dependencies:
   audioplayers: ^3.0.1
   window_manager: ^0.3.5
   google_fonts: ^4.0.4
+  connectivity_plus: ^4.0.2
 
 
 dev_dependencies:

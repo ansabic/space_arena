@@ -37,6 +37,9 @@ class Mothership extends Movable with Character, HasHealth {
   @override
   onRemove() {
     super.onRemove();
+    if(currentHealth > 0) {
+      return;
+    }
     getIt<GameTimer>().add(
         GameTimerEvent.done(winner: Team.values.firstWhere((element) => element != Team.neutral && element != team)));
     Player.playShipExplosion();

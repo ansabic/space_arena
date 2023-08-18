@@ -5,6 +5,8 @@ import 'package:model/part_type.dart';
 import 'package:space_arena/overlays/widgets/choose_side_widget.dart';
 
 import '../../characters/types/character.dart';
+import '../../di/di.dart';
+import '../../space_arena_game.dart';
 
 part 'overlay_cubit_state.dart';
 
@@ -21,6 +23,12 @@ class OverlayCubit extends Cubit<OverlayCubitState> {
 
   void deletePart() {
     emit(OverlayCubitState.overlayDeletePart);
+  }
+
+
+  void waitAnotherPlayer() {
+    getIt<SpaceArenaGame>().pauseEngine();
+    emit(OverlayCubitState.waitingAnotherPlayer);
   }
 
   Future<void> overlaySetPartOrientation({required Character character, required BuildContext context}) async {

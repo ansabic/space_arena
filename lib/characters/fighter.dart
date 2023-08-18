@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flame/components.dart';
 import 'package:model/fighter_states.dart';
 import 'package:model/team.dart';
@@ -75,6 +74,9 @@ class Fighter extends Movable with Character, Shooter, HasHealth {
   @override
   void onRemove() {
     super.onRemove();
+    if(currentHealth > 0) {
+      return;
+    }
     if (team == Team.player1) {
       getIt<GameTimer>().add(const GameTimerEvent.playerOneFighterDead());
     } else if (team == Team.player2) {

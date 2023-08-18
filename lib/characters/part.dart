@@ -31,6 +31,9 @@ abstract class Part extends SpriteComponent with Character, CollisionCallbacks, 
   @override
   void onRemove() {
     super.onRemove();
+    if(currentHealth > 0) {
+      return;
+    }
     if (getIt<PartsManager>().points.keys.contains(this)) {
       getIt<PartsManager>().removePart(part: this);
     }
@@ -83,7 +86,7 @@ class WeaponPart extends Part with Shooter {
   String name = "Weapon";
 
   @override
-  int damage = 2;
+  int damage = 1;
 }
 
 class ShieldPart extends Part {
@@ -118,6 +121,9 @@ class ThrusterPart extends Part {
 
   @override
   void onRemove() {
+    if(currentHealth > 0) {
+      return;
+    }
     final motherShip = getIt<CharacterManager>()
         .characters
         .firstWhere((element) => element is Mothership && element.team == team) as Mothership;

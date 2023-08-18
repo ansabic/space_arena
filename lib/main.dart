@@ -1,16 +1,18 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:space_arena/constants/constants.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/game_screen/games_screen.dart';
 import 'package:space_arena/main_menu/main_menu.dart';
 import 'package:space_arena/rules_menu/rules_menu.dart';
+import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/player/player.dart';
 import 'package:space_arena/services/sprite_manager.dart';
 import 'package:space_arena/settings/settings.dart';
+import 'package:space_arena/space_arena_game.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'main_menu/bloc/main_menu_bloc.dart';
@@ -27,6 +29,15 @@ Future<void> main() async {
     await windowManager.ensureInitialized();
     await WindowManager.instance.setFullScreen(true);
   }
+
+  Connectivity().onConnectivityChanged.listen((event) async {
+    if (event == ConnectivityResult.wifi ||
+        event == ConnectivityResult.ethernet &&
+            getIt<SpaceArenaGame>().isLoaded &&
+            getIt<ClientConnection>().ipAddress != null) {
+      await getIt<ClientConnection>().connect(ipAddress: getIt<ClientConnection>().ipAddress!);
+    }
+  });
   runApp(MaterialApp(
       navigatorKey: globalKey,
       routes: {

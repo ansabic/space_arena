@@ -1,3 +1,3 @@
 part of 'overlay_cubit.dart';
 
-enum OverlayCubitState { overlayEmpty, overlayDefault, overlayPlacePart, overlayPartOrientation, overlayDeletePart }
+enum OverlayCubitState { overlayEmpty, overlayDefault, overlayPlacePart, overlayPartOrientation, overlayDeletePart, waitingAnotherPlayer }

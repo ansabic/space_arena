@@ -18,7 +18,6 @@ import 'bullet.dart';
 
 class Mine extends SpriteComponent with CollisionCallbacks, Character, HasHealth {
   final MineType mineType;
-  late int usesLeft;
   @override
   Team team;
   @override
@@ -67,6 +66,9 @@ class Mine extends SpriteComponent with CollisionCallbacks, Character, HasHealth
 
   @override
   void onRemove() {
+    if(currentHealth > 0) {
+      return;
+    }
     super.onRemove();
     Player.playShipExplosion();
   }

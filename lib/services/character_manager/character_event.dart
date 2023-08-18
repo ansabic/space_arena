@@ -1,3 +1,4 @@
+import 'package:model/sync_data/sync_data.dart';
 import 'package:model/team.dart';
 
 import '../../characters/types/character.dart';
@@ -35,4 +36,10 @@ class DamageCharacter extends CharacterEvent {
   final int damage;
 
   DamageCharacter({required this.characterId, required this.damage});
+}
+
+class SyncCharacters extends CharacterEvent {
+  final SyncData data;
+
+  SyncCharacters({required this.data});
 }

@@ -1,3 +1,6 @@
+import 'package:events/start_sync_event/start_sync_event.dart';
+import 'package:events/sync_data_event/sync_data_event.dart';
+
 import '../create_part_event/create_part_event.dart';
 import '../crystal_mine_event/random_mine_event.dart';
 import '../damage_event/damage_event.dart';
@@ -15,6 +18,8 @@ enum EventType {
   createPartEvent(name: "create_part_event", fromJson: CreatePartEvent.fromJson),
   registerEvent(name: "register_event", fromJson: RegisterEvent.fromJson),
   startGameEvent(name: "start_game_event", fromJson: StartGameEvent.fromJson),
+  startSyncEvent(name: "start_sync_event", fromJson: StartSyncEvent.fromJson),
+  syncDataEvent(name: "sync_data_event", fromJson: SyncDataEvent.fromJson),
   disconnectPlayerEvent(name: "disconnect_player_event", fromJson: DisconnectPlayerEvent.fromJson),
   shootEvent(name: "shoot_event", fromJson: ShootEvent.fromJson),
   resumeGameEvent(name: "resume_game_event", fromJson: ResumeGameEvent.fromJson),

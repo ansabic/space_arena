@@ -25,6 +25,7 @@ class Coordinator {
   late ServerSocket _tcpSocket;
   Timer? timer;
   bool _stoppedUdp = false;
+  Team? _disconnected;
 
   Coordinator(this._eventService, this._coordinator);
 
@@ -95,11 +96,11 @@ class Coordinator {
           }
         }, onDone: () async {
           final index = _coordinator.removeConnection(connection: connection);
-          _coordinator.broadcastEvent(
-              event: DisconnectPlayerEvent(team: Team.values.firstWhere((element) => element.index == index)));
+          _disconnected = Team.values.firstWhere((element) => element.index == index);
+          _coordinator.broadcastEvent(event: DisconnectPlayerEvent(team: _disconnected!));
           await _coordinator.checkIfEmpty();
         });
-        _coordinator.addConnection(connection, test: test);
+        _coordinator.addConnection(connection, test: test, disconnected: _disconnected);
       });
     } on Exception catch (e) {
       print(e);

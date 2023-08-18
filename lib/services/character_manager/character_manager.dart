@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:model/mine_type.dart';
 import 'package:model/team.dart';
+import 'package:space_arena/characters/bullet.dart';
 import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/characters/mothership.dart';
 import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/di/di.dart';
+import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
 import 'package:space_arena/space_arena_game.dart';
 
@@ -57,6 +59,56 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
   }
 
   CharacterManager() : super(CharacterInitial()) {
+    on<SyncCharacters>((event, emit) {
+      final data = event.data;
+      final mines = data.mines.map((e) => Mine(mineType: e.type)
+        ..currentHealth = e.usesLeft
+        ..x = e.x
+        ..y = e.y);
+      final mothership1 = Mothership.firstPlayer()
+        ..destination = data.mothership1.destinationX != null
+            ? Vector2(data.mothership1.destinationX!, data.mothership1.destinationY!)
+            : null
+        ..x = data.mothership1.x
+        ..y = data.mothership1.y
+        ..angle = data.mothership1.angle;
+      final mothership2 = Mothership.secondPlayer()
+        ..destination = data.mothership2.destinationX != null
+            ? Vector2(data.mothership2.destinationX!, data.mothership2.destinationY!)
+            : null
+        ..x = data.mothership2.x
+        ..y = data.mothership2.y
+        ..angle = data.mothership2.angle;
+      final newChars = [
+        ...mines,
+        mothership1,
+        mothership2,
+      ];
+      if (data.fighter1 != null) {
+        newChars.add(Fighter.firstPlayer()
+          ..destination = data.fighter1!.destinationX != null
+              ? Vector2(data.fighter1!.destinationX!, data.fighter1!.destinationY!)
+              : null
+          ..x = data.fighter1!.x
+          ..y = data.fighter1!.y
+          ..angle = data.fighter1!.angle);
+      }
+      if (data.fighter2 != null) {
+        newChars.add(Fighter.secondPlayer()
+          ..destination = data.fighter2!.destinationX != null
+              ? Vector2(data.fighter2!.destinationX!, data.fighter2!.destinationY!)
+              : null
+          ..x = data.fighter2!.x
+          ..y = data.fighter2!.y
+          ..angle = data.fighter2!.angle);
+      }
+
+      final bullets = data.bullets.map(
+          (e) => Bullet(start: Vector2(e.x, e.y), direction: Vector2(e.directionX, e.directionY), team: e.team, damage: 1));
+      emit(RefreshCharacterState(characters: newChars, team: team));
+      getIt<SpaceArenaGame>().addAll(bullets);
+      getIt<OverlayCubit>().resetState();
+    });
     on<AddCharacter>((event, emit) {
       emit(RefreshCharacterState(characters: [...state.characters, event.character], team: team));
     });
