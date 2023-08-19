@@ -43,66 +43,7 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
       }, pause: (value) async {
         emit(state.copyWith(status: TimerStatus.paused));
       }, tick: (value) async {
-        if (getIt<CharacterManager>().team == Team.player1 && state.seconds % 10 == 0) {
-          final fighterPlayer1 = getIt<CharacterManager>()
-              .state
-              .characters
-              .firstWhereOrNull((element) => element is Fighter && element.team == Team.player1);
-          final fighterPlayer2 = getIt<CharacterManager>()
-              .state
-              .characters
-              .firstWhereOrNull((element) => element is Fighter && element.team == Team.player2);
-          final mothershipPlayer1 = getIt<CharacterManager>()
-              .state
-              .characters
-              .firstWhere((element) => element is Mothership && element.team == Team.player1);
-          final mothershipPlayer2 = getIt<CharacterManager>()
-              .state
-              .characters
-              .firstWhere((element) => element is Mothership && element.team == Team.player2);
-          getIt<ClientConnection>().addEvent(SyncDataEvent(
-              data: SyncData(
-                  fighter1: fighterPlayer1 != null
-                      ? FighterSync(
-                          team: Team.player1,
-                          angle: fighterPlayer1.angle,
-                          x: fighterPlayer1.position.x,
-                          y: fighterPlayer1.position.y, characterId: fighterPlayer1.characterId)
-                      : null,
-                  mothership1: MotherShipSync(
-                      team: Team.player1,
-                      angle: mothershipPlayer1.angle,
-                      x: mothershipPlayer1.position.x,
-                      y: mothershipPlayer1.position.y, characterId: mothershipPlayer1.characterId),
-                  fighter2: fighterPlayer2 != null
-                      ? FighterSync(
-                          team: Team.player2,
-                          angle: fighterPlayer2.angle,
-                      characterId: fighterPlayer2.characterId,
-                          x: fighterPlayer2.position.x,
-                          y: fighterPlayer2.position.y)
-                      : null,
-                  mothership2: MotherShipSync(
-                      team: Team.player2,
-                      angle: mothershipPlayer2.angle,
-                      x: mothershipPlayer2.position.x,
-                      characterId: mothershipPlayer2.characterId,
-                      y: mothershipPlayer2.position.y),
-                  mines: getIt<CharacterManager>()
-                      .state
-                      .characters
-                      .whereType<Mine>()
-                      .map((e) => MineSync(type: e.mineType,characterId: e.characterId, x: e.position.x, y: e.position.y, usesLeft: e.currentHealth))
-                      .toList(),
-                  bullets: getIt<SpaceArenaGame>()
-                      .children
-                      .whereType<Bullet>()
-                      .map((e) => BulletSync(directionX: e.direction.x,directionY: e.direction.y, x: e.x, y: e.y, team: e.team))
-                      .toList(),
-                  resources1: Price(gold: 0, crystal: 0, plasma: 0),
-                  resources2: Price(gold: 0, crystal: 0, plasma: 0),
-                  timerSeconds: getIt<GameTimer>().state.seconds)));
-        }
+        sync();
         if (state.status == TimerStatus.normal) {
           emit(state.copyWith(seconds: state.seconds - 1));
           if (state.seconds % _settingsBloc.state.crystalMineCoolDown == 0 &&
@@ -195,5 +136,68 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
         add(const GameTimerEvent.tick());
       }
     });
+  }
+
+  void sync({bool on = false}) {
+    if (on && getIt<CharacterManager>().team == Team.player1 && state.seconds % 10 == 0) {
+      final fighterPlayer1 = getIt<CharacterManager>()
+          .state
+          .characters
+          .firstWhereOrNull((element) => element is Fighter && element.team == Team.player1);
+      final fighterPlayer2 = getIt<CharacterManager>()
+          .state
+          .characters
+          .firstWhereOrNull((element) => element is Fighter && element.team == Team.player2);
+      final mothershipPlayer1 = getIt<CharacterManager>()
+          .state
+          .characters
+          .firstWhere((element) => element is Mothership && element.team == Team.player1);
+      final mothershipPlayer2 = getIt<CharacterManager>()
+          .state
+          .characters
+          .firstWhere((element) => element is Mothership && element.team == Team.player2);
+      getIt<ClientConnection>().addEvent(SyncDataEvent(
+          data: SyncData(
+              fighter1: fighterPlayer1 != null
+                  ? FighterSync(
+                      team: Team.player1,
+                      angle: fighterPlayer1.angle,
+                      x: fighterPlayer1.position.x,
+                      y: fighterPlayer1.position.y, characterId: fighterPlayer1.characterId)
+                  : null,
+              mothership1: MotherShipSync(
+                  team: Team.player1,
+                  angle: mothershipPlayer1.angle,
+                  x: mothershipPlayer1.position.x,
+                  y: mothershipPlayer1.position.y, characterId: mothershipPlayer1.characterId),
+              fighter2: fighterPlayer2 != null
+                  ? FighterSync(
+                      team: Team.player2,
+                      angle: fighterPlayer2.angle,
+                  characterId: fighterPlayer2.characterId,
+                      x: fighterPlayer2.position.x,
+                      y: fighterPlayer2.position.y)
+                  : null,
+              mothership2: MotherShipSync(
+                  team: Team.player2,
+                  angle: mothershipPlayer2.angle,
+                  x: mothershipPlayer2.position.x,
+                  characterId: mothershipPlayer2.characterId,
+                  y: mothershipPlayer2.position.y),
+              mines: getIt<CharacterManager>()
+                  .state
+                  .characters
+                  .whereType<Mine>()
+                  .map((e) => MineSync(type: e.mineType,characterId: e.characterId, x: e.position.x, y: e.position.y, usesLeft: e.currentHealth))
+                  .toList(),
+              bullets: getIt<SpaceArenaGame>()
+                  .children
+                  .whereType<Bullet>()
+                  .map((e) => BulletSync(directionX: e.direction.x,directionY: e.direction.y, x: e.x, y: e.y, team: e.team))
+                  .toList(),
+              resources1: Price(gold: 0, crystal: 0, plasma: 0),
+              resources2: Price(gold: 0, crystal: 0, plasma: 0),
+              timerSeconds: getIt<GameTimer>().state.seconds)));
+    }
   }
 }
