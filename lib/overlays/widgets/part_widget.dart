@@ -1,3 +1,7 @@
+//import 'dart:html';
+
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,13 +51,15 @@ class PartWidget extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      top: 0,
+                        top: 0,
                         left: 0,
                         right: 0,
                         child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(partType.name,textAlign: TextAlign.center),
-                    )),
+                          padding: const EdgeInsets.all(4.0),
+                          child: !(Platform.isAndroid || Platform.isIOS)
+                              ? Text(partType.name, textAlign: TextAlign.center)
+                              : SizedBox(),
+                        )),
                     Positioned(
                       bottom: 0,
                       left: 0,
@@ -61,26 +67,19 @@ class PartWidget extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              partType.price.gold.toString(),
-                              style: TextStyle(color: Colors.amber),
-                            ),
+                          Text(
+                            partType.price.gold.toString(),
+                            style: TextStyle(color: Colors.amber,fontSize: 11),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              partType.price.plasma.toString(),
-                              style: TextStyle(color: Colors.blue),
-                            ),
+                          Text("/"),
+                          Text(
+                            partType.price.plasma.toString(),
+                            style: TextStyle(color: Colors.blue,fontSize: 11),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              partType.price.crystal.toString(),
-                              style: TextStyle(color: Colors.purple),
-                            ),
+                          Text("/"),
+                          Text(
+                            partType.price.crystal.toString(),
+                            style: TextStyle(color: Colors.purple,fontSize: 11),
                           ),
                         ],
                       ),

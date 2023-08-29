@@ -110,6 +110,8 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
             _characterManager.add(RemoveCharacter(character: candidate));
           }
           break;
+        case OverlayCubitState.waitingAnotherPlayer:
+          break;
       }
     } else if (Platform.isAndroid) {
       final pickedCharacter = _characterManager.pickedCharacter;

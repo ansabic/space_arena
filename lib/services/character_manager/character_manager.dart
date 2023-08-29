@@ -8,7 +8,6 @@ import 'package:model/team.dart';
 import 'package:space_arena/characters/bullet.dart';
 import 'package:space_arena/characters/fighter.dart';
 import 'package:space_arena/characters/mothership.dart';
-import 'package:space_arena/characters/types/has_health.dart';
 import 'package:space_arena/di/di.dart';
 import 'package:space_arena/overlays/overlay_bloc/overlay_cubit.dart';
 import 'package:space_arena/services/character_manager/character_event.dart';
@@ -103,8 +102,8 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
           ..angle = data.fighter2!.angle);
       }
 
-      final bullets = data.bullets.map(
-          (e) => Bullet(start: Vector2(e.x, e.y), direction: Vector2(e.directionX, e.directionY), team: e.team, damage: 1));
+      final bullets = data.bullets.map((e) =>
+          Bullet(start: Vector2(e.x, e.y), direction: Vector2(e.directionX, e.directionY), team: e.team, damage: 1));
       emit(RefreshCharacterState(characters: newChars, team: team));
       getIt<SpaceArenaGame>().addAll(bullets);
       getIt<OverlayCubit>().resetState();
@@ -136,12 +135,9 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
           team: state.team));
     });
     on<PickCharacter>((event, emit) {
-      final newList = [...characters.where((element) => element != event.character)];
-      final oldPicked = newList.firstWhereOrNull((element) => element.picked);
-      oldPicked?.picked = !oldPicked.picked;
-      final newPicked = event.character;
-      newPicked.picked = true;
-      newList.add(newPicked);
+      final newList = [...characters];
+      newList.firstWhere((element) => element.picked).picked = false;
+      newList.firstWhere((element) => element == event.character).picked = true;
       emit(RefreshCharacterState(characters: newList, team: team));
       getIt<SpaceArenaGame>().camera.followComponent(event.character);
     });
@@ -150,12 +146,6 @@ class CharacterManager extends Bloc<CharacterEvent, CharacterState> {
       final tempChars = [...characters];
       tempChars.remove(character);
       emit(RefreshCharacterState(characters: tempChars, team: state.team));
-    });
-    on<DamageCharacter>((event, emit) {
-      final newList = [...characters];
-      final candidate = newList.firstWhereOrNull((e) => e.characterId == event.characterId);
-      (candidate as HasHealth?)?.currentHealth--;
-      emit(RefreshCharacterState(characters: newList, team: team));
     });
   }
 }

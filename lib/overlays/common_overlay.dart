@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:events/pause_game_event/pause_game_event.dart';
 import 'package:events/resume_game_event/resume_game_event.dart';
@@ -13,8 +15,10 @@ import 'package:space_arena/services/character_manager/character_state.dart';
 import 'package:space_arena/services/client_connection.dart';
 import 'package:space_arena/services/game_timer/game_timer.dart';
 
+import '../characters/types/character.dart';
 import '../di/di.dart';
 import '../services/bank/bank_bloc.dart';
+import '../services/character_manager/character_event.dart';
 
 class CommonOverlay extends StatelessWidget {
   const CommonOverlay({Key? key}) : super(key: key);
@@ -164,7 +168,55 @@ class CommonOverlay extends StatelessWidget {
                           ]),
                         ),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20.0),
+                              child: Row(children: [
+                                GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Dialog(
+                                              backgroundColor: Color.fromARGB(255, 35, 35, 35),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                    child: Text("Do you really want to quit?"),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(10),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(context);
+                                                            },
+                                                            child: Text("No")),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              exit(0);
+                                                            },
+                                                            child: Text("Yes"))
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ));
+                                        },
+                                      );
+                                    },
+                                    child: Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ))
+                              ]),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -212,6 +264,37 @@ class CommonOverlay extends StatelessWidget {
                                   );
                                 })
                               ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 15.0),
+                              child: Row(
+                                children: [
+                                  Visibility(
+                                    visible: Platform.isAndroid ||Platform.isIOS,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          final _characterManager = getIt<CharacterManager>();
+                                          if (_characterManager.characters
+                                                  .where((element) => element.team == _characterManager.team)
+                                                  .length ==
+                                              1) {
+                                            return;
+                                          }
+                                          final character = (_characterManager.pickedCharacter == _characterManager.fighter
+                                              ? _characterManager.mothership
+                                              : _characterManager.fighter) as Character?;
+                                          if (character != null) {
+                                            _characterManager.add(PickCharacter(character: character));
+                                          }
+                                        },
+                                        child: Icon(
+                                          Icons.swap_horiz,
+                                          color: Colors.white,
+                                          size: 30,
+                                        )),
+                                  )
+                                ],
+                              ),
                             ),
                             Expanded(
                               child: Column(

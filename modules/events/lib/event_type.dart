@@ -3,7 +3,6 @@ import 'package:events/sync_data_event/sync_data_event.dart';
 
 import '../create_part_event/create_part_event.dart';
 import '../crystal_mine_event/random_mine_event.dart';
-import '../damage_event/damage_event.dart';
 import '../disconnect_player_event/disconnect_player_event.dart';
 import '../move_event/move_event.dart';
 import '../pause_game_event/pause_game_event.dart';
@@ -24,8 +23,7 @@ enum EventType {
   shootEvent(name: "shoot_event", fromJson: ShootEvent.fromJson),
   resumeGameEvent(name: "resume_game_event", fromJson: ResumeGameEvent.fromJson),
   pauseGameEvent(name: "pause_game_event", fromJson: PauseGameEvent.fromJson),
-  randomMineEvent(name: "crystalMineEvent", fromJson: RandomMineEvent.fromJson),
-  damageEvent(name: "damage_event", fromJson: DamageEvent.fromJson);
+  randomMineEvent(name: "crystalMineEvent", fromJson: RandomMineEvent.fromJson);
 
   final String name;
   final Event Function(Map<String, dynamic>) fromJson;

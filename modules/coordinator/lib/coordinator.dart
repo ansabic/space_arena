@@ -76,7 +76,7 @@ class Coordinator {
   }
 
   Future<void> runGameServer({bool test = false}) async {
-    _tcpSocket = await ServerSocket.bind(InternetAddress.anyIPv4, 33333);
+    _tcpSocket = await ServerSocket.bind(InternetAddress.anyIPv4, 33333, shared: true);
     print("Tcp server started");
     _listenToTcpEvents(test: test);
   }

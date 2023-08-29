@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:events/create_part_event/create_part_event.dart';
 import 'package:events/crystal_mine_event/random_mine_event.dart';
-import 'package:events/damage_event/damage_event.dart';
 import 'package:events/disconnect_player_event/disconnect_player_event.dart';
 import 'package:events/event.dart';
 import 'package:events/event_service.dart';
@@ -88,8 +87,6 @@ class ClientConnection {
               direction: Vector2(event.dirX, event.dirY),
               team: event.team));
           Player.playLaser();
-        } else if (event is DamageEvent) {
-          getIt<CharacterManager>().add(DamageCharacter(damage: event.damage, characterId: event.characterId));
         } else if (event is CreatePartEvent) {
           late final Part part;
           switch (event.type) {
@@ -180,13 +177,18 @@ class ClientConnection {
                         .state
                         .characters
                         .whereType<Mine>()
-                        .map((e) =>
-                            MineSync(type: e.mineType,characterId: e.characterId, x: e.position.x, y: e.position.y, usesLeft: e.currentHealth))
+                        .map((e) => MineSync(
+                            type: e.mineType,
+                            characterId: e.characterId,
+                            x: e.position.x,
+                            y: e.position.y,
+                            usesLeft: e.currentHealth))
                         .toList(),
                     bullets: getIt<SpaceArenaGame>()
                         .children
                         .whereType<Bullet>()
-                        .map((e) => BulletSync(directionX: e.direction.x,directionY: e.direction.y, x: e.x, y: e.y, team: e.team))
+                        .map((e) => BulletSync(
+                            directionX: e.direction.x, directionY: e.direction.y, x: e.x, y: e.y, team: e.team))
                         .toList(),
                     resources1: Price(gold: 0, crystal: 0, plasma: 0),
                     resources2: Price(gold: 0, crystal: 0, plasma: 0),

@@ -43,6 +43,9 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
       }, pause: (value) async {
         emit(state.copyWith(status: TimerStatus.paused));
       }, tick: (value) async {
+        if (state.seconds == 0) {
+          add(GameTimerEvent.done(winner: Team.neutral));
+        }
         sync();
         if (state.status == TimerStatus.normal) {
           emit(state.copyWith(seconds: state.seconds - 1));
@@ -163,18 +166,20 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
                       team: Team.player1,
                       angle: fighterPlayer1.angle,
                       x: fighterPlayer1.position.x,
-                      y: fighterPlayer1.position.y, characterId: fighterPlayer1.characterId)
+                      y: fighterPlayer1.position.y,
+                      characterId: fighterPlayer1.characterId)
                   : null,
               mothership1: MotherShipSync(
                   team: Team.player1,
                   angle: mothershipPlayer1.angle,
                   x: mothershipPlayer1.position.x,
-                  y: mothershipPlayer1.position.y, characterId: mothershipPlayer1.characterId),
+                  y: mothershipPlayer1.position.y,
+                  characterId: mothershipPlayer1.characterId),
               fighter2: fighterPlayer2 != null
                   ? FighterSync(
                       team: Team.player2,
                       angle: fighterPlayer2.angle,
-                  characterId: fighterPlayer2.characterId,
+                      characterId: fighterPlayer2.characterId,
                       x: fighterPlayer2.position.x,
                       y: fighterPlayer2.position.y)
                   : null,
@@ -188,12 +193,18 @@ class GameTimer extends Bloc<GameTimerEvent, GameTimerState> {
                   .state
                   .characters
                   .whereType<Mine>()
-                  .map((e) => MineSync(type: e.mineType,characterId: e.characterId, x: e.position.x, y: e.position.y, usesLeft: e.currentHealth))
+                  .map((e) => MineSync(
+                      type: e.mineType,
+                      characterId: e.characterId,
+                      x: e.position.x,
+                      y: e.position.y,
+                      usesLeft: e.currentHealth))
                   .toList(),
               bullets: getIt<SpaceArenaGame>()
                   .children
                   .whereType<Bullet>()
-                  .map((e) => BulletSync(directionX: e.direction.x,directionY: e.direction.y, x: e.x, y: e.y, team: e.team))
+                  .map((e) =>
+                      BulletSync(directionX: e.direction.x, directionY: e.direction.y, x: e.x, y: e.y, team: e.team))
                   .toList(),
               resources1: Price(gold: 0, crystal: 0, plasma: 0),
               resources2: Price(gold: 0, crystal: 0, plasma: 0),
