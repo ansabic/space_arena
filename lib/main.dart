@@ -24,7 +24,10 @@ Future<void> main() async {
   configureDependencies();
   WidgetsFlutterBinding.ensureInitialized();
   Player.playBackgroundIdle();
+  final start = DateTime.now().microsecondsSinceEpoch;
   await getIt<SpriteManager>().loadGameSprites();
+  final end = DateTime.now().microsecondsSinceEpoch;
+  debugPrint("Sprites loading time: " + (end - start).toString() + " μs");
   if (Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
     await windowManager.ensureInitialized();
     await WindowManager.instance.setFullScreen(true);
@@ -73,7 +76,6 @@ Future<void> main() async {
                     return const SettingsScreen();
                   case MainMenuEntry.rules:
                     return RulesMenu();
-                    break;
                 }
               },
             ),

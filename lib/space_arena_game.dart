@@ -36,6 +36,7 @@ class SpaceArenaGame extends FlameGame with SecondaryTapDetector, HasCollisionDe
     camera.worldBounds = const Rect.fromLTWH(0, 0, Constants.worldSizeX, Constants.worldSizeY);
     Player.playBackgroundGame();
     await super.onLoad();
+    debugPrint("Games started: " + DateTime.now().microsecondsSinceEpoch.toString() + " μs");
   }
 
   @override
